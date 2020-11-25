@@ -1,0 +1,48 @@
+
+<div class="bg">
+    <div class="login-box">
+                <div class="card">
+                    <div class="card-body login-card-body">
+                    <h1 class="login-box-msg">Sign in to start your session</h1>
+                
+                    <form [formGroup]="LoginForm"  (ngSubmit)="login()">
+                        <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="empCode" formControlName="empCode" placeholder="Employee Code">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <select class="form-control" formControlName="role" >
+                             <option value="">Select Role</option>
+                             <option *ngFor="let row of rolesList; let i = index"  [value]="row.role_id" >{{row.role_name}}</option>
+                            </select>
+                         </div>
+                        <div class="row">
+                       
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit"  [disabled]="!LoginForm.valid"  class="btn btn-primary btn-block">Sign In</button>
+                            
+                        </div>
+                        <!-- /.col -->
+                        </div>
+                    </form>
+                
+                  
+                </div>
+    </div>
+</div>
+
+

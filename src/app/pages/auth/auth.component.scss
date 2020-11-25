@@ -1,0 +1,29 @@
+
+.login-box
+{
+   
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    
+   
+}
+.bg
+{
+ background-image: url(../../../assets/dist/img/bg.jpg);
+ width: 100%;
+
+height: 768px;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+.card-body.login-card-body
+{
+    background-color: aliceblue;
+}
+h1.login-box-msg {font-size: 19px;font-weight: bold;text-transform: uppercase;}
