@@ -12,7 +12,8 @@ export class DropDownsService {
   private REST_API_SERVER = environment.api;
   private GET_STATE_DP = this.REST_API_SERVER + 'dp/GetStates';
   private GET_DISTRICT_DP = this.REST_API_SERVER + 'dp/GetDistricts';
- 
+  private ROLL_API = this.REST_API_SERVER + 'roles/LoadRoleTable';
+  private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
   constructor(private httpClient: HttpClient) { }
 
   _getStats(): Observable<any>{
@@ -22,6 +23,16 @@ export class DropDownsService {
   }
   getDistricts(data): Observable<any>{
     return this.httpClient.post<any>(`${this.GET_DISTRICT_DP}`, data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _getRole(): Observable<any>{
+    return this.httpClient.get<any>(`${this.ROLL_API}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _get_branch(): Observable<any>{
+    return this.httpClient.get<any>(`${this.GET_BRANCH_TABLE}`).pipe(
       catchError(this.handleError)
     );
   }

@@ -18,6 +18,13 @@ const routes: Routes = [
       title: 'Dashboard Component'
     }
   }
+  , {
+    path: 'UserEdit',
+    component: UserFormComponent,
+    data: {
+      title: 'Dashboard Component'
+    }
+  }
 ];
 
 @NgModule({

@@ -10,13 +10,16 @@ import { environment } from 'src/environments/environment.prod';
 export class AuthService {
   private REST_API_SERVER = environment.api;
   private ROLL_API = this.REST_API_SERVER + 'roles/LoadRoleTable';
-
+  private CHECK_USER = this.REST_API_SERVER + 'auth/checkUsername';
   constructor(private httpClient: HttpClient) { }
 
   _getRole(): Observable<Role[]>{
     return this.httpClient.get<Role[]>(`${this.ROLL_API}`).pipe(
       catchError(this.handleError)
     );
+  }
+  _checkUser(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.CHECK_USER}`, data);
   }
 
   private handleError <T>(operation = 'operation', result?: T) {

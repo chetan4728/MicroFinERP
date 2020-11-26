@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { UsersService } from './../../services/users.service';
 import { Branch } from './../../model/branch';
 import { Component, OnInit  , ViewChild} from '@angular/core';
@@ -46,6 +46,18 @@ export class UsersComponent implements OnInit {
         this.dtTrigger.next();
       }
   });
+  }
+  edit(data: Users): void
+  {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        id: data.employee_id,
+        workQueue: false,
+        services: 10,
+        code: '003'
+      }
+    };
+    this.router.navigate(['/users/UserEdit', navigationExtras]);
   }
   add(): void
   {
