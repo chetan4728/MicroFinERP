@@ -1,5 +1,7 @@
+import { environment } from 'src/environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -7,12 +9,16 @@ import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
 export class LayoutComponent implements OnInit {
   public timeout;
   public routerChanged = true;
-  constructor(private router: Router) {
+  constructor(public local: LocalStorageService, private router: Router) {
     router.events.subscribe((event: Event) => {
 
       if (event instanceof NavigationStart) {
         // Show loading indicator
         this.routerChanged = true;
+        if (this.local.get(environment.userSession) === null)
+        {
+          window.location.href = '/';
+        }
       }
 
       if (event instanceof NavigationEnd) {
@@ -36,6 +42,11 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.local.get(environment.userSession) === null)
+    {
+      window.location.href = '/';
+    }
+
   }
 
 

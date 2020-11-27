@@ -5,7 +5,7 @@ import { Component, OnInit  , ViewChild} from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
-
+import Swal from 'sweetalert2';
 import { Users } from 'src/app/model/users';
 declare var $: any;
 
@@ -49,18 +49,40 @@ export class UsersComponent implements OnInit {
   }
   edit(data: Users): void
   {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        id: data.employee_id,
-        workQueue: false,
-        services: 10,
-        code: '003'
-      }
-    };
-    this.router.navigate(['/users/UserEdit', navigationExtras]);
+
+    this.router.navigate(['/users/UserEdit/' + data.employee_id]);
   }
   add(): void
   {
-    this.router.navigate(['/users/UserAdd']);
+    this.router.navigate(['/users/UserAdd/']);
+  }
+  delete_record(row): void
+  {
+    Swal.fire({
+      title: 'Are you sure want to remove?',
+      text: 'You will not be able to recover this record!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.api._delete_branch({employee_id: row.employee_id}).subscribe(data =>
+          {
+             this.LoadTable();
+             Swal.fire(
+              'Deleted!',
+              'Your imaginary file has been deleted.',
+              'success'
+            );
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your record is safe :)',
+          'error'
+        );
+      }
+    });
   }
 }

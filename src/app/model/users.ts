@@ -15,7 +15,7 @@ export class Users {
     employee_pan_card_no: string;
     employee_adhar_card_no: string;
     employee_email_id: string;
-    employee_profile: string;
+    profile: string;
     employee_bank_id: number;
     employee_branch_id: number;
     employee_center_id: number;

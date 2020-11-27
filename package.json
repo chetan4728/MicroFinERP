@@ -14,9 +14,9 @@
   "dependencies": {
     "@angular/animations": "~11.0.1",
     "@angular/cli": "~11.0.2",
-    "@angular/compiler-cli": "~11.0.1",
     "@angular/common": "~11.0.1",
     "@angular/compiler": "~11.0.1",
+    "@angular/compiler-cli": "~11.0.1",
     "@angular/core": "~11.0.1",
     "@angular/forms": "~11.0.1",
     "@angular/platform-browser": "~11.0.1",
@@ -24,6 +24,7 @@
     "@angular/router": "~11.0.1",
     "admin-lte": "^3.0.5",
     "angular-datatables": "^10.0.0",
+    "angular-web-storage": "^10.0.0",
     "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.22",
     "express": "^4.17.1",

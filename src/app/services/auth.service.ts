@@ -9,8 +9,10 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class AuthService {
   private REST_API_SERVER = environment.api;
-  private ROLL_API = this.REST_API_SERVER + 'roles/LoadRoleTable';
+  private ROLL_API = this.REST_API_SERVER + 'auth/LoadRoleTable';
   private CHECK_USER = this.REST_API_SERVER + 'auth/checkUsername';
+  private CHECK_PASSWORD = this.REST_API_SERVER + 'auth/checkUsernameWithpassword';
+  private LOGIN = this.REST_API_SERVER + 'auth/loginSession';
   constructor(private httpClient: HttpClient) { }
 
   _getRole(): Observable<Role[]>{
@@ -20,6 +22,13 @@ export class AuthService {
   }
   _checkUser(data): Observable<any>{
     return this.httpClient.post<any>(`${this.CHECK_USER}`, data);
+  }
+  _checkPassword(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.CHECK_PASSWORD}`, data);
+  }
+  _loginSession(data): Observable<any>
+  {
+    return this.httpClient.post<any>(`${this.LOGIN}`, data);
   }
 
   private handleError <T>(operation = 'operation', result?: T) {

@@ -19,7 +19,7 @@ const routes: Routes = [
     }
   }
   , {
-    path: 'UserEdit',
+    path: 'UserEdit/:id',
     component: UserFormComponent,
     data: {
       title: 'Dashboard Component'

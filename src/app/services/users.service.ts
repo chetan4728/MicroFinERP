@@ -16,6 +16,7 @@ export class UsersService {
   private UPLOAD_PHOTO = this.REST_API_SERVER + 'Users/upload_photo';
   private ADD_UPDATE = this.REST_API_SERVER + 'Users/update';
   private GET_USERS_TABLE = this.REST_API_SERVER + 'Users/LoadTable';
+  private GET_USERS_DETAILS = this.REST_API_SERVER + 'Users/get_user_details';
   private DELETE_USERS = this.REST_API_SERVER + 'Users/delete';
   constructor(private httpClient: HttpClient) { }
 
@@ -39,6 +40,11 @@ export class UsersService {
   }
   _get_branch(): Observable<Users[]>{
     return this.httpClient.get<Users[]>(`${this.GET_USERS_TABLE}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _get_user_details(data): Observable<Users>{
+    return this.httpClient.post<Users>(`${this.GET_USERS_DETAILS}`, data).pipe(
       catchError(this.handleError)
     );
   }

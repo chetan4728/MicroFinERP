@@ -12,7 +12,7 @@ export class DropDownsService {
   private REST_API_SERVER = environment.api;
   private GET_STATE_DP = this.REST_API_SERVER + 'dp/GetStates';
   private GET_DISTRICT_DP = this.REST_API_SERVER + 'dp/GetDistricts';
-  private ROLL_API = this.REST_API_SERVER + 'roles/LoadRoleTable';
+  private ROLL_API = this.REST_API_SERVER + 'auth/LoadRoleTable';
   private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
   constructor(private httpClient: HttpClient) { }
 

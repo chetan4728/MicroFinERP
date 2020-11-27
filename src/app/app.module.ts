@@ -12,6 +12,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 
 
@@ -33,6 +34,7 @@ import { AuthComponent } from './pages/auth/auth.component';
     FormsModule,
     DataTablesModule.forRoot(),
     RouterModule.forRoot(routes),
+    AngularWebStorageModule,
   ],
   exports: [RouterModule],
   providers: [ReactiveFormsModule, FormsModule],

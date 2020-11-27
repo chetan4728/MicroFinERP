@@ -6,10 +6,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img [src]="SessionData.profile ? SessionData.profile : 'https://www.w3schools.com/howto/img_avatar.png'" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{SessionData.employee_first_name}}  {{SessionData.employee_last_name}}</a>
         </div>
       </div>
   

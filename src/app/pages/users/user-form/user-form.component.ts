@@ -1,15 +1,11 @@
-import { Router } from '@angular/router';
-import { FinanicalYear } from './../../../model/finanicalYear';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import {  FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { Users } from 'src/app/model/users';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
 import { AuthService } from 'src/app/services/auth.service';
-
-import { Observable, of } from 'rxjs';
 import Swal from 'sweetalert2';
-import { map, debounceTime, take, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
@@ -27,9 +23,9 @@ export class UserFormComponent implements OnInit {
     employee_adhar_card_no : null, employee_alt_contact_no : null, employee_bank_id: null ,
     employee_center_id: null , employee_contact_no: null, employee_district_id: null, employee_dob: null, employee_email_id: null,
     employee_first_name: null , employee_gender: null , employee_last_name: null, employee_login_code: null,
-    employee_login_password: null, employee_middle_name: null, employee_pan_card_no: null, employee_profile: null,
+    employee_login_password: null, employee_middle_name: null, employee_pan_card_no: null, profile: null,
     employee_role_id: null, employee_state_id: null, employee_status: null};
-  constructor(private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
+  constructor(private param: ActivatedRoute , private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
               private auth: AuthService, private api: UsersService) { }
 
   ngOnInit(): void {
@@ -37,21 +33,35 @@ export class UserFormComponent implements OnInit {
     this.initRole();
     this.initState();
     this.initBranch();
-    console.log( this.route.getCurrentNavigation());
+    this.initUserDetails();
+  }
+
+  initUserDetails(): void{
+    const id = this.param.snapshot.paramMap.get('id');
+    if (id != null)
+    {
+      this.api._get_user_details({employee_id: id}).subscribe((data: Users) => {
+        this.selectRoleRow = data;
+        this.url = this.selectRoleRow.profile;
+        this.dp.getDistricts({id: data.employee_state_id}).subscribe(stats => {
+          this.DistrictList = stats;
+        });
+      });
+    }
   }
 
   initBranch(): void
   {
     this.dp._get_branch().subscribe(data => {
       this.BranchList = data;
-      console.log(this.StateList);
+     // console.log(this.StateList);
     });
   }
   initState(): void
   {
     this.dp._getStats().subscribe(data => {
       this.StateList = data;
-      console.log(this.StateList);
+     // console.log(this.StateList);
     });
   }
   initRole(): void
@@ -82,6 +92,7 @@ export class UserFormComponent implements OnInit {
       employee_status: ['', Validators.required],
       profile: [null]
     });
+
   }
   onChangeState(stateId: number): void {
     this.dp.getDistricts({id: stateId}).subscribe(data => {
@@ -96,7 +107,7 @@ export class UserFormComponent implements OnInit {
 
     private validateUsername(): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
-        if (this.isEmptyInputValue(control.value)) {
+        if (this.isEmptyInputValue(control.value) || this.selectRoleRow.employee_login_code === control.value) {
           return null;
         }
         else
@@ -123,6 +134,25 @@ submit(): void{
   if (this.selectRoleRow.employee_id > 0)
   {
 
+
+    this.api._update_branch(this.selectRoleRow).subscribe(data => {
+      if (data.employee_id > 0)
+      {
+        this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
+
+        });
+        this.Form.reset();
+        Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'success',
+            title: 'Data Updated Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        this.route.navigateByUrl('/users');
+     }
+    });
   }
   else
   {

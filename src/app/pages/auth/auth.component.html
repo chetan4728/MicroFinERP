@@ -7,28 +7,58 @@
                 
                     <form [formGroup]="LoginForm"  (ngSubmit)="login()">
                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="empCode" formControlName="empCode" placeholder="Employee Code">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                            <input type="text" class="form-control" id="employee_login_code" (change)="checkUsername()" formControlName="employee_login_code" placeholder="Employee Code">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span id="usernameLogo" class="{{this.UserNameIcon }}"></span>
+                                </div>
+                            
                             </div>
+
+                            
                         </div>
-                        </div>
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('employee_login_code').invalid && (LoginForm.get('employee_login_code').dirty || LoginForm.get('employee_login_code').touched)">
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('required')">
+                             Username is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('alreadyExist')">
+                                Username Not Found!
+                               </ng-container>
+                        </p>
+
                         <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+                        <input type="password" class="form-control" (change)="checkPassword()"   id="password" formControlName="password" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                            <span class="{{this.UserPassIcon }}"></span>
                             </div>
                         </div>
                         </div>
 
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('password').invalid && (LoginForm.get('password').dirty || LoginForm.get('password').touched)">
+                            <ng-container *ngIf="LoginForm.get('password').hasError('required')">
+                             Password is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('password').hasError('wrongPass')">
+                                Password is Wrong!
+                               </ng-container>
+                        </p>
                         <div class="input-group mb-3">
                             <select class="form-control" formControlName="role" >
                              <option value="">Select Role</option>
                              <option *ngFor="let row of rolesList; let i = index"  [value]="row.role_id" >{{row.role_name}}</option>
                             </select>
                          </div>
+
+                         <p class="error input-group mb-3" *ngIf="LoginForm.get('role').invalid && (LoginForm.get('role').dirty || LoginForm.get('role').touched)">
+                            <ng-container *ngIf="LoginForm.get('role').hasError('required')">
+                             Select User Role!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('role').hasError('wrongRole')">
+                                 Wrong User Role!
+                               </ng-container>
+                         
+                        </p>
                         <div class="row">
                        
                         <!-- /.col -->
