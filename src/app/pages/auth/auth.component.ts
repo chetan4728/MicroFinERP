@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
    rolesList: Role[];
    UserNameIcon: any;
    UserPassIcon: any;
-  LoginForm: FormGroup;
+   LoginForm: FormGroup;
   constructor(public local: LocalStorageService, private formBuilder: FormBuilder, private router: Router, private api: AuthService) { }
   ngOnInit(): void {
     this.initForm();

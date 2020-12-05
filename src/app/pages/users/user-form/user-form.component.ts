@@ -19,12 +19,12 @@ export class UserFormComponent implements OnInit {
   BranchList: [];
   debouncer: any;
   url: any;
-  selectRoleRow: Users = { employee_id: 0 , employee_branch_id : 0, employee_address : null,
+  selectRoleRow: Users = { employee_id: 0 , employee_branch_id : '', employee_address : null,
     employee_adhar_card_no : null, employee_alt_contact_no : null, employee_bank_id: null ,
-    employee_center_id: null , employee_contact_no: null, employee_district_id: null, employee_dob: null, employee_email_id: null,
-    employee_first_name: null , employee_gender: null , employee_last_name: null, employee_login_code: null,
+    employee_center_id: null , employee_contact_no: null, employee_district_id:  '', employee_dob: null, employee_email_id: null,
+    employee_first_name: null , employee_gender: '' , employee_last_name: null, employee_login_code: null,
     employee_login_password: null, employee_middle_name: null, employee_pan_card_no: null, profile: null,
-    employee_role_id: null, employee_state_id: null, employee_status: null};
+    employee_role_id:  '', employee_state_id:  '', employee_status:  ''};
   constructor(private param: ActivatedRoute , private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
               private auth: AuthService, private api: UsersService) { }
 
@@ -41,11 +41,11 @@ export class UserFormComponent implements OnInit {
     if (id != null)
     {
       this.api._get_user_details({employee_id: id}).subscribe((data: Users) => {
-        this.selectRoleRow = data;
-        this.url = this.selectRoleRow.profile;
-        this.dp.getDistricts({id: data.employee_state_id}).subscribe(stats => {
-          this.DistrictList = stats;
-        });
+          this.selectRoleRow = data;
+          this.url = this.selectRoleRow.profile;
+          this.dp.getDistricts({id: data.employee_state_id}).subscribe(stats => {
+            this.DistrictList = stats;
+          });
       });
     }
   }

@@ -48,6 +48,11 @@
                              <option value="">Select Role</option>
                              <option *ngFor="let row of rolesList; let i = index"  [value]="row.role_id" >{{row.role_name}}</option>
                             </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                  <span class="fa fa-user"></span>
+                                </div>
+                            </div>
                          </div>
 
                          <p class="error input-group mb-3" *ngIf="LoginForm.get('role').invalid && (LoginForm.get('role').dirty || LoginForm.get('role').touched)">
