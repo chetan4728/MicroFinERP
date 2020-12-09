@@ -1,12 +1,12 @@
 import { environment } from 'src/environments/environment.prod';
-
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router  } from '@angular/router';
 import { Role } from 'src/app/model/role';
 import { AuthService } from 'src/app/services/auth.service';
-import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
-
+import { LocalStorageService} from 'angular-web-storage';
+import { DropDownsService } from 'src/app/services/DropDowns.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -17,13 +17,41 @@ export class AuthComponent implements OnInit {
    rolesList: Role[];
    UserNameIcon: any;
    UserPassIcon: any;
+   BankDetails: any;
+   StateList: [];
+   DistrictList: [];
+   url: any;
+   AppUrl: any;
    LoginForm: FormGroup;
-  constructor(public local: LocalStorageService, private formBuilder: FormBuilder, private router: Router, private api: AuthService) { }
+   SetupForm: FormGroup;
+   AppKey: any;
+   ShowRegistration: any;
+   ShowLogin: any;
+  constructor(public local: LocalStorageService, private formBuilder: FormBuilder, private router: Router, private api: AuthService,
+              private dp: DropDownsService ) {
+              }
   ngOnInit(): void {
     this.initForm();
     this.LoadRoles();
+    this.initState();
+    this.initSetupForm();
     this.UserNameIcon = 'fas fa-envelope';
     this.UserPassIcon = 'fas fa-lock';
+    this.AppUrl = environment.api;
+    this.AppKey = Math.floor(Math.random() * 899999 + 100000);
+    this.api._check_new_setup().subscribe(data => {
+    if (data.error === true)
+    {
+      this.ShowLogin = 'show';
+      this.ShowRegistration = 'hide';
+      this.BankDetails = data;
+    }
+    else
+    {
+      this.ShowLogin = 'false';
+      this.ShowRegistration = 'show';
+    }
+    });
   }
 
   LoadRoles(): void{
@@ -40,6 +68,34 @@ export class AuthComponent implements OnInit {
       role: ['', Validators.required],
     });
   }
+
+  initSetupForm(): void {
+    this.SetupForm = this.formBuilder.group({
+      bank_name: ['', Validators.required],
+      bank_email: ['', [Validators.required, Validators.email]],
+      bank_state: ['', Validators.required],
+      bank_contact_no: ['', Validators.required],
+      bank_district: ['', Validators.required],
+      bank_area_code: ['', Validators.required],
+      bank_app_url: ['', Validators.required],
+      bank_app_key_code: ['', Validators.required],
+      bank_registration_no: [null],
+      bank_tag_line: [null],
+      bank_address: [null],
+    });
+  }
+  initState(): void
+  {
+    this.dp._getStats().subscribe(data => {
+      this.StateList = data;
+    });
+  }
+
+  onChangeState(stateId: number): void {
+    this.dp.getDistricts({id: stateId}).subscribe(data => {
+      this.DistrictList = data;
+    });
+    }
   login(): void{
 
     const data = {
@@ -58,7 +114,7 @@ export class AuthComponent implements OnInit {
           employee_role_id: res.employee_role_id,
           profile: res.profile,
          };
-        this.local.set(environment.userSession, session, 1000, 's');
+        this.local.set(environment.userSession, session, environment.SessionTime, 's');
         window.location.href = 'dashboard/';
       }
       else
@@ -113,6 +169,29 @@ checkPassword(): void
   else
   {
     this.UserPassIcon = 'fas fa-times-circle wrong';
+  }
+}
+create(): void
+{
+  this.api._create_new_setup(this.SetupForm.value).subscribe(data => {
+   console.log(data);
+  });
+}
+
+onSelectFile(event): void {
+  if (event.target.files && event.target.files[0]) {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]); // read file as data url
+    reader.onload = (event) => { // called once readAsDataURL is completed
+      this.url = event.target.result;
+    };
+
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.SetupForm.patchValue({
+      profile: file
+    });
+    this.SetupForm.get('profile').updateValueAndValidity();
   }
 }
 

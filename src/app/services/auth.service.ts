@@ -13,6 +13,8 @@ export class AuthService {
   private CHECK_USER = this.REST_API_SERVER + 'auth/checkUsername';
   private CHECK_PASSWORD = this.REST_API_SERVER + 'auth/checkUsernameWithpassword';
   private LOGIN = this.REST_API_SERVER + 'auth/loginSession';
+  private CHECK_SETUP = this.REST_API_SERVER + 'auth/Checksetup';
+  private SETUP = this.REST_API_SERVER + 'auth/setup';
   constructor(private httpClient: HttpClient) { }
 
   _getRole(): Observable<Role[]>{
@@ -29,6 +31,15 @@ export class AuthService {
   _loginSession(data): Observable<any>
   {
     return this.httpClient.post<any>(`${this.LOGIN}`, data);
+  }
+  _check_new_setup(): Observable<any>{
+    return this.httpClient.get<any>(`${this.CHECK_SETUP}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _create_new_setup(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.SETUP}`, data);
   }
 
   private handleError <T>(operation = 'operation', result?: T) {

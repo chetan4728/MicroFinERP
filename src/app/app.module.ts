@@ -17,6 +17,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    AuthComponent
+    AuthComponent,
   ],
   imports: [
     BrowserModule,

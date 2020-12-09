@@ -1,59 +1,7 @@
 
-.login-box
-{
-   
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    
-   
-}
-.logo_td
-{
-    width: 100px;
-    height: 100px;
-}
-.registration-box
-{
-   
-  
- 
-    width: 60%;
-    margin: 0px auto;
-
-}
-.bg
-{
- background-image: url(../../../assets/dist/img/bg.jpg);
- width: 100%;
-
-height: 768px;
-/* Center and scale the image nicely */
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-}
-.card-body.login-card-body
-{
-    background-color: aliceblue;
-}
-.right
-{
-    color:rgb(20, 179, 20);
-}
-.wrong
-{
-    color: red;
-}
-h1.login-box-msg {font-size: 19px;font-weight: bold;text-transform: uppercase;}
-
-
 .card
 {
- padding: 5px;
+ padding: 20px;
 }
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;
@@ -76,7 +24,7 @@ fieldset.scheduler-border {
         position: relative;
         display: inline-block;
         text-align: center;
-        left: 43%;
+        left: 36%;
         margin-bottom: 20px;
       }
       
@@ -96,14 +44,6 @@ fieldset.scheduler-border {
         width: 100%;
         height: 100%;
         cursor: pointer;
-      }
-      .hide
-      {
-          display:none;
-      }
-      .show
-      {
-          display: block!important;
       }
       
       .message {

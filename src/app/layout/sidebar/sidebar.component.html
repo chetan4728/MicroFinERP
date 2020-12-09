@@ -9,7 +9,7 @@
           <img [src]="SessionData.profile ? SessionData.profile : 'https://www.w3schools.com/howto/img_avatar.png'" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{SessionData.employee_first_name}}  {{SessionData.employee_last_name}}</a>
+          <a [routerLink]="['/dashboard']"  class="d-block">{{SessionData.employee_first_name}}  {{SessionData.employee_last_name}}</a>
         </div>
       </div>
   
@@ -32,7 +32,7 @@
         </li>
       
         <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
+          <a href="#"  class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
             <p>
               Administration
@@ -40,6 +40,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a [routerLink]="['/bank-details']" routerLinkActive="active" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Edit Bank Details</p>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a [routerLink]="['/role']" routerLinkActive="active" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

@@ -18,6 +18,7 @@ export class UserFormComponent implements OnInit {
   RoleList: [];
   BranchList: [];
   debouncer: any;
+  UserCode: any;
   url: any;
   selectRoleRow: Users = { employee_id: 0 , employee_branch_id : '', employee_address : null,
     employee_adhar_card_no : null, employee_alt_contact_no : null, employee_bank_id: null ,
@@ -34,6 +35,7 @@ export class UserFormComponent implements OnInit {
     this.initState();
     this.initBranch();
     this.initUserDetails();
+    this.UserCode = Math.floor(Math.random() * 899999 + 100000);
   }
 
   initUserDetails(): void{

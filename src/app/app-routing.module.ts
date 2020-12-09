@@ -29,6 +29,13 @@ export const routes: Routes = [
           },
         },
         {
+          path: 'bank-details',
+          loadChildren: () => import('../app/pages/bank/bank.module').then(m => m.BankModule),
+          data: {
+            title: 'users Page'
+          },
+        },
+        {
           path: 'users',
           loadChildren: () => import('../app/pages/users/users.module').then(m => m.UsersModule),
           data: {
