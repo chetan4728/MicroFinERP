@@ -1,4 +1,4 @@
-
+import { NavigationExtras, Router } from '@angular/router';
 import { Branch } from './../../model/branch';
 import { Component, OnInit  , ViewChild} from '@angular/core';
 import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ export class BranchComponent implements OnInit {
   BranchList: Branch[];
   selectRoleRow: Branch = {address: null , branch_id : 0, branch_code : null,
   branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
-  constructor(private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -152,6 +152,12 @@ export class BranchComponent implements OnInit {
         );
       }
     });
+  }
+
+  area(data: Branch): void
+  {
+
+    this.router.navigate(['/branch/Area/' + data.branch_id]);
   }
 
 }

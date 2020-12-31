@@ -102,6 +102,7 @@ export class AuthComponent implements OnInit {
       employee_login_password: this.LoginForm.get('password').value,
       employee_login_code: this.LoginForm.get('employee_login_code').value,
       employee_role_id: this.LoginForm.get('role').value,
+      employee_device: "website",
   };
     this.api._loginSession(data).subscribe(res => {
       if (res.error === true)
