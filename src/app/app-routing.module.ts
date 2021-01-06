@@ -1,3 +1,4 @@
+import { SurveyModule } from './pages/survey/survey.module';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -55,7 +56,14 @@ export const routes: Routes = [
           path: 'branch',
           loadChildren: () => import('../app/pages/branch/branch.module').then(m => m.BranchModule),
           data: {
-            title: 'role Page'
+            title: 'Branch Page'
+          },
+        },
+        {
+          path: 'survey',
+          loadChildren: () => import('../app/pages/survey/survey.module').then(m => m.SurveyModule),
+          data: {
+            title: 'survey Page'
           },
         }
       ]
