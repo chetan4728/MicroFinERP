@@ -8,6 +8,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" [routerLink]="['/survey']">Survey Listing</a></li>
             <li class="breadcrumb-item active">Assign Survey</li>
            
           </ol>
@@ -25,37 +26,42 @@
         <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
           ></agm-marker>
       </agm-map>
-
+  <form [formGroup]="Form" (ngSubmit)="submit()">
      <div class="row container">
          <div class="col-md-6">
              <div class="form-group">
                  <label>Employee Name</label>
-                 <select class="form-control">
-                     <option>Select Employee</option>
+                 <select class="form-control" [(ngModel)]="selectRoleRow.user_id"  formControlName="user_id" >
+                     <option value="0">Select Employee</option>
+                     <option *ngFor="let row of employeeDp; let i = index" [value]="row.employee_id" >{{row.employee_first_name}} {{row.employee_last_name}}</option>
                  </select>
              </div>
          </div>
          <div class="col-md-6">
             <div class="form-group">
                 <label>Enter Area Name</label>
-                <input type="text" class="form-control" placeholder="Enter Area Name"/>
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.area_name" formControlName="area_name"  placeholder="Enter Area Name"/>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
                 <label>Latitude</label>
-                <input type="text" class="form-control" value="{{latitude}}" placeholder="Enter Latitude"/>
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.latitude"  formControlName="latitude"  placeholder="Enter Latitude"/>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
                 <label>Longitude</label>
-                <input type="text" class="form-control" value="{{longitude}}" placeholder="Enter Longitude"/>
+                <input type="hidden" [(ngModel)]="selectRoleRow.branch_id"   formControlName="branch_id" >
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.longitude"   formControlName="longitude"   placeholder="Enter Longitude"/>
             </div>
         </div>
      </div> 
+
+     <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="!Form.valid"     >Assign Survey</button>
+    </form>
   </div>
 
 <!-- /.content-wrapper -->

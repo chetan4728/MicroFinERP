@@ -14,6 +14,7 @@ export class DropDownsService {
   private GET_DISTRICT_DP = this.REST_API_SERVER + 'dp/GetDistricts';
   private ROLL_API = this.REST_API_SERVER + 'auth/LoadRoleTable';
   private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
+  private GET_EMPLOYEE_DATA_BRANCH = this.REST_API_SERVER + 'dp/GetEmployeeByBranch';
   constructor(private httpClient: HttpClient) { }
 
   _getStats(): Observable<any>{
@@ -33,6 +34,12 @@ export class DropDownsService {
   }
   _get_branch(): Observable<any>{
     return this.httpClient.get<any>(`${this.GET_BRANCH_TABLE}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _get_branch_employee(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.GET_EMPLOYEE_DATA_BRANCH}`,data).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,5 +1,5 @@
-import { environment } from 'src/environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 @Component({
   selector: 'app-sidebar',
