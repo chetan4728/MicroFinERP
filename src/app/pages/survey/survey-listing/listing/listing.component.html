@@ -40,6 +40,7 @@
                 <td>{{row.area_name}}</td>
                 <td>{{row.branch_name}}</td>
                 <td>{{row.area_name}}</td>
+                
                 <td><ng-container *ngIf="row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
                     <span  class="badge badge-success ">Active</span>
