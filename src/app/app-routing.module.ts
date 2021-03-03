@@ -65,6 +65,13 @@ export const routes: Routes = [
           data: {
             title: 'survey Page'
           },
+        },
+        {
+          path: 'centers',
+          loadChildren: () => import('../app/pages/centers/centers/centers.module').then(m => m.CentersModule),
+          data: {
+            title: 'Center Page'
+          },
         }
       ]
     }

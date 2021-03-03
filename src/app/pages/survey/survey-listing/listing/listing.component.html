@@ -29,12 +29,34 @@
                     <th>Sr no</th>
                     <th>Area</th>
                     <th>Branch</th>
-                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            
+            <tbody>
+              <tr *ngFor="let row of ListingData; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{row.area_name}}</td>
+                <td>{{row.branch_name}}</td>
+                <td>{{row.area_name}}</td>
+                <td><ng-container *ngIf="row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                  <ng-template #thenTemplate>
+                    <span  class="badge badge-success ">Active</span>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <span  class="badge badge-danger">Inactive</span>
+                  </ng-template>
+                   </td>
+
+                   <td><button class="btn btn-success btn-sm"   >Edit</button>
+                    <button class="btn btn-danger btn-sm ml-1"  >Delete</button>
+                
+                  </td>
+            </tr>
+            </tbody>
         </table>
+        
   
         </div>
   </section>
