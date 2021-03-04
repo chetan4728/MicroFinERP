@@ -68,9 +68,16 @@ export const routes: Routes = [
         },
         {
           path: 'centers',
-          loadChildren: () => import('../app/pages/centers/centers/centers.module').then(m => m.CentersModule),
+          loadChildren: () => import('../app/pages/centers/centers.module').then(m => m.CentersModule),
           data: {
             title: 'Center Page'
+          },
+        },
+        {
+          path: 'Groups',
+          loadChildren: () => import('../app/pages/groups/groups/groups.module').then(m => m.GroupsModule),
+          data: {
+            title: 'Group Page'
           },
         }
       ]
