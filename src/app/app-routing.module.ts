@@ -74,10 +74,18 @@ export const routes: Routes = [
           },
         },
         {
-          path: 'Groups',
+          path: 'groups',
           loadChildren: () => import('../app/pages/groups/groups/groups.module').then(m => m.GroupsModule),
           data: {
             title: 'Group Page'
+          },
+        }
+        ,
+        {
+          path: 'loans',
+          loadChildren: () => import('../app/pages/loan/loan.module').then(m => m.LoanModule),
+          data: {
+            title: 'Loans Page'
           },
         }
       ]
