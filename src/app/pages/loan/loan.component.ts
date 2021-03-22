@@ -4,7 +4,7 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
 import { environment } from 'src/environments/environment.prod';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-
+import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-loan',
   templateUrl: './loan.component.html',
@@ -20,7 +20,7 @@ export class LoanComponent implements OnInit {
   SessionData: any;
   ListingData:any;
   Url:any;
-  constructor(private api: LoanService,private local :LocalStorageService) { }
+  constructor(private router: Router, private api: LoanService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
@@ -41,6 +41,12 @@ export class LoanComponent implements OnInit {
         this.dtTrigger.next();
       }
   });
+  }
+
+  viewForm(data): void
+  {
+
+    this.router.navigate(['/loans/LoanForm/' + data.loan_application_id]);
   }
 
 }

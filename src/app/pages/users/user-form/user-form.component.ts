@@ -132,14 +132,13 @@ export class UserFormComponent implements OnInit {
       };
   }
 submit(): void{
-  console.log(this.Form.value);
+ // console.log(this.Form.value);
   if (this.selectRoleRow.employee_id > 0)
   {
 
 
     this.api._update_branch(this.selectRoleRow).subscribe(data => {
-      if (data.employee_id > 0)
-      {
+    
         this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
 
         });
@@ -153,7 +152,7 @@ submit(): void{
             timer: 1500
           });
         this.route.navigateByUrl('/users');
-     }
+     
     });
   }
   else

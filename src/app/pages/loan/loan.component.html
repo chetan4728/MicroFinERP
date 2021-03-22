@@ -41,8 +41,8 @@
             </thead>
             <tbody>
              <tr *ngFor="let row of ListingData; let i = index">
-              
-                <td><img style="width:50px;" src="{{this.Url+row.member_photo_pr}}"/></td>
+            
+                <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
                 <td>{{row.center_name}}-{{row.group_name}}-{{row.loan_application_id}}</td>
                 <td>{{row.applicant_name}}</td>
                 <td>{{row.group_name}}</td>
@@ -61,7 +61,7 @@
 
                    
 
-                   <td><button class="btn btn-success btn-sm"   >View</button>
+                   <td><button class="btn btn-success btn-sm" (click)="viewForm(row)"  >View</button>
                    
                 
                   </td>

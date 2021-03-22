@@ -74,7 +74,7 @@ export const routes: Routes = [
           },
         },
         {
-          path: 'groups',
+          path: 'Groups',
           loadChildren: () => import('../app/pages/groups/groups/groups.module').then(m => m.GroupsModule),
           data: {
             title: 'Group Page'
