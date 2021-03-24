@@ -46,7 +46,7 @@ export class LoanComponent implements OnInit {
   viewForm(data): void
   {
 
-    this.router.navigate(['/loans/LoanForm/' + data.loan_application_id]);
+    this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
   }
 
 }

@@ -34,7 +34,7 @@
                <div class="col-md-6">
                 <div class="form-group">
                   <label>Applicant Name</label>
-                  <input type="text" class="form-control"  readonly  >
+                  <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_name}}" readonly  >
               
                </div>
              </div>
@@ -42,7 +42,7 @@
              <div class="col-md-6">
               <div class="form-group">
                 <label>Applicant Father Name</label>
-                <input type="text" class="form-control"  readonly  >
+                <input type="text" class="form-control"   value="{{this.selectRoleRow.applicant_father_name}}" readonly  >
             
              </div>
             </div> 
@@ -50,7 +50,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>Gender</label>
-                <input type="text" class="form-control"  readonly  >
+                <input type="text" value="{{this.selectRoleRow.gender}}" class="form-control"  readonly  >
             
              </div>
             </div> 
@@ -58,7 +58,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>DOB</label>
-                <input type="text" class="form-control"  readonly  >
+                <input type="text" class="form-control"  value="{{this.selectRoleRow.dob}}" readonly  >
             
              </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>AGE</label>
-                <input type="text" class="form-control"  readonly  >
+                <input type="text" value="{{this.selectRoleRow.age}}" class="form-control"  readonly  >
             
              </div>
             </div>
@@ -81,7 +81,7 @@
               <div class="col-md-4">
                <div class="form-group">
                  <label>Applicant Mobile no</label>
-                 <input type="text" class="form-control"  readonly  >
+                 <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_mob_no}}"  readonly  >
              
               </div>
             </div>
@@ -89,7 +89,7 @@
             <div class="col-md-4">
              <div class="form-group">
                <label>Applicant UID No</label>
-               <input type="text" class="form-control"  readonly  >
+               <input type="text" class="form-control" value="{{this.selectRoleRow.uid_no}}"  readonly  >
            
             </div>
            </div> 
@@ -97,7 +97,7 @@
            <div class="col-md-4">
              <div class="form-group">
                <label>Taluka</label>
-               <input type="text" class="form-control"  readonly  >
+               <input type="text" class="form-control" value="{{this.selectRoleRow.tq}}" readonly  >
            
             </div>
            </div> 
@@ -105,7 +105,7 @@
            <div class="col-md-4">
              <div class="form-group">
                <label>District</label>
-               <input type="text" class="form-control"  readonly  >
+               <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" readonly  >
            
             </div>
            </div>
@@ -113,7 +113,7 @@
            <div class="col-md-4">
              <div class="form-group">
                <label>State</label>
-               <input type="text" class="form-control"  readonly  >
+               <input type="text" class="form-control"  value="{{this.selectRoleRow.state}}" readonly  >
            
             </div>
            </div>
@@ -121,7 +121,7 @@
            <div class="col-md-4">
             <div class="form-group">
               <label>Pincode</label>
-              <input type="text" class="form-control"  readonly  >
+              <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" value="{{this.selectRoleRow.pincode}}" readonly  >
           
            </div>
           </div>
@@ -129,7 +129,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Address</label>
-              <textarea type="text" class="form-control"  readonly  ></textarea>
+              <textarea type="text" class="form-control"  readonly  value="{{this.selectRoleRow.address}}"></textarea>
           
            </div>
           </div>
@@ -173,11 +173,315 @@
 
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Cash Flow Information</legend> 
-        
+        <div class="row">
+          
+            <div class=" col-md-12">
+             <div class="row">
+                <div class="col-md-3">
+                 <div class="form-group">
+                   <label>Opening Balance</label>
+                   <input type="text" class="form-control"  readonly  >
+               
+                </div>
+              </div>
+  
+              <div class="col-md-3">
+               <div class="form-group">
+                 <label>Sale</label>
+                 <input type="text" class="form-control"  readonly  >
+             
+              </div>
+             </div> 
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Asset Sale</label>
+                 <input type="text" class="form-control"  readonly  >
+             
+              </div>
+             </div> 
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Debt of receipt</label>
+                 <input type="text" class="form-control"  readonly  >
+             
+              </div>
+             </div>
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Family Income</label>
+                 <input type="text" class="form-control"  readonly  >
+             
+              </div>
+             </div>
+  
+             <div class="col-md-3">
+              <div class="form-group">
+                <label>Other Income</label>
+                <input type="text" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+  
+            
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Total Income Amount</label>
+                <input type="text" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Purchase</label>
+                <input type="text" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Accountant Fees</label>
+                <input type="text" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Solicitor Fees</label>
+                <input type="text" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                  <label>Advertising and marketing</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Bank Fess and Charges</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Bank Fess and Charges</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Interest Paid</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Credit card Fees</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Utilities</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Less or Loan Payments</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Rent and Rates</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Motor Vehicle Expenses</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Repair and Maintenance</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Stationary and Printings</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Licensing</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Income Tax</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Wages</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Total Outgoing Amount</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Current Balance</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>No of dependant</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Household Income</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Current Profession</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Is Lottery Winner</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Spouse Name</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Income Of the month</label>
+                  <input type="text" class="form-control"  readonly  >
+              
+               </div>
+              </div>
+            </div>
+            </div>
+          </div>
     </fieldset>
 
      <fieldset class="scheduler-border">
         <legend class="scheduler-border">Uploaded Documents</legend> 
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                   
+                  </div>
+            </div>
+        </div>
         
     </fieldset>
     

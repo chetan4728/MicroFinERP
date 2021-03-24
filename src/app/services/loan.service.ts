@@ -14,12 +14,19 @@ import { environment } from 'src/environments/environment.prod';
 export class LoanService {
   private REST_API_SERVER = environment.api;
   private GET = this.REST_API_SERVER + 'Loans/LoadTable';
+  private GET_SINGLE = this.REST_API_SERVER + 'Loans/get_single_record';
   constructor(private httpClient: HttpClient) { }
 
 
  
   _get_loans(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _get_single_loans(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_SINGLE}`,data).pipe(
       catchError(this.handleError)
     );
   }
