@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 export class FormComponent implements OnInit {
 
   url:any;
+  folder_url:any;
   selectRoleRow: any;
   constructor(private param: ActivatedRoute ,private api: LoanService) { }
 
@@ -25,6 +26,7 @@ export class FormComponent implements OnInit {
       this.api._get_single_loans({loan_application_no: id}).subscribe((data) => {
           this.selectRoleRow = data;
           this.url =  environment.uploads+this.selectRoleRow.member_photo_pr;
+          this.folder_url = environment.uploads;
          // alert(this.url)
         //  console.log(this.selectRoleRow.member_photo_pr);
           
