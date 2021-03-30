@@ -1,3 +1,4 @@
+import { DisbursementComponent } from './disbursement/disbursement.component';
 import { LoanComponent } from './loan.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,7 @@ const routes: Routes = [
       title: 'Dashboard Component'
     }
   }
+ 
 
 ];
 

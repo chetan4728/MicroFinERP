@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-export class LoanService {
+export class LoanDisbursementService {
   private REST_API_SERVER = environment.api;
   private GET = this.REST_API_SERVER + 'Loans/LoadTable';
   private GET_SINGLE = this.REST_API_SERVER + 'Loans/get_single_record';
@@ -20,12 +20,20 @@ export class LoanService {
   private GET_CENTERS = this.REST_API_SERVER + 'Centers/LoadCentersFromArea';
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
+  private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
+  private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanMembers';
   constructor(private httpClient: HttpClient) { }
 
  
  
   _get_loans(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _get_group_members(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_GROUP_MEMBERS}`,data).pipe(
       catchError(this.handleError)
     );
   }
@@ -62,6 +70,16 @@ export class LoanService {
       catchError(this.handleError)
     );
   }
+
+  _get_group_details(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_GROUP_DETAILS}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  
+
+  
   private handleError <T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure

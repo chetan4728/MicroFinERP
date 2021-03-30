@@ -87,6 +87,13 @@ export const routes: Routes = [
           data: {
             title: 'Loans Page'
           },
+        },
+        {
+          path: 'disbursement',
+          loadChildren: () => import('../app/pages/loan/disbursement/disbursement.module').then(m => m.DisbursementModule),
+          data: {
+            title: 'Loans Page'
+          },
         }
       ]
     }

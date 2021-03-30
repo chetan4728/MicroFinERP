@@ -1,0 +1,172 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Loan Distribution</h1>
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/disbursement']" >
+               
+              Disbursement Allocation</a></li>
+            <li class="breadcrumb-item active">Loan Distribution</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="container card">
+
+    
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Group Information 
+            <ng-container *ngIf="row.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
+            <ng-template #thenTemplate>
+              <span  class="badge badge-success ">Approved</span>
+            </ng-template>
+            <ng-template #elseTemplate>
+              <span  class="badge badge-danger">Pending</span>
+            </ng-template></legend> 
+       
+
+        <div class="row">
+          
+            <div class=" col-md-12">
+             <div class="row">
+                <div class="col-md-3">
+                 <div class="form-group">
+                   <label>Branch Name</label>
+                   <input type="text" class="form-control"  readonly   value="{{this.row.branch_name}}"  >
+               
+                </div>
+              </div>
+  
+              <div class="col-md-3">
+               <div class="form-group">
+                 <label>Area Name</label>
+                 <input type="text" class="form-control"  readonly    value="{{this.row.area_name}}" >
+             
+              </div>
+             </div> 
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Center Name</label>
+                 <input type="text" class="form-control"  readonly  value="{{this.row.center_name}}" >
+             
+              </div>
+             </div> 
+  
+           
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Group Name</label>
+                  <input type="text" class="form-control"  readonly   value="{{this.row.group_name}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label>Group Limit</label>
+                    <input type="text" class="form-control"  readonly   value="{{this.row.member_limit}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label>Created Date</label>
+                    <input type="text" class="form-control"  readonly   value="{{this.row.created_date}}" >
+              
+               </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label>Contact Person Name</label>
+                    <input type="text" class="form-control"  readonly   value="{{this.row.contact_person}}" >
+              
+               </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label>Contact Person Number</label>
+                    <input type="text" class="form-control"  readonly   value="{{this.row.contact_number}}" >
+              
+               </div>
+              </div>
+              
+            </div>
+            </div>
+        </div>
+
+         
+    
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Group Member Information's</legend> 
+    
+        <table datatable  class="table_loan table table-striped  table-bordered row-border hover"  >
+            <thead>
+                <tr>
+                    
+                    <th>Profile</th>
+                    <th>Applicant Name</th>
+                    <th>Group</th>
+                    <th>Center</th>
+                    <th>Loan Purpose</th>
+                    <th>Loan Amount</th>
+                    <th>Branch</th>
+                    <th>Added By</th>
+                    <th>Added Date</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let row of members; let i = index">
+            
+                <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
+                <td>{{row.applicant_name}}</td>
+                <td>{{row.group_name}}</td>
+                <td>{{row.center_name}}</td>
+                <td>{{row.loan_purpose}}</td>
+                <td><span  class="badge badge-success ">{{ row.loan_amount | currency:'INR' }}</span></td>
+                <td>{{row.branch_name}}</td>
+                <td>{{row.added_by}}</td>
+                <td>{{row.created_date}}</td>
+                <td><ng-container *ngIf="row.center_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                  <ng-template #thenTemplate>
+                    <span  class="badge badge-success ">Approved</span>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <span  class="badge badge-danger">Pending</span>
+                  </ng-template>
+                   </td>
+
+                   
+
+                
+                   
+                
+               
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+     
+     
+  </section>
+  
+  <!-- /.content -->
+
+

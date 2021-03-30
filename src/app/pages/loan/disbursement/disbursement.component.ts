@@ -1,16 +1,17 @@
-import { LoanService } from './../../services/loan.service';
+import { LoanDisbursementService } from '../../../services/loan.disbursement.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import { environment } from 'src/environments/environment.prod';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-loan',
-  templateUrl: './loan.component.html',
-  styleUrls: ['./loan.component.scss']
+  selector: 'app-disbursement',
+  templateUrl: './disbursement.component.html',
+  styleUrls: ['./disbursement.component.scss']
 })
-export class LoanComponent implements OnInit {
+export class DisbursementComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -29,7 +30,7 @@ export class LoanComponent implements OnInit {
   center_dp:any="";
   group_dp:any="";
   filter:any = [];
-  constructor(private router: Router, private api: LoanService,private local :LocalStorageService) { }
+  constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
@@ -94,6 +95,62 @@ export class LoanComponent implements OnInit {
     this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
   }
 
+  addLoan():void{
+
+    if(this.branch_dp=="")
+    {
+
+      Swal.fire({
+       
+        toast: true,
+        icon: 'error',
+        title: 'Select Branch',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    else if(this.area_dp=="")
+    {
+      Swal.fire({
+       
+        toast: true,
+        icon: 'error',
+        title: 'Select Area',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      
+    }
+    else if(this.center_dp=="")
+    {
+
+      Swal.fire({
+       
+        toast: true,
+        icon: 'error',
+        title: 'Select Center',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    else if(this.group_dp=="")
+    {
+
+      Swal.fire({
+       
+        toast: true,
+        icon: 'error',
+        title: 'Select Group',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    else
+    {
+       this.router.navigate(['/disbursement/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp]);
+    }
+  }
+
   filterData(): void
   {
     var a = [];
@@ -123,5 +180,6 @@ export class LoanComponent implements OnInit {
   });
 
   }
+
 
 }
