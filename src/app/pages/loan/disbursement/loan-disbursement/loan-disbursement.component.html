@@ -114,7 +114,7 @@
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Member Information's</legend> 
     
-        <table datatable  class="table_loan table table-striped  table-bordered row-border hover"  >
+        <table   class="table_loan table table-striped  table-bordered row-border hover"  >
             <thead>
                 <tr>
                     
@@ -163,7 +163,161 @@
         </table>
     </fieldset>
 
+       <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Group Loan Distribution's</legend> 
+
+        <p class="header_span">Flat Rate Interest Calculator (Summary)</p>
+        <div class="row cal_box">
+          <div class="col-md-6">
+            <div class="row">
+              <table>
+                <tr>
+                  <td>Loan Amount</td>
+                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="[transformAmount($event),pmt_cal()]" [(ngModel)]="formattedAmount" class="form-control margin_left_10" ></td>
+                </tr>
+
+                <tr>
+                  <td>Annual percentage rate (APR)</td>
+                  <td> <input type="text" [(ngModel)]="apr" (blur)="pmt_cal()" class="form-control margin_left_10" ></td>
+                </tr>
+
+                <tr>
+                  <td>Loan terms (Years)</td>
+                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="get_loan_term($event)" [(ngModel)]="loan_term_years"   class="form-control margin_left_10" ></td>
+                </tr>
+                <tr>
+                  <td>Loan date (mm/dd/yy)</td>
+                  <td> <input type="text" class="form-control margin_left_10" ></td>
+                </tr>
+
+                <tr>
+                  <td>Payment type</td>
+                  <td>
+                    <select class="form-control margin_left_10">
+                      <option value="Beginning of the Period" >Beginning of the Period</option>
+                      <option value="End of the Period" >End of the Period</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Payment frequency</td>
+                  <td>
+                    <select class="form-control margin_left_10"   (change)="payFeqFun($event.target.value)">
+                      <option value="Weekly" >Weekly</option>
+                      <option value="Bi-weekly" >Bi-weekly</option>
+                      <option value="Semi-monthly" >Semi-monthly</option>
+                      <option value="Monthly" >Monthly</option>
+                      <option value="Bi-Monthly" >Bi-Monthly</option>
+                      <option value="Quarterly" >Quarterly</option>
+                      <option value="Semi-annually" >Semi-annually</option>
+                      <option value="Yearly" >Yearly</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Interest Compounding Frequency</td>
+                  <td><select class="form-control margin_left_10"  (change)="intFrqFun($event.target.value)">
+                    <option value="Weekly" >Weekly</option>
+                    <option value="Bi-weekly" >Bi-weekly</option>
+                    <option value="Semi-monthly" >Semi-monthly</option>
+                    <option value="Monthly" >Monthly</option>
+                    <option value="Bi-Monthly" >Bi-Monthly</option>
+                    <option value="Quarterly" >Quarterly</option>
+                    <option value="Semi-annually" >Semi-annually</option>
+                    <option value="Yearly" >Yearly</option>
+                  </select></td>
+                </tr>
+
+                
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <table>
+              <tr>
+                <td style="width: 40%;">{{this.payFrq}} Principle Payment</td>
+                <td><input type="text"  [(ngModel)]="flat_rate_principle_payment" class="form-control margin_left_10" ></td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">{{this.payFrq}} Interest Payment</td>
+                <td><input type="text"  [(ngModel)]="flat_rate_interest_payment" class="form-control margin_left_10" ></td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Total {{this.payFrq}} Payment</td>
+                <td><input type="text" [(ngModel)]="flat_rate_total_payment" class="form-control margin_left_10" ></td>
+              </tr>
+
+              <tr>
+                <td style="width: 40%;"><b>Total Payments</b></td>
+                <td><input type="text"  [(ngModel)]="flat_rate_final_total_payment" class="form-control margin_left_10" ></td>
+              </tr>
+              <tr>
+                <td style="width: 40%;"><b>Total Interest Paid</b></td>
+                <td><input type="text" [(ngModel)]="flat_rate_final_interest_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" [(ngModel)]="flat_rate_final_interest_payment_pre"  class="form-control margin_left_10" ></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <p class="header_span">Reducing Rate of Interest Calculator (Summary)</p>
+        
+        <div class="row cal_box">
+         
+            <div class="col-md-6">
+              <table>
+                <tr>
+                  <td>Scheduled {{this.payFrq}} Payment</td>
+                  <td><input type="text" [(ngModel)]="scheduled_payment"  class="form-control margin_left_10" ></td>
+                </tr>
+                <tr>
+                  <td>Scheduled number of payments </td>
+                  <td><input type="text" [(ngModel)]="lt"  class="form-control margin_left_10" ></td>
+                </tr>
+                <tr>
+                  <td>Interest Rate (Per Period)</td>
+                  <td><input type="text" class="form-control margin_left_10" ></td>
+                </tr>
+  
+                <tr>
+                  <td>Payment Type</td>
+                  <td><input type="text" class="form-control margin_left_10" ></td>
+                </tr>
+                
+              </table>
+            </div>
+            <div class="col-md-6">
+              <table>
+                
+  
+                <tr>
+                  <td style="width: 40%;"><b>Total Payments</b></td>
+                  <td><input type="text" [(ngModel)]="formattedAmount" class="form-control margin_left_10" ></td>
+                </tr>
+                <tr>
+                  <td style="width: 40%;"><b>Total Interest Paid</b></td>
+                  <td><input type="text" class="form-control margin_left_10" ></td>
+                  <td><input type="text" class="form-control margin_left_10" ></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="row cal_box">
+            <table class="table table-bordered">
+              <tr>
+                <th>No</th>
+                <th>Payment Date</th>
+                <th>Beginning Balance</th>
+                <th>Scheduled Payment</th>
+                <th>Interest Paid</th>
+                <th>Principle Paid</th>
+                <th>Ending Balance</th>
+              </tr>
+            </table>
+          </div>
      
+    </fieldset>
      
   </section>
   

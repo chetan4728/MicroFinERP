@@ -13,7 +13,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
-
+import { CurrencyPipe } from "@angular/common";
 
 
 
@@ -43,7 +43,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     AngularWebStorageModule,
   ],
   exports: [RouterModule],
-  providers: [ReactiveFormsModule, FormsModule],
+  providers: [ReactiveFormsModule, FormsModule,CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
