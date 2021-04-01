@@ -187,7 +187,7 @@
                 </tr>
                 <tr>
                   <td>Loan date (mm/dd/yy)</td>
-                  <td> <input type="text" class="form-control margin_left_10" ></td>
+                  <td> <input type="date" [(ngModel)]="date" class="form-control margin_left_10" ></td>
                 </tr>
 
                 <tr>
@@ -273,11 +273,11 @@
                 </tr>
                 <tr>
                   <td>Scheduled number of payments </td>
-                  <td><input type="text" [(ngModel)]="lt"  class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="lt"  (blur)="pmt_cal()"  class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td>Interest Rate (Per Period)</td>
-                  <td><input type="text" class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="interest_per_period" class="form-control margin_left_10" ></td>
                 </tr>
   
                 <tr>
@@ -293,12 +293,12 @@
   
                 <tr>
                   <td style="width: 40%;"><b>Total Payments</b></td>
-                  <td><input type="text" [(ngModel)]="formattedAmount" class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="sum_pay_paid" class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td style="width: 40%;"><b>Total Interest Paid</b></td>
-                  <td><input type="text" class="form-control margin_left_10" ></td>
-                  <td><input type="text" class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="total_interest_paid" class="form-control margin_left_10" ></td>
+                  <td><input type="text"  [(ngModel)]="sum_pay_percentage"   class="form-control margin_left_10" ></td>
                 </tr>
               </table>
             </div>
@@ -314,6 +314,17 @@
                 <th>Principle Paid</th>
                 <th>Ending Balance</th>
               </tr>
+              <tbody>
+                <tr *ngFor="let row of interest_table; let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{row.inc_date}}</td>
+                  <td>{{row.loan_amount}}</td>
+                  <td>{{row.schedule_payment}}</td>
+                  <td>{{row.interest_paid}}</td>
+                  <td>{{row.principle_paid}}</td>
+                  <td>{{row.ending_balance}}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
      
