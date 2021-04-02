@@ -2,13 +2,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Disbursement Approval</h1>
+          <h1 class="m-0 text-dark">Loan Sanction Pending</h1>
           
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Disbursement Approval</li>
+            <li class="breadcrumb-item active">Loan Sanction Pending</li>
            
           </ol>
         </div><!-- /.col -->
@@ -82,11 +82,11 @@
                 <td>{{row.branch_name}}</td>
                 <td>{{row.added_by}}</td>
                 <td>{{row.created_date}}</td>
-                <td><ng-container *ngIf="row.center_status == 1; then thenTemplate; else elseTemplate"></ng-container>
-                  <ng-template #thenTemplate>
+                <td><ng-container *ngIf="row.approved_status == 1; then thenTemplate1; else elseTemplate1"></ng-container>
+                  <ng-template #thenTemplate1>
                     <span  class="badge badge-success ">Approved</span>
                   </ng-template>
-                  <ng-template #elseTemplate>
+                  <ng-template #elseTemplate1>
                     <span  class="badge badge-danger">Pending</span>
                   </ng-template>
                    </td>

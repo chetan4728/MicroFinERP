@@ -26,7 +26,7 @@
 
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Information 
-            <ng-container *ngIf="row.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
+            <ng-container *ngIf="this.GroupData.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
             <ng-template #thenTemplate>
               <span  class="badge badge-success ">Approved</span>
             </ng-template>
@@ -42,7 +42,7 @@
                 <div class="col-md-3">
                  <div class="form-group">
                    <label>Branch Name</label>
-                   <input type="text" class="form-control"  readonly   value="{{this.row.branch_name}}"  >
+                   <input type="text" class="form-control"  readonly   value="{{this.GroupData.branch_name}}"  >
                
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <div class="col-md-3">
                <div class="form-group">
                  <label>Area Name</label>
-                 <input type="text" class="form-control"  readonly    value="{{this.row.area_name}}" >
+                 <input type="text" class="form-control"  readonly    value="{{this.GroupData.area_name}}" >
              
               </div>
              </div> 
@@ -58,7 +58,7 @@
              <div class="col-md-3">
                <div class="form-group">
                  <label>Center Name</label>
-                 <input type="text" class="form-control"  readonly  value="{{this.row.center_name}}" >
+                 <input type="text" class="form-control"  readonly  value="{{this.GroupData.center_name}}" >
              
               </div>
              </div> 
@@ -68,7 +68,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Group Name</label>
-                  <input type="text" class="form-control"  readonly   value="{{this.row.group_name}}" >
+                  <input type="text" class="form-control"  readonly   value="{{this.GroupData.group_name}}" >
               
                </div>
               </div>
@@ -76,7 +76,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Group Limit</label>
-                    <input type="text" class="form-control"  readonly   value="{{this.row.member_limit}}" >
+                    <input type="text" class="form-control"  readonly   value="{{this.GroupData.member_limit}}" >
               
                </div>
               </div>
@@ -84,21 +84,21 @@
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Created Date</label>
-                    <input type="text" class="form-control"  readonly   value="{{this.row.created_date}}" >
+                    <input type="text" class="form-control"  readonly   value="{{this.GroupData.created_date}}" >
               
                </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Contact Person Name</label>
-                    <input type="text" class="form-control"  readonly   value="{{this.row.contact_person}}" >
+                    <input type="text" class="form-control"  readonly   value="{{this.GroupData.contact_person}}" >
               
                </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Contact Person Number</label>
-                    <input type="text" class="form-control"  readonly   value="{{this.row.contact_number}}" >
+                    <input type="text" class="form-control"  readonly   value="{{this.GroupData.contact_number}}" >
               
                </div>
               </div>
@@ -143,7 +143,7 @@
                 <td>{{row.branch_name}}</td>
                 <td>{{row.added_by}}</td>
                 <td>{{row.created_date}}</td>
-                <td><ng-container *ngIf="row.center_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                <td><ng-container *ngIf="row.approved_status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
                     <span  class="badge badge-success ">Approved</span>
                   </ng-template>
@@ -193,7 +193,7 @@
                 <tr>
                   <td>Payment type</td>
                   <td>
-                    <select class="form-control margin_left_10">
+                    <select class="form-control margin_left_10" [(ngModel)]="payment_type_period">
                       <option value="Beginning of the Period" >Beginning of the Period</option>
                       <option value="End of the Period" >End of the Period</option>
                     </select>
@@ -203,7 +203,7 @@
                 <tr>
                   <td>Payment frequency</td>
                   <td>
-                    <select class="form-control margin_left_10"   (change)="payFeqFun($event.target.value)">
+                    <select class="form-control margin_left_10" id="dp"  [(ngModel)]="payFrq"   (change)="payFeqFun($event.target.value)">
                       <option value="Weekly" >Weekly</option>
                       <option value="Bi-weekly" >Bi-weekly</option>
                       <option value="Semi-monthly" >Semi-monthly</option>
@@ -218,7 +218,7 @@
 
                 <tr>
                   <td>Interest Compounding Frequency</td>
-                  <td><select class="form-control margin_left_10"  (change)="intFrqFun($event.target.value)">
+                  <td><select class="form-control margin_left_10" [(ngModel)]="intFrq"  (change)="intFrqFun($event.target.value)">
                     <option value="Weekly" >Weekly</option>
                     <option value="Bi-weekly" >Bi-weekly</option>
                     <option value="Semi-monthly" >Semi-monthly</option>
@@ -326,6 +326,9 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <button (click)="submitData()" class="btn btn-success">Submit</button>
           </div>
      
     </fieldset>

@@ -20,6 +20,7 @@ export class LoanService {
   private GET_CENTERS = this.REST_API_SERVER + 'Centers/LoadCentersFromArea';
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
+  private UPDATE_STATUS = this.REST_API_SERVER + 'Loans/Update_status';
   constructor(private httpClient: HttpClient) { }
 
  
@@ -59,6 +60,11 @@ export class LoanService {
   }
   _get_area(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET_AREA}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _Update_Status(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.UPDATE_STATUS}`,data).pipe(
       catchError(this.handleError)
     );
   }

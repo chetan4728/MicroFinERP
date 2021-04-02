@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
   url:any;
   folder_url:any;
   selectRoleRow: any;
+  application_status:any;
   constructor(private param: ActivatedRoute ,private api: LoanService) { }
 
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class FormComponent implements OnInit {
       //alert(id)
       this.api._get_single_loans({loan_application_no: id}).subscribe((data) => {
           this.selectRoleRow = data;
+          this.application_status = this.selectRoleRow.approved_status;
           this.url =  environment.uploads+this.selectRoleRow.member_photo_pr;
           this.folder_url = environment.uploads;
          // alert(this.url)
@@ -32,5 +34,13 @@ export class FormComponent implements OnInit {
           
       });
     }
+  }
+  update():void{
+    this.api._Update_Status({branch_id:this.selectRoleRow.branch_id,loan_application_no: this.selectRoleRow.loan_application_no,approved_status:this.application_status,created_by:this.selectRoleRow.created_by}).subscribe((data) => {
+    
+     // alert(data)
+  });
+    
+   
   }
 }

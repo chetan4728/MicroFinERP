@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoanDisbursementService } from '../../../../services/loan.disbursement.service';
 import { ActivatedRoute, Router, Event } from '@angular/router';
 import { CurrencyPipe } from "@angular/common";
+import Swal from 'sweetalert2';
+
 import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-loan-disbursement',
@@ -13,12 +15,13 @@ export class LoanDisbursementComponent implements OnInit {
   // Allow key codes for special events. Reflect :
   // Backspace, tab, end, home
   private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
-  row:any;
+  GroupData:any;
   members:any;
   Url:any;
   formattedAmount;
-  payFrq:any = "Weekly";
-  intFrq:any= "Weekly";
+  payFrq:any = "Monthly";
+  intFrq:any= "Monthly";
+  payment_type_period:any= "Beginning of the Period";
   amount;
   apr:any=1;
   lt:any;
@@ -34,22 +37,27 @@ export class LoanDisbursementComponent implements OnInit {
   interest_per_period:any;
   date:any;
   interest_table:any;
+  members_ids:any;
   total_interest_paid:any;
   sum_pay_paid:any;
   sum_pay_percentage:any;
-  constructor(private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
+  
+  acutal_members:Number = 0;
+  constructor(private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
 
   ngOnInit(): void {
+    //alert()
     this.getDate();
     const branch_id = this.param.snapshot.paramMap.get('branch_id');
     const area_id = this.param.snapshot.paramMap.get('area_id');
     const center_id = this.param.snapshot.paramMap.get('center_id');
     const group_id = this.param.snapshot.paramMap.get('group_id');
     this.Url = environment.uploads;
+    
     this.api._get_group_details({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
-      console.log(data);
+      //console.log(data);
       
-      this.row = data;
+      this.GroupData = data;
       
      });
 
@@ -58,6 +66,21 @@ export class LoanDisbursementComponent implements OnInit {
       console.log(data);
       
       this.members = data;
+      this.members_ids = [];
+      for(let i=0;i< this.members.length;i++)
+      {
+        //this.acutal_members =this.members[i].member_limit;
+        this.members_ids.push(this.members[i].loan_application_no)
+        if(this.members[i].approved_status==1 && isNaN(this.members[i].approved_status)!=true)
+        {
+          //alert(this.members[i].approved_status)
+          this.acutal_members = parseInt(this.acutal_members + this.members[i].approved_status);
+         
+        }
+      }
+
+      
+     
       
      });
 
@@ -265,5 +288,73 @@ export class LoanDisbursementComponent implements OnInit {
       //alert(result.toFixed(2))
 
       this.getEmiTable();
+  }
+  submitData():void{
+    //alert(this.members.length)
+    
+
+    //alert(this.members_ids)
+
+    if(this.GroupData.member_limit!=this.members.length)
+    {
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'error',
+        title: 'Please Add All Member',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  
+    
+    else if(this.GroupData.member_limit!=this.acutal_members)
+    {
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'error',
+        title: 'Verify All Group Member',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    else
+    {
+      const branch_id = this.param.snapshot.paramMap.get('branch_id');
+    const area_id = this.param.snapshot.paramMap.get('area_id');
+    const center_id = this.param.snapshot.paramMap.get('center_id');
+    const group_id = this.param.snapshot.paramMap.get('group_id');
+    var param = {branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id,
+      loan_amount:this.loan_amount,anual_percentage_rate:this.apr,term_year:this.loan_term_years,loan_date:this.date,
+      payment_type:this.payment_type_period,payment_frequency:this.payFrq,cmpound_frequency:this.intFrq,
+      flat_principle_payment:this.flat_rate_principle_payment,
+      flat_interest_payment:this.flat_rate_interest_payment,
+      flat_monthly_payment:this.flat_rate_total_payment,
+      flat_total_payment:this.flat_rate_final_total_payment,
+      flat_total_interest_paid:this.flat_rate_final_interest_payment,
+      flat_total_interest_paid_per:this.flat_rate_final_interest_payment_pre,
+      scheduled_payment:this.scheduled_payment,
+      scheduled_no_of_payment:this.lt,
+      interest_rate_per_period:this.interest_per_period,
+      reducing_total_payment:this.sum_pay_paid,
+      reducing_interest_paid:this.total_interest_paid,
+      reducing_interest_paid_precentage:this.sum_pay_percentage,
+      loan_data_emi:this.interest_table,
+      members_id:this.members_ids
+    };
+
+    this.api._create_loan_distribution(param).subscribe(data => {
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'success',
+        title: 'Group Loan Disbursement Created',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.route.navigate(['/disbursement']);
+    });
+    }
   }
 }

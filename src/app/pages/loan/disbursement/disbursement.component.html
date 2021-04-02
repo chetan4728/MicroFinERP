@@ -50,12 +50,12 @@
             </select>
           </div>
           <div class="col-md-2">
-           <button class="btn btn-success"  (click)="filterData()">Filter</button>
-           <button class="btn btn-danger loan_btn"  (click)="addLoan()">Add Loan</button>
+         
+           <button class="btn btn-danger loan_btn"  (click)="addLoan()">Assign Loan</button>
           </div>
           
         </div>
-          <table style="display: none;" datatable  [dtTrigger]="dtTrigger" class="table_loan table table-striped  table-bordered row-border hover"  >
+          <table  datatable  [dtTrigger]="dtTrigger" class="table_loan table table-striped  table-bordered row-border hover"  >
             <thead>
                 <tr>
                     
@@ -64,8 +64,8 @@
                     <th>Center</th>
                     <th>Group</th>
                     <th>Limit</th>
-                    <th>Added By</th>
-                    <th>Added Date</th>
+                    <th>Loan Amount</th>
+                    <th>Loan Date</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>

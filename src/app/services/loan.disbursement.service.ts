@@ -22,9 +22,14 @@ export class LoanDisbursementService {
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanMembers';
+  private create_loan_distribution = this.REST_API_SERVER + 'Loans/create_loan_distribution';
   constructor(private httpClient: HttpClient) { }
 
- 
+  _create_loan_distribution(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.create_loan_distribution}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
  
   _get_loans(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET}`,data).pipe(
