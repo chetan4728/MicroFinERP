@@ -26,7 +26,10 @@ export class LoanDisbursementComponent implements OnInit {
   apr:any=1;
   lt:any;
   loan_term_years=1;
+  
   loan_amount;
+  total_loan_amount;
+  total_loan_amount_number;
   scheduled_payment:any=0;
   flat_rate_principle_payment:any;
   flat_rate_interest_payment:any;
@@ -41,6 +44,7 @@ export class LoanDisbursementComponent implements OnInit {
   total_interest_paid:any;
   sum_pay_paid:any;
   sum_pay_percentage:any;
+  view_data:any;
   
   acutal_members:Number = 0;
   constructor(private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
@@ -52,7 +56,26 @@ export class LoanDisbursementComponent implements OnInit {
     const area_id = this.param.snapshot.paramMap.get('area_id');
     const center_id = this.param.snapshot.paramMap.get('center_id');
     const group_id = this.param.snapshot.paramMap.get('group_id');
+    const action = this.param.snapshot.paramMap.get('action');
+    const loan_distribution_id = this.param.snapshot.paramMap.get('distribution_id');
     this.Url = environment.uploads;
+
+    if(action=="edit")
+    {
+      this.api._get_loan_distribution_applications_data({loan_distribution_id:loan_distribution_id,branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data => {
+             this.view_data = data;
+            //console.log(data);
+            this.total_loan_amount = this.view_data.total_loan_amount;
+            this.loan_amount = this.view_data.loan_amount_per_member;
+            this.apr = this.view_data.anual_percentage_rate;
+            this.loan_term_years = this.view_data.term_year;
+            this.pmt_cal();
+           // alert(this.total_loan_amount)
+          
+        });
+    }
+    
+    
     
     this.api._get_group_details({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
       //console.log(data);
@@ -63,7 +86,7 @@ export class LoanDisbursementComponent implements OnInit {
 
 
      this.api._get_group_members({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
-      console.log(data);
+      //console.log(data);
       
       this.members = data;
       this.members_ids = [];
@@ -87,14 +110,17 @@ export class LoanDisbursementComponent implements OnInit {
      this.lt = this.loan_term_years * 12;
   }
   transformAmount(element) {
- //   alert(this.formattedAmount)
-    this.loan_amount = this.formattedAmount;
-    this.formattedAmount = this.currencyPipe.transform(
-      this.formattedAmount,
+    //alert(this.total_loan_amount)
+    this.total_loan_amount_number = this.total_loan_amount;
+    this.loan_amount = Math.round((this.total_loan_amount / this.GroupData.member_limit)).toFixed(2);
+
+   
+    this.total_loan_amount = this.currencyPipe.transform(
+      this.total_loan_amount_number,
       "₹"
     );
 
-    element.target.value = this.formattedAmount;
+    element.target.value = this.total_loan_amount;
   }
 
   payFeqFun(Event):void
@@ -235,8 +261,8 @@ export class LoanDisbursementComponent implements OnInit {
               
              
           }
-          this.total_interest_paid = sum_interest_paid;
-       this.sum_pay_paid =  parseFloat(sum_payment_paid) + parseFloat(sum_interest_paid);
+          this.total_interest_paid = sum_interest_paid.toFixed(2);
+       this.sum_pay_paid =  (parseFloat(sum_payment_paid) + parseFloat(sum_interest_paid)).toFixed(2);
        this.sum_pay_percentage =  ((this.total_interest_paid / this.loan_amount) * 100).toFixed(2)+"%";
   }
 
@@ -283,19 +309,17 @@ export class LoanDisbursementComponent implements OnInit {
        var total_payment:any =  (principle_payment + (this.loan_amount * interest_payment)).toFixed(2);
       this.flat_rate_total_payment =  total_payment;
       this.flat_rate_final_total_payment = (total_payment * this.lt).toFixed(2);
-      this.flat_rate_final_interest_payment = String(this.flat_rate_final_total_payment - this.loan_amount );
+      this.flat_rate_final_interest_payment = String((this.flat_rate_final_total_payment - this.loan_amount).toFixed(2));
       this.flat_rate_final_interest_payment_pre = String((this.flat_rate_final_interest_payment / this.loan_amount * 100 ).toFixed(2)) +"%";
       //alert(result.toFixed(2))
 
       this.getEmiTable();
   }
   submitData():void{
-    //alert(this.members.length)
-    
-
-    //alert(this.members_ids)
-
-    if(this.GroupData.member_limit!=this.members.length)
+    if(this.param.snapshot.paramMap.get('action')=="add")
+    {
+    if(0)
+    //if(this.GroupData.member_limit!=this.members.length)
     {
       Swal.fire({
         position: 'top-end',
@@ -307,8 +331,8 @@ export class LoanDisbursementComponent implements OnInit {
       });
     }
   
-    
-    else if(this.GroupData.member_limit!=this.acutal_members)
+    else if(0)
+    //else if(this.GroupData.member_limit!=this.acutal_members)
     {
       Swal.fire({
         position: 'top-end',
@@ -322,11 +346,12 @@ export class LoanDisbursementComponent implements OnInit {
     else
     {
       const branch_id = this.param.snapshot.paramMap.get('branch_id');
-    const area_id = this.param.snapshot.paramMap.get('area_id');
-    const center_id = this.param.snapshot.paramMap.get('center_id');
-    const group_id = this.param.snapshot.paramMap.get('group_id');
-    var param = {branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id,
-      loan_amount:this.loan_amount,anual_percentage_rate:this.apr,term_year:this.loan_term_years,loan_date:this.date,
+      const area_id = this.param.snapshot.paramMap.get('area_id');
+      const center_id = this.param.snapshot.paramMap.get('center_id');
+      const group_id = this.param.snapshot.paramMap.get('group_id');
+      var param = {branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id,
+      total_loan_amount:this.total_loan_amount_number,loan_members:this.GroupData.member_limit,
+      loan_amount_per_member:this.loan_amount,anual_percentage_rate:this.apr,term_year:this.loan_term_years,loan_date:this.date,
       payment_type:this.payment_type_period,payment_frequency:this.payFrq,cmpound_frequency:this.intFrq,
       flat_principle_payment:this.flat_rate_principle_payment,
       flat_interest_payment:this.flat_rate_interest_payment,
@@ -356,5 +381,10 @@ export class LoanDisbursementComponent implements OnInit {
       this.route.navigate(['/disbursement']);
     });
     }
+  }
+  else
+  {
+    alert()
+  }
   }
 }

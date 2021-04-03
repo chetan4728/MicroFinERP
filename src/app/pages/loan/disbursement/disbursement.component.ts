@@ -39,35 +39,30 @@ export class DisbursementComponent implements OnInit {
     this.Url = environment.uploads;
   }
   getListing():void{
-    this.api._get_loans({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
-      console.log(data);
-      this.ListingData = data;
-      if (this.isDtInitialized) {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
+      this.api._get_loan_distribution_applications({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
+        this.ListingData = data;
+        if (this.isDtInitialized) {
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.dtTrigger.next();
+          });
+        } else {
+          this.isDtInitialized = true;
           this.dtTrigger.next();
-        });
-      } else {
-        this.isDtInitialized = true;
-        this.dtTrigger.next();
-      }
-  });
+        }
+    });
   }
+
   loadBranch():void{
     this.api._get_branch().subscribe(data => {
       this.BranchList = data;
-      
-    
-  });
+   });
   }
 
   onChangeBranch(id):void{
     //alert(id)
     this.api._get_area({branch_id:id}).subscribe(data => {
       this.AreaList = data;
-
-    
-      
   });
   }
 
@@ -75,11 +70,9 @@ export class DisbursementComponent implements OnInit {
     //alert(id)
     this.api._get_centers({area_id:id}).subscribe(data => {
       this.CenterList = data;
-
-    
-   
   });
   }
+
   onChangeCenter(id):void{
     //alert(id)
     this.api._get_groups({center_id:id}).subscribe(data => {
@@ -91,8 +84,10 @@ export class DisbursementComponent implements OnInit {
 
   viewForm(data): void
   {
+    this.router.navigate(['/disbursement/LoanDisbursementForm/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/edit/"+data.loan_distribution_id]);
+    //this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
 
-    this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
+    
   }
 
   addLoan():void{
@@ -147,7 +142,7 @@ export class DisbursementComponent implements OnInit {
     }
     else
     {
-       this.router.navigate(['/disbursement/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp]);
+       this.router.navigate(['/disbursement/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp+"/add/"+0]);
     }
   }
 

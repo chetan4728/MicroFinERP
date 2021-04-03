@@ -64,7 +64,8 @@
                     <th>Center</th>
                     <th>Group</th>
                     <th>Limit</th>
-                    <th>Loan Amount</th>
+                    <th>Total Loan Amount</th>
+                    <th>Loan Amount (Per Member)</th>
                     <th>Loan Date</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -77,8 +78,20 @@
                 <td>{{row.area_name}}</td>
                 <td>{{row.center_name}}</td>
                 <td>{{row.group_name}}</td>
-              
-               
+                <td>{{row.loan_members}}</td>
+                <td>{{ row.total_loan_amount | currency:'INR' }}</td>
+                <td>{{ row.loan_amount_per_member | currency:'INR' }} </td>
+                <td>{{row.loan_date}}</td>
+                
+                <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                  <ng-template #thenTemplate>
+                    <span  class="badge badge-success ">Approved</span>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <span  class="badge badge-danger">Pending</span>
+                  </ng-template>
+                   </td>
+                   <td><button class="btn btn-success btn-sm" (click)="viewForm(row)"  >View</button>
             </tr>
             </tbody>
         </table>

@@ -119,14 +119,16 @@
                 <tr>
                     
                     <th>Profile</th>
-                    <th>Applicant Name</th>
-                    <th>Group</th>
-                    <th>Center</th>
-                    <th>Loan Purpose</th>
-                    <th>Loan Amount</th>
+                    <th>Name</th>
                     <th>Branch</th>
+                    <th>Center</th>
+                    <th>Group</th>
+                    
+                    <th>Loan Purpose</th>
+                    <th>Loan Amount Expected</th>
+                   
                     <th>Added By</th>
-                    <th>Added Date</th>
+                    <th>Date</th>
                     <th>Status</th>
                     
                 </tr>
@@ -136,11 +138,12 @@
             
                 <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
                 <td>{{row.applicant_name}}</td>
-                <td>{{row.group_name}}</td>
+                <td>{{row.branch_name}}</td>
                 <td>{{row.center_name}}</td>
+                <td>{{row.group_name}}</td>
+                
                 <td>{{row.loan_purpose}}</td>
                 <td><span  class="badge badge-success ">{{ row.loan_amount | currency:'INR' }}</span></td>
-                <td>{{row.branch_name}}</td>
                 <td>{{row.added_by}}</td>
                 <td>{{row.created_date}}</td>
                 <td><ng-container *ngIf="row.approved_status == 1; then thenTemplate; else elseTemplate"></ng-container>
@@ -172,14 +175,21 @@
             <div class="row">
               <table>
                 <tr>
-                  <td>Loan Amount</td>
-                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="[transformAmount($event),pmt_cal()]" [(ngModel)]="formattedAmount" class="form-control margin_left_10" ></td>
+                  <td>Total group loan amount</td>
+                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="[transformAmount($event),pmt_cal()]" [(ngModel)]="total_loan_amount" class="form-control margin_left_10" ></td>
                 </tr>
 
                 <tr>
                   <td>Annual percentage rate (APR)</td>
                   <td> <input type="text" [(ngModel)]="apr" (blur)="pmt_cal()" class="form-control margin_left_10" ></td>
                 </tr>
+                
+                <tr>
+                  <td>Loan amount (Per Member)</td>
+                  <td> <input type="text"  readonly   [(ngModel)]="loan_amount" class="form-control margin_left_10" ></td>
+                </tr>
+
+                
 
                 <tr>
                   <td>Loan terms (Years)</td>
@@ -237,26 +247,30 @@
           <div class="col-md-6">
             <table>
               <tr>
+                <td style="width: 40%;">Total Members</td>
+                <td><input type="text" readonly  [(ngModel)]="this.GroupData.member_limit" class="form-control margin_left_10" ></td>
+              </tr>
+              <tr>
                 <td style="width: 40%;">{{this.payFrq}} Principle Payment</td>
-                <td><input type="text"  [(ngModel)]="flat_rate_principle_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly  [(ngModel)]="flat_rate_principle_payment" class="form-control margin_left_10" ></td>
               </tr>
               <tr>
                 <td style="width: 40%;">{{this.payFrq}} Interest Payment</td>
-                <td><input type="text"  [(ngModel)]="flat_rate_interest_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly  [(ngModel)]="flat_rate_interest_payment" class="form-control margin_left_10" ></td>
               </tr>
               <tr>
                 <td style="width: 40%;">Total {{this.payFrq}} Payment</td>
-                <td><input type="text" [(ngModel)]="flat_rate_total_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly [(ngModel)]="flat_rate_total_payment" class="form-control margin_left_10" ></td>
               </tr>
 
               <tr>
                 <td style="width: 40%;"><b>Total Payments</b></td>
-                <td><input type="text"  [(ngModel)]="flat_rate_final_total_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly  [(ngModel)]="flat_rate_final_total_payment" class="form-control margin_left_10" ></td>
               </tr>
               <tr>
                 <td style="width: 40%;"><b>Total Interest Paid</b></td>
-                <td><input type="text" [(ngModel)]="flat_rate_final_interest_payment" class="form-control margin_left_10" ></td>
-                <td><input type="text" [(ngModel)]="flat_rate_final_interest_payment_pre"  class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly [(ngModel)]="flat_rate_final_interest_payment" class="form-control margin_left_10" ></td>
+                <td><input type="text" readonly [(ngModel)]="flat_rate_final_interest_payment_pre"  class="form-control margin_left_10" ></td>
               </tr>
             </table>
           </div>
@@ -269,7 +283,7 @@
               <table>
                 <tr>
                   <td>Scheduled {{this.payFrq}} Payment</td>
-                  <td><input type="text" [(ngModel)]="scheduled_payment"  class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="scheduled_payment" readonly class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td>Scheduled number of payments </td>
@@ -277,7 +291,7 @@
                 </tr>
                 <tr>
                   <td>Interest Rate (Per Period)</td>
-                  <td><input type="text" [(ngModel)]="interest_per_period" class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="interest_per_period" readonly class="form-control margin_left_10" ></td>
                 </tr>
   
                 <tr>
@@ -293,18 +307,18 @@
   
                 <tr>
                   <td style="width: 40%;"><b>Total Payments</b></td>
-                  <td><input type="text" [(ngModel)]="sum_pay_paid" class="form-control margin_left_10" ></td>
+                  <td><input type="text" readonly [(ngModel)]="sum_pay_paid" class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td style="width: 40%;"><b>Total Interest Paid</b></td>
-                  <td><input type="text" [(ngModel)]="total_interest_paid" class="form-control margin_left_10" ></td>
-                  <td><input type="text"  [(ngModel)]="sum_pay_percentage"   class="form-control margin_left_10" ></td>
+                  <td><input type="text" readonly [(ngModel)]="total_interest_paid" class="form-control margin_left_10" ></td>
+                  <td><input type="text"  readonly [(ngModel)]="sum_pay_percentage"   class="form-control margin_left_10" ></td>
                 </tr>
               </table>
             </div>
           </div>
           <div class="row cal_box">
-            <table class="table table-bordered">
+            <table class="table table-striped  table-bordered row-border hover">
               <tr>
                 <th>No</th>
                 <th>Payment Date</th>

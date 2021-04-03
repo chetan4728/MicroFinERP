@@ -23,6 +23,9 @@ export class LoanDisbursementService {
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanMembers';
   private create_loan_distribution = this.REST_API_SERVER + 'Loans/create_loan_distribution';
+
+  private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
+  private get_loan_distribution_files_edit = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files_edit';
   constructor(private httpClient: HttpClient) { }
 
   _create_loan_distribution(data): Observable<String>{
@@ -31,6 +34,16 @@ export class LoanDisbursementService {
     );
   }
  
+  _get_loan_distribution_applications(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.get_loan_distribution_files}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _get_loan_distribution_applications_data(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.get_loan_distribution_files_edit}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
   _get_loans(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET}`,data).pipe(
       catchError(this.handleError)

@@ -16,7 +16,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'LoanDisbursementForm/:branch_id/:area_id/:center_id/:group_id',
+    path: 'LoanDisbursementForm/:branch_id/:area_id/:center_id/:group_id/:action/:distribution_id',
     pathMatch: 'full',
     component: LoanDisbursementComponent,
     data: {
