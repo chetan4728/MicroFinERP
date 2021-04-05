@@ -94,6 +94,13 @@ export const routes: Routes = [
           data: {
             title: 'Loans Page'
           },
+        },
+        {
+          path: 'emi',
+          loadChildren: () => import('../app/pages/loan/emi/emi.module').then(m => m.EmiModule),
+          data: {
+            title: 'Emi Page'
+          },
         }
       ]
     }

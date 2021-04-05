@@ -1,0 +1,167 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Loan EMI</h1>
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/emi']"  >EMI Listing</a></li>
+            <li class="breadcrumb-item active">Loan EMI</li>
+           
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+
+    
+
+  
+      <div class="container-fluid card">
+        <div class="row filters">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Group Information 
+                    <ng-container *ngIf="this.GroupData.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
+                    <ng-template #thenTemplate>
+                      <span  class="badge badge-success ">Approved</span>
+                    </ng-template>
+                    <ng-template #elseTemplate>
+                      <span  class="badge badge-danger">Pending</span>
+                    </ng-template></legend> 
+               
+        
+                <div class="row">
+                  
+                    <div class=" col-md-12">
+                     <div class="row">
+                        <div class="col-md-3">
+                         <div class="form-group">
+                           <label>Branch Name</label>
+                           <input type="text" class="form-control"  readonly   value="{{this.GroupData.branch_name}}"  >
+                       
+                        </div>
+                      </div>
+          
+                      <div class="col-md-3">
+                       <div class="form-group">
+                         <label>Area Name</label>
+                         <input type="text" class="form-control"  readonly    value="{{this.GroupData.area_name}}" >
+                     
+                      </div>
+                     </div> 
+          
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         <label>Center Name</label>
+                         <input type="text" class="form-control"  readonly  value="{{this.GroupData.center_name}}" >
+                     
+                      </div>
+                     </div> 
+          
+                   
+        
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Group Name</label>
+                          <input type="text" class="form-control"  readonly   value="{{this.GroupData.group_name}}" >
+                      
+                       </div>
+                      </div>
+        
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Group Limit</label>
+                            <input type="text" class="form-control"  readonly   value="{{this.GroupData.member_limit}}" >
+                      
+                       </div>
+                      </div>
+        
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Created Date</label>
+                            <input type="text" class="form-control"  readonly   value="{{this.GroupData.created_date}}" >
+                      
+                       </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Contact Person Name</label>
+                            <input type="text" class="form-control"  readonly   value="{{this.GroupData.contact_person}}" >
+                      
+                       </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Contact Person Number</label>
+                            <input type="text" class="form-control"  readonly   value="{{this.GroupData.contact_number}}" >
+                      
+                       </div>
+                      </div>
+                      
+                    </div>
+                    </div>
+                </div>
+        
+                 
+            
+            </fieldset>
+
+
+            <fieldset class="scheduler-border" *ngFor="let row of MemberList; let i = index">
+              <legend class="scheduler-border"><span  class="badge badge-warning ">{{row.applicant_name}}</span>
+                 </legend> 
+                 <div class="row">
+                  <table class="table table-striped  table-bordered row-border hover">
+                    <tr>
+                      <th>No</th>
+                      <th>Due Date</th>
+                      <th>Beginning Balance</th>
+                      <th>Scheduled Payment</th>
+                      <th>Interest Paid</th>
+                      <th>Principle Paid</th>
+                      <th>Ending Balance</th>
+                     
+                      <th>Payment Paid</th>
+                      <th>Payment Status</th>
+                      <th>Paid Date</th>
+                    </tr>
+                    <tbody>
+                      <tr *ngFor="let row of row.loan_emi; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{row.payment_date}}</td>
+                        <td>{{row.begining_bal}}</td>
+                        <td>{{row.scheduled_payment}}</td>
+                        <td>{{row.interest_paid}}</td>
+                        <td>{{row.principle_paid}}</td>
+                        <td>{{row.ending_balance}}</td>
+                        
+                           <td><input type="text" class="form-control"/></td>
+                           <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                            <ng-template #thenTemplate>
+                              <span  class="badge badge-success ">Approved</span>
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                              <span  class="badge badge-danger">Pending</span>
+                            </ng-template>
+                             </td>
+                           <td>{{row.paid_date}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+              </div>
+          </fieldset>
+        </div>
+    </div>
+  </section>
+  
+  <!-- /.content -->
+
+
