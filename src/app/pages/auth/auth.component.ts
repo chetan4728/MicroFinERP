@@ -115,7 +115,10 @@ export class AuthComponent implements OnInit {
           employee_last_name: res.employee_last_name,
           employee_role_id: res.employee_role_id,
           profile: res.profile,
-          employee_branch_id: res.employee_branch_id,
+          employee_branch_id: res.branch_id,
+          branch_name: res.branch_name,
+          bank_id: res.bank_id,
+          bank_app_key_code: res.bank_app_key_code,
          };
         this.local.set(environment.userSession, session, environment.SessionTime, 's');
          window.location.href = 'dashboard/';
