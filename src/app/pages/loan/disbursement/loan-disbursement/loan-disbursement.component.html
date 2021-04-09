@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Loan Distribution</h1>
+          <h1 class="m-0 text-dark">Loan Sanction</h1>
           
         </div><!-- /.col -->
         <div class="col-sm-6">
@@ -10,8 +10,8 @@
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a [routerLink]="['/disbursement']" >
                
-              Disbursement Allocation</a></li>
-            <li class="breadcrumb-item active">Loan Distribution</li>
+              Loan Sanction Pending</a></li>
+            <li class="breadcrumb-item active">Loan Sanction</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -130,6 +130,7 @@
                     <th>Added By</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Action</th>
                     
                 </tr>
             </thead>
@@ -156,7 +157,7 @@
                    </td>
 
                    
-
+                   <td><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
                 
                    
                 
@@ -169,31 +170,31 @@
        <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Loan Distribution's</legend> 
 
-        <p class="header_span">Flat Rate Interest Calculator (Summary)</p>
+        <p class="header_span">Enter Loan Sanction Details</p>
         <div class="row cal_box">
           <div class="col-md-6">
             <div class="row">
               <table>
                 <tr>
-                  <td>Total group loan amount</td>
+                  <td><b>Loan amount</b></td>
                   <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="[transformAmount($event),pmt_cal()]" [(ngModel)]="total_loan_amount" class="form-control margin_left_10" ></td>
                 </tr>
 
                 <tr>
                   <td>Annual percentage rate (APR)</td>
-                  <td> <input type="text" [(ngModel)]="apr" (blur)="pmt_cal()" class="form-control margin_left_10" ></td>
+                  <td> <input type="text" [(ngModel)]="apr" readonly (blur)="pmt_cal()" class="form-control margin_left_10" ></td>
                 </tr>
                 
                 <tr>
                   <td>Loan amount (Per Member)</td>
-                  <td> <input type="text"  readonly   [(ngModel)]="loan_amount" class="form-control margin_left_10" ></td>
+                  <td> <input type="text"  readonly  readonly [(ngModel)]="loan_amount" class="form-control margin_left_10" ></td>
                 </tr>
 
                 
 
                 <tr>
                   <td>Loan terms (Years)</td>
-                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="get_loan_term($event)" [(ngModel)]="loan_term_years"   class="form-control margin_left_10" ></td>
+                  <td> <input type="text" readonly (keydown)="numberOnly($event)"  (blur)="get_loan_term($event)" [(ngModel)]="loan_term_years"   class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td>Loan date (mm/dd/yy)</td>
@@ -203,7 +204,7 @@
                 <tr>
                   <td>Payment type</td>
                   <td>
-                    <select class="form-control margin_left_10" [(ngModel)]="payment_type_period">
+                    <select class="form-control margin_left_10" readonly [(ngModel)]="payment_type_period">
                       <option value="Beginning of the Period" >Beginning of the Period</option>
                       <option value="End of the Period" >End of the Period</option>
                     </select>
@@ -213,7 +214,7 @@
                 <tr>
                   <td>Payment frequency</td>
                   <td>
-                    <select class="form-control margin_left_10" id="dp"  [(ngModel)]="payFrq"   (change)="payFeqFun($event.target.value)">
+                    <select class="form-control margin_left_10" id="dp"   [(ngModel)]="payFrq"   (change)="payFeqFun($event.target.value)">
                       <option value="Weekly" >Weekly</option>
                       <option value="Bi-weekly" >Bi-weekly</option>
                       <option value="Semi-monthly" >Semi-monthly</option>
@@ -247,8 +248,13 @@
           <div class="col-md-6">
             <table>
               <tr>
-                <td style="width: 40%;">Total Members</td>
-                <td><input type="text" readonly  [(ngModel)]="this.GroupData.member_limit" class="form-control margin_left_10" ></td>
+                <td style="width: 40%;">Select Product</td>
+                <td><select class="form-control margin_left_10" [(ngModel)]="int_product"  (change)="int_product_dp($event.target.value)">
+                  <option value="0">Select</option>
+                  <option value="25" >MLM</option>
+                  <option value="15" >BC</option>
+                  
+                </select></td>
               </tr>
               <tr>
                 <td style="width: 40%;">{{this.payFrq}} Principle Payment</td>
@@ -287,17 +293,14 @@
                 </tr>
                 <tr>
                   <td>Scheduled number of payments </td>
-                  <td><input type="text" [(ngModel)]="lt"  (blur)="pmt_cal()"  class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="lt"  readonly (blur)="pmt_cal()"  class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td>Interest Rate (Per Period)</td>
                   <td><input type="text" [(ngModel)]="interest_per_period" readonly class="form-control margin_left_10" ></td>
                 </tr>
   
-                <tr>
-                  <td>Payment Type</td>
-                  <td><input type="text" class="form-control margin_left_10" ></td>
-                </tr>
+                
                 
               </table>
             </div>

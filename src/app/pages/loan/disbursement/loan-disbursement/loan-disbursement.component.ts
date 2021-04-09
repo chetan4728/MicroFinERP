@@ -45,9 +45,10 @@ export class LoanDisbursementComponent implements OnInit {
   sum_pay_paid:any;
   sum_pay_percentage:any;
   view_data:any;
+  int_product:any = 0;
   
   acutal_members:Number = 0;
-  constructor(private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
+  constructor(private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
 
   ngOnInit(): void {
     //alert()
@@ -112,7 +113,7 @@ export class LoanDisbursementComponent implements OnInit {
   transformAmount(element) {
     //alert(this.total_loan_amount)
     this.total_loan_amount_number = this.total_loan_amount;
-    this.loan_amount = Math.round((this.total_loan_amount / this.GroupData.member_limit)).toFixed(2);
+    this.loan_amount = Math.round((this.total_loan_amount)).toFixed(2);
 
    
     this.total_loan_amount = this.currencyPipe.transform(
@@ -126,6 +127,12 @@ export class LoanDisbursementComponent implements OnInit {
   payFeqFun(Event):void
   {
     this.payFrq = Event;
+       
+  }
+
+  int_product_dp(Event):void
+  {
+    this.int_product = Event;
        
   }
 
@@ -386,5 +393,11 @@ export class LoanDisbursementComponent implements OnInit {
   {
     alert()
   }
+  }
+
+  viewForm(data): void
+  {
+
+    this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
   }
 }
