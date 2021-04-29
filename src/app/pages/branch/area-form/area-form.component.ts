@@ -8,6 +8,8 @@ import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AreaService } from 'src/app/services/area.service';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { LocalStorageService } from 'angular-web-storage';
+import { environment } from 'src/environments/environment.prod';
 declare var $: any;
 @Component({
   selector: 'app-area-form',
@@ -25,12 +27,14 @@ export class AreaFormComponent implements OnInit {
    AreaList: Area[];
    Form: FormGroup;
    id :any;
-   constructor(private formBuilder: FormBuilder,private api: AreaService, private branch: BranchService,private param: ActivatedRoute ,) { 
+   session:any
+   constructor(public local: LocalStorageService,private formBuilder: FormBuilder,private api: AreaService, private branch: BranchService,private param: ActivatedRoute ,) { 
     this.id =  this.param.snapshot.paramMap.get('id');
     this.selectRoleRow.branch_id =  this.id;
    }
 
   ngOnInit(): void {
+    this.session = this.local.get(environment.userSession);
     this.LoadBranch();
     this.initForm();
     this.LoadTableData();
@@ -138,7 +142,7 @@ export class AreaFormComponent implements OnInit {
   
   LoadBranch(): void{
 
-    this.branch._get_branch().subscribe((branches: Branch[]) => {
+    this.branch._get_branch({bank_id:this.session.bank_id,token:this.session.token}).subscribe((branches: Branch[]) => {
       this.BranchList = branches;
   });
   }

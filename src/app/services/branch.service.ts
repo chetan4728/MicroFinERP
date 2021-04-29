@@ -29,8 +29,8 @@ export class BranchService {
       catchError(this.handleError)
     );
   }
-  _get_branch(): Observable<Branch[]>{
-    return this.httpClient.get<Branch[]>(`${this.GET_BRANCH_TABLE}`).pipe(
+  _get_branch(data): Observable<Branch[]>{
+    return this.httpClient.post<Branch[]>(`${this.GET_BRANCH_TABLE}`, data).pipe(
       catchError(this.handleError)
     );
   }

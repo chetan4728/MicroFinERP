@@ -31,7 +31,7 @@
         
         </li>
       
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview"  >
           <a href="#"  class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
             <p>
@@ -41,6 +41,13 @@
           </a>
           <ul class="nav nav-treeview">
 
+            <li class="nav-item"  *ngIf="this.Role=='AD'" >
+              <a [routerLink]="['/bank-details']" routerLinkActive="active" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manage Banks</p>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a [routerLink]="['/bank-details']" routerLinkActive="active" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -48,20 +55,20 @@
               </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
               <a [routerLink]="['/role']" routerLinkActive="active" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Manage Role</p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
               <a [routerLink]="['/branch']" routerLinkActive="active" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Manage Branch</p>
               </a>
             </li>
   
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
               <a  [routerLink]="['/users']" routerLinkActive="active"   class="nav-link">
                 <i class="far fa-user nav-icon"></i>
                 <p>System Users</p>

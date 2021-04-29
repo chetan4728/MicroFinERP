@@ -8,10 +8,13 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
 })
 export class SidebarComponent implements OnInit {
   SessionData: any;
+  Role:any;
   constructor(public local: LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
+    this.Role =  this.SessionData.role_code;
+    console.log(this.Role);
   }
 
 }

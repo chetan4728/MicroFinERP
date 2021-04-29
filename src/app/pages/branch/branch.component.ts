@@ -7,6 +7,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { BranchService } from 'src/app/services/branch.service';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
+import { LocalStorageService} from 'angular-web-storage';
+import { environment } from 'src/environments/environment.prod';
 declare var $: any;
 @Component({
   selector: 'app-branch',
@@ -23,11 +25,13 @@ export class BranchComponent implements OnInit {
   StateList: [];
   DistrictList: [];
   BranchList: Branch[];
+  session:any
   selectRoleRow: Branch = {address: null , branch_id : 0, branch_code : null,
   branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
-  constructor(private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
+  constructor(public local: LocalStorageService,private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
 
   ngOnInit(): void {
+    this.session = this.local.get(environment.userSession);
     this.initForm();
     this.dp._getStats().subscribe(data => {
       this.StateList = data;
@@ -36,8 +40,9 @@ export class BranchComponent implements OnInit {
     this.LoadTable();
   }
   LoadTable(): void{
+   
 
-    this.api._get_branch().subscribe((branches: Branch[]) => {
+    this.api._get_branch({bank_id:this.session.bank_id,token:this.session.token}).subscribe((branches: Branch[]) => {
 
       this.BranchList = branches;
       if (this.isDtInitialized) {
