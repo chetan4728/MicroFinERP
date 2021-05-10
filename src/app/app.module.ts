@@ -20,15 +20,6 @@ import { SuperHeaderComponent } from './pages/superadmin/layout/header/superhead
 import { SuperFooterComponent } from './pages/superadmin/layout/footer/superfooter.component';
 import { SuperSidebarComponent } from './pages/superadmin/layout/sidebar/supersidebar.component';
 
-
-
-
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
