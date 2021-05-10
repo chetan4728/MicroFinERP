@@ -35,7 +35,7 @@ export const routes: Routes = [
   children: [
     {
       path: 'superdashboard',
-      loadChildren: () => import('../app/pages/superadmin/dashboard/superdashboard.module').then(m => m.SuperDashboardModule),
+      loadChildren: () => import('./pages/superadmin/dashboard/superdashboard.module').then(m => m.SuperDashboardModule),
       data: {
         title: 'Super Dashboard | Home'
       },
