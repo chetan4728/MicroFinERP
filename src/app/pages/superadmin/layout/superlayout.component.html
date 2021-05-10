@@ -1,0 +1,11 @@
+<app-superheader></app-superheader>
+<app-supersidebar></app-supersidebar>
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+    <app-superfooter></app-superfooter>
+         <div class="spinner" *ngIf="routerChanged">
+         <div class="bounce1"></div>
+         <div class="bounce2"></div>
+         <div class="bounce3"></div>
+      </div>
+     </div>  

@@ -119,6 +119,7 @@ export class AuthComponent implements OnInit {
           role_code: res.role_code,
           employee_branch_id: res.branch_id,
           branch_name: res.branch_name,
+          bank_name: res.bank_name,
           bank_app_key_code: res.bank_app_key_code,
          };
         this.local.set(environment.userSession, session, environment.SessionTime, 's');

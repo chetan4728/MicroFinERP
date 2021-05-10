@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import { environment } from 'src/environments/environment.prod';
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-superheader',
+  templateUrl: './superheader.component.html',
+  styleUrls: ['./superheader.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class SuperHeaderComponent implements OnInit {
   SessionData: any;
   Role:any;
   Bank_name:any;

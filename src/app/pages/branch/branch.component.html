@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label>Branch State</label>
                         <select class="form-control"  [(ngModel)]="selectRoleRow.state_id"  formControlName="state_id" (change)="onChangeState($event.target.value)">
-                          <option value="">Select State</option>
+                          <option value="null">Select State</option>
                           <option *ngFor="let row of StateList; let i = index" [value]="row.id" >{{row.name}}</option>
                          </select>
                      
@@ -112,7 +112,7 @@
                     <div class="form-group">
                         <label>Branch District</label>
                         <select class="form-control"  [(ngModel)]="selectRoleRow.district_id"  formControlName="district_id" >
-                          <option value="">Select District</option>
+                          <option value="null">Select District</option>
                           <option *ngFor="let row of DistrictList; let i = index" [value]="row.id" >{{row.name}}</option>
                          </select>
                        
@@ -156,7 +156,7 @@
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control"  [(ngModel)]="selectRoleRow.branch_status"  formControlName="branch_status" >
-                            <option value="" >Select Status</option>
+                            <option value="null" >Select Status</option>
                             <option value="1">Active</option>
                             <option value="2">DeActive</option>
                           </select>

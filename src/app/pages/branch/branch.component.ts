@@ -26,7 +26,7 @@ export class BranchComponent implements OnInit {
   DistrictList: [];
   BranchList: Branch[];
   session:any
-  selectRoleRow: Branch = {address: null , branch_id : 0, branch_code : null,
+  selectRoleRow: Branch = {address: null , branch_id : 0,bank_id:0, branch_code : null,
   branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
   constructor(public local: LocalStorageService,private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
 
@@ -71,7 +71,7 @@ export class BranchComponent implements OnInit {
   }
 
   showModal(): void {
-    this.selectRoleRow = {address: null , branch_id : 0, branch_code : null,
+    this.selectRoleRow = {address: null , branch_id : 0,bank_id:0, branch_code : null,
       branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
     $('#myModal').modal('show');
 
@@ -79,6 +79,8 @@ export class BranchComponent implements OnInit {
   submit(): void {
     if (this.selectRoleRow.branch_id > 0)
     {
+
+
       this.api._update_branch(this.selectRoleRow).subscribe(data =>
         {
            this.LoadTable();

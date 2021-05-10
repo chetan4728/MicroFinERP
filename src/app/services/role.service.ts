@@ -23,27 +23,36 @@ export class RoleService {
 
   /* Manage Role Operations */
   _add_role(add: Role): Observable<Role>{
-    return this.httpClient.post<Role>(`${this.ADD_ROLL_API + this.SessionData.token}`, add).pipe(
+    const headers = new HttpHeaders()
+    .set('Authorization',  this.SessionData.token)
+    .set('Content-Type', 'application/json')
+    return this.httpClient.post<Role>(`${this.ADD_ROLL_API}`, add,{headers}).pipe(
       catchError(this.handleError)
     );
   }
 
    _update_role(update: Role): Observable<Role>{
-    return this.httpClient.post<Role>(`${this.UPDATE_ROLL_API}`, update).pipe(
+    const headers = new HttpHeaders()
+    .set('Authorization',  this.SessionData.token)
+    .set('Content-Type', 'application/json')
+    return this.httpClient.post<Role>(`${this.UPDATE_ROLL_API}`, update ,{headers}).pipe(
       catchError(this.handleError)
     );
   }
   _delete_role(data): Observable<any>{
-    return this.httpClient.post<any>(`${this.DELETE_ROLL_API}`, data).pipe(
+    const headers = new HttpHeaders()
+    .set('Authorization',  this.SessionData.token)
+    .set('Content-Type', 'application/json')
+    return this.httpClient.post<any>(`${this.DELETE_ROLL_API}`, data,{headers}).pipe(
       catchError(this.handleError)
     );
   }
 
-  _getRole(): Observable<Role[]>{
+  _getRole(data): Observable<Role[]>{
     const headers = new HttpHeaders()
     .set('Authorization',  this.SessionData.token)
     .set('Content-Type', 'application/json')
-    return this.httpClient.get<Role[]>(`${this.ROLL_API}`, {headers}).pipe(
+    return this.httpClient.post<Role[]>(`${this.ROLL_API}`,data,{headers}).pipe(
       catchError(this.handleError)
     );
   }

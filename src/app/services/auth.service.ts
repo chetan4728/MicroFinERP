@@ -11,12 +11,27 @@ export class AuthService {
   private REST_API_SERVER = environment.api;
   private ROLL_API = this.REST_API_SERVER + 'auth/LoadRoleTable';
   private CHECK_USER = this.REST_API_SERVER + 'auth/checkUsername';
+  private CHECK_SUPER_USER = this.REST_API_SERVER + 'superauth/checkUsername';
+  private CHECK_SUPER_PASSWORD = this.REST_API_SERVER + 'superauth/checkUsernameWithpassword';
+  private CHECK_SUPER_LOGIN = this.REST_API_SERVER + 'superauth/loginSession';
   private CHECK_PASSWORD = this.REST_API_SERVER + 'auth/checkUsernameWithpassword';
   private LOGIN = this.REST_API_SERVER + 'auth/loginSession';
   private CHECK_SETUP = this.REST_API_SERVER + 'auth/Checksetup';
   private SETUP = this.REST_API_SERVER + 'auth/setup';
   constructor(private httpClient: HttpClient) { }
 
+  _checsuperkUser(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.CHECK_SUPER_USER}`, data);
+  }
+
+  _checkSuperPassword(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.CHECK_SUPER_PASSWORD}`, data);
+  }
+
+  _loginSperSession(data): Observable<any>
+  {
+    return this.httpClient.post<any>(`${this.CHECK_SUPER_LOGIN}`, data);
+  }
   _getRole(): Observable<Role[]>{
     return this.httpClient.get<Role[]>(`${this.ROLL_API}`).pipe(
       catchError(this.handleError)

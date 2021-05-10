@@ -1,0 +1,127 @@
+
+.login-box
+{
+   
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    
+   
+}
+.logo_td
+{
+    width: 100px;
+    height: 100px;
+}
+.registration-box
+{
+   
+  
+ 
+    width: 60%;
+    margin: 0px auto;
+
+}
+.bg
+{
+ background-image: url(../../../../assets/dist/img/bg.jpg);
+ width: 100%;
+
+height: 768px;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+.card-body.login-card-body
+{
+    background-color: aliceblue;
+}
+.right
+{
+    color:rgb(20, 179, 20);
+}
+.wrong
+{
+    color: red;
+}
+h1.login-box-msg {font-size: 19px;font-weight: bold;text-transform: uppercase;}
+
+
+.card
+{
+ padding: 5px;
+}
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+    legend.scheduler-border {
+        font-size: 18px !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        color: #797979!important;
+        border-bottom:none;
+    }
+
+    .image-container {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        left: 43%;
+        margin-bottom: 20px;
+      }
+      
+      img {
+        height: 200px;
+        width: 200px;
+        border: 5px solid #000;
+        border-radius: 50%;
+      }
+      
+      .select-profile-picture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+      .hide
+      {
+          display:none;
+      }
+      .show
+      {
+          display: block!important;
+      }
+      
+      .message {
+        position: absolute;
+        width: 90%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        transition: all 1s;
+        opacity: 0;
+      }
+      
+      .image-container:hover .message {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      } 
+
+      .address_input{
+
+        word-break: break-word;
+    } 

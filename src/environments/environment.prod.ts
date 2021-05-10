@@ -1,6 +1,6 @@
 export const environment = {
-  api: 'https://ally-international.com/portal/api/',
-  uploads: 'https://ally-international.com/portal/uploads/Documents/',
+  api: 'http://sfsfin.in/portal/api/',
+  uploads: 'http://sfsfin.in/portal/uploads/Documents/',
   userSession: 'userSession',
   SessionTime: 3600,
   production: true

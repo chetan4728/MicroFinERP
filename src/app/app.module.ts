@@ -14,6 +14,13 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { CurrencyPipe } from "@angular/common";
+import { SuperauthComponent } from './pages/superadmin/superauth/superauth.component';
+import { SuperLayoutComponent } from './pages/superadmin/layout/Superlayout.component';
+import { SuperHeaderComponent } from './pages/superadmin/layout/header/superheader.component';
+import { SuperFooterComponent } from './pages/superadmin/layout/footer/superfooter.component';
+import { SuperSidebarComponent } from './pages/superadmin/layout/sidebar/supersidebar.component';
+
+
 
 
 
@@ -26,10 +33,16 @@ import { CurrencyPipe } from "@angular/common";
   declarations: [
     AppComponent,
     LayoutComponent,
+    SuperLayoutComponent,
+    SuperHeaderComponent,
+    SuperFooterComponent,
+    SuperSidebarComponent,
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
     AuthComponent,
+    SuperauthComponent
+
 
   ],
   imports: [

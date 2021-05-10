@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { SuperauthComponent } from './pages/superadmin/superauth/superauth.component';
+import { SuperLayoutComponent } from './pages/superadmin/layout/Superlayout.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -15,6 +18,32 @@ export const routes: Routes = [
     component: AuthComponent,
     pathMatch: 'full'
   },
+  {
+    path: 'super',
+    component: SuperauthComponent,
+    pathMatch: 'full'
+  },
+
+ /*Super Admin Routing*/
+
+ {
+  path: '',
+  component: SuperLayoutComponent,
+  data: {
+    title: 'Angular Admin Template'
+  },
+  children: [
+    {
+      path: 'superdashboard',
+      loadChildren: () => import('../app/pages/superadmin/dashboard/superdashboard.module').then(m => m.SuperDashboardModule),
+      data: {
+        title: 'Super Dashboard | Home'
+      },
+    },
+  ]
+},
+
+  /*Bank Routing */
     {
       path: '',
       component: LayoutComponent,

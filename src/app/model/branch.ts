@@ -1,6 +1,7 @@
 export class Branch {
 
     branch_id: number;
+    bank_id:number;
     branch_name: string;
     branch_code: string;
     state_id: number;
