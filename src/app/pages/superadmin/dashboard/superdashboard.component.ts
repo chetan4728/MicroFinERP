@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {  FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperDashboardComponent implements OnInit {
 
-  constructor() { }
+  Form: FormGroup;
+  constructor( private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }

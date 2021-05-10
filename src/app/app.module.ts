@@ -20,6 +20,7 @@ import { SuperheaderComponent } from './pages/superadmin/layout/header/superhead
 import { SuperfooterComponent } from './pages/superadmin/layout/footer/superfooter.component';
 import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersidebar.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersi
     FooterComponent,
     SidebarComponent,
     AuthComponent,
-    SuperauthComponent
+    SuperauthComponent,
 
 
   ],

@@ -14,10 +14,31 @@ export class BankService {
   private REST_API_SERVER = environment.api;
   private UPDATE = this.REST_API_SERVER + 'Bank/update';
   private GET = this.REST_API_SERVER + 'Bank/LoadTable';
-  
+  private GETALLBANKS = this.REST_API_SERVER + 'Bank/LoadAllbanks';
+  private ADD_BANK = this.REST_API_SERVER + 'Bank/addBank';
+  private UPLOAD_PHOTO = this.REST_API_SERVER + 'Bank/upload_photo';
   constructor(private httpClient: HttpClient) { }
 
 
+  _upload_photo(form, id): Observable<String>{
+    const formData: any = new FormData();
+    formData.append('bank_logo', form.get('bank_logo').value);
+    formData.append('bank_id', id);
+    return this.httpClient.post<String>(`${this.UPLOAD_PHOTO}`, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _add_user(form): Observable<String>{
+    return this.httpClient.post<String>(`${this.ADD_BANK}`, form);
+  }
+
+
+  _getallbanks(): Observable<String>{
+    return this.httpClient.get<String>(`${this.GETALLBANKS}`).pipe(
+      catchError(this.handleError)
+    );
+  }
   /* Manage Role Operations */
   
   _update(add: Area): Observable<Area>{

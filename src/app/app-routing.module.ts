@@ -41,6 +41,14 @@ export const routes: Routes = [
         title: 'Super Dashboard | Home'
       },
     },
+
+    {
+      path: 'Activebanks',
+      loadChildren: () => import('./pages/superadmin/managebanks/managebanks.module').then(m => m.ManagebanksModule),
+      data: {
+        title: 'Super Dashboard | Home'
+      },
+    },
   ]
 },
 
