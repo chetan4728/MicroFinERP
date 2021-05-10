@@ -2,9 +2,10 @@
   "name": "erp",
   "version": "0.0.0",
   "scripts": {
-    "heroku-postbuild": "ng build --prod",
+
+    "heroku-postbuild": "next build",
+    "start": "next start -p $PORT",
     "ng": "ng",
-    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
