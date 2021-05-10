@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SuperFooterComponent } from './superfooter.component';
+import { SuperfooterComponent } from './superfooter.component';
+
 
 
 
 describe('FooterComponent', () => {
-  let component: SuperFooterComponent;
-  let fixture: ComponentFixture<SuperFooterComponent>;
+  let component: SuperfooterComponent;
+  let fixture: ComponentFixture<SuperfooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuperFooterComponent ]
+      declarations: [ SuperfooterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuperFooterComponent);
+    fixture = TestBed.createComponent(SuperfooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

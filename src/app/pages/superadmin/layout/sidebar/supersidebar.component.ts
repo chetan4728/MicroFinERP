@@ -6,7 +6,7 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
   templateUrl: './supersidebar.component.html',
   styleUrls: ['./supersidebar.component.scss']
 })
-export class SuperSidebarComponent implements OnInit {
+export class SupersidebarComponent implements OnInit {
   SessionData: any;
   Role:any;
   constructor(public local: LocalStorageService) { }

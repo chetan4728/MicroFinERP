@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.prod';
   templateUrl: './superheader.component.html',
   styleUrls: ['./superheader.component.scss']
 })
-export class SuperHeaderComponent implements OnInit {
+export class SuperheaderComponent implements OnInit {
   SessionData: any;
   Role:any;
   Bank_name:any;

@@ -6,7 +6,7 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
   selector: 'app-layout',
   templateUrl: './superlayout.component.html',
 })
-export class SuperLayoutComponent implements OnInit {
+export class SuperlayoutComponent implements OnInit {
   public timeout;
   public routerChanged = true;
   constructor(public local: LocalStorageService, private router: Router) {

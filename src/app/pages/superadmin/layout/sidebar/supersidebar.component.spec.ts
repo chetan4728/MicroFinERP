@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SuperSidebarComponent } from './supersidebar.component';
+import { SupersidebarComponent } from './supersidebar.component';
+
 
 
 
 describe('SidebarComponent', () => {
-  let component: SuperSidebarComponent;
-  let fixture: ComponentFixture<SuperSidebarComponent>;
+  let component: SupersidebarComponent;
+  let fixture: ComponentFixture<SupersidebarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuperSidebarComponent ]
+      declarations: [ SupersidebarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuperSidebarComponent);
+    fixture = TestBed.createComponent(SupersidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

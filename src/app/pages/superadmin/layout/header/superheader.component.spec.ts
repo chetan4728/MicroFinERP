@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SuperHeaderComponent } from './superheader.component';
+import { SuperheaderComponent } from './superheader.component';
+
 
 
 
 describe('HeaderComponent', () => {
-  let component: SuperHeaderComponent;
-  let fixture: ComponentFixture<SuperHeaderComponent>;
+  let component: SuperheaderComponent;
+  let fixture: ComponentFixture<SuperheaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuperHeaderComponent ]
+      declarations: [ SuperheaderComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuperHeaderComponent);
+    fixture = TestBed.createComponent(SuperheaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

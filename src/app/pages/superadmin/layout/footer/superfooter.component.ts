@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './superfooter.component.html',
   styleUrls: ['./superfooter.component.scss']
 })
-export class SuperFooterComponent implements OnInit {
+export class SuperfooterComponent implements OnInit {
 
   constructor() { }
 

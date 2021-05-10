@@ -5,7 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { SuperauthComponent } from './pages/superadmin/superauth/superauth.component';
-import { SuperLayoutComponent } from './pages/superadmin/layout/Superlayout.component';
+import { SuperlayoutComponent } from './pages/superadmin/layout/Superlayout.component';
+
 
 export const routes: Routes = [
   {
@@ -28,7 +29,7 @@ export const routes: Routes = [
 
  {
   path: '',
-  component: SuperLayoutComponent,
+  component: SuperlayoutComponent,
   data: {
     title: 'Angular Admin Template'
   },
