@@ -133,7 +133,9 @@ export class LoanDisbursementComponent implements OnInit {
   int_product_dp(Event):void
   {
     this.int_product = Event;
-       
+    this.apr = this.int_product;
+   // alert(this.int_product)
+    this.pmt_cal();
   }
 
   intFrqFun(Event):void
@@ -275,7 +277,7 @@ export class LoanDisbursementComponent implements OnInit {
 
   get_loan_term(Event):void
   {
-   
+ 
     this.lt = this.loan_term_years * 12;
     this.pmt_cal();
   }
@@ -373,7 +375,8 @@ export class LoanDisbursementComponent implements OnInit {
       reducing_interest_paid:this.total_interest_paid,
       reducing_interest_paid_precentage:this.sum_pay_percentage,
       loan_data_emi:this.interest_table,
-      members_id:this.members_ids
+      members_id:this.members_ids,
+      int_product:this.int_product,
     };
 
     this.api._create_loan_distribution(param).subscribe(data => {

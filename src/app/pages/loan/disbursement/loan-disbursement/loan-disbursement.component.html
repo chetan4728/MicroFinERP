@@ -179,10 +179,13 @@
                   <td><b>Loan amount</b></td>
                   <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="[transformAmount($event),pmt_cal()]" [(ngModel)]="total_loan_amount" class="form-control margin_left_10" ></td>
                 </tr>
-
+                <tr>
+                  <td>Loan terms (Years)</td>
+                  <td> <input type="text"  (keydown)="numberOnly($event)"  (blur)="get_loan_term($event)" [(ngModel)]="loan_term_years"   class="form-control margin_left_10" ></td>
+                </tr>
                 <tr>
                   <td>Annual percentage rate (APR)</td>
-                  <td> <input type="text" [(ngModel)]="apr" readonly (blur)="pmt_cal()" class="form-control margin_left_10" ></td>
+                  <td> <input type="text" [(ngModel)]="apr" readonly class="form-control margin_left_10" ></td>
                 </tr>
                 
                 <tr>
@@ -192,10 +195,7 @@
 
                 
 
-                <tr>
-                  <td>Loan terms (Years)</td>
-                  <td> <input type="text" readonly (keydown)="numberOnly($event)"  (blur)="get_loan_term($event)" [(ngModel)]="loan_term_years"   class="form-control margin_left_10" ></td>
-                </tr>
+                
                 <tr>
                   <td>Loan date (mm/dd/yy)</td>
                   <td> <input type="date" [(ngModel)]="date" class="form-control margin_left_10" ></td>
@@ -252,7 +252,7 @@
                 <td><select class="form-control margin_left_10" [(ngModel)]="int_product"  (change)="int_product_dp($event.target.value)">
                   <option value="0">Select</option>
                   <option value="25" >MLM</option>
-                  <option value="15" >BC</option>
+                  <option value="26" >BC</option>
                   
                 </select></td>
               </tr>
@@ -293,7 +293,7 @@
                 </tr>
                 <tr>
                   <td>Scheduled number of payments </td>
-                  <td><input type="text" [(ngModel)]="lt"  readonly (blur)="pmt_cal()"  class="form-control margin_left_10" ></td>
+                  <td><input type="text" [(ngModel)]="lt"   (blur)="pmt_cal()"  class="form-control margin_left_10" ></td>
                 </tr>
                 <tr>
                   <td>Interest Rate (Per Period)</td>
