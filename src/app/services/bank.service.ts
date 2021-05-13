@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import {  throwError, of, Observable  } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
+import { LocalStorageService } from 'angular-web-storage';
 
 
 @Injectable({
@@ -15,10 +16,30 @@ export class BankService {
   private UPDATE = this.REST_API_SERVER + 'Bank/update';
   private GET = this.REST_API_SERVER + 'Bank/LoadTable';
   private GETALLBANKS = this.REST_API_SERVER + 'Bank/LoadAllbanks';
+  private GETLOANINTTYPE = this.REST_API_SERVER + 'Bank/int_type';
   private ADD_BANK = this.REST_API_SERVER + 'Bank/addBank';
+  private DEL_BANK = this.REST_API_SERVER + 'Bank/delBank';
   private UPLOAD_PHOTO = this.REST_API_SERVER + 'Bank/upload_photo';
-  constructor(private httpClient: HttpClient) { }
+  SessionData: any;
+  constructor(public local: LocalStorageService, private httpClient: HttpClient) {
+    this.SessionData = this.local.get(environment.userSession);
+   }
 
+  _delete_bank(obj): Observable<String>{
+    const headers = new HttpHeaders()
+    .set('Authorization',  this.SessionData.token)
+    .set('Content-Type', 'application/json')
+    return this.httpClient.post<any>(`${this.DEL_BANK}`, obj,{headers}).pipe(
+      catchError(this.handleError)
+    );
+  
+  }
+
+  _get_bank_intrest(): Observable<String>{
+    return this.httpClient.get<String>(`${this.GETLOANINTTYPE}`).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   _upload_photo(form, id): Observable<String>{
     const formData: any = new FormData();
@@ -41,13 +62,16 @@ export class BankService {
   }
   /* Manage Role Operations */
   
-  _update(add: Area): Observable<Area>{
-    return this.httpClient.post<Area>(`${this.UPDATE}`, add).pipe(
+  _update(data): Observable<any>{
+
+    return this.httpClient.post<String>(`${this.UPDATE}`, data).pipe(
       catchError(this.handleError)
     );
+
+    
   }
-  _get(data): Observable<Area[]>{
-    return this.httpClient.post<Area[]>(`${this.GET}`,data).pipe(
+  _get(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.GET}`,data).pipe(
       catchError(this.handleError)
     );
   }

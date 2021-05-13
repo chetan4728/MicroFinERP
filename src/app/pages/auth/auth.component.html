@@ -5,7 +5,7 @@
         <h1 style="text-align: center;
         padding: 5px;
         color: red;background: #fff;
-        font-size: 25px;" >{{BankDetails.row.bank_name}}</h1>
+        font-size: 25px;" >{{this.bank_name_title}}</h1>
                 <div class="card">
                     <div class="card-body login-card-body">
                     <h1 class="login-box-msg">sign in to start your session</h1>
@@ -51,7 +51,7 @@
                         <div class="input-group mb-3">
                             <select class="form-control" formControlName="role" >
                              <option value="">Select Role</option>
-                             <option *ngFor="let row of rolesList; let i = index"  [value]="row.role_id" >{{row.role_name}}</option>
+                             <option *ngFor="let item of rolesList; let i = index"  [value]="item.role_id" >{{item.role_name}}</option>
                             </select>
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -86,6 +86,8 @@
 
     
 </div>
+<canvas style="display: none;" id="salesChart"></canvas>
+<canvas style="display: none;"  id="pieChart"></canvas>
 
 <div class="registration-box   {{ShowRegistration}}" style="display: none;">
   
@@ -216,14 +218,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Bank App URL </label>
-                            <input type="text" class="form-control" [ngModel]="AppUrl" formControlName="bank_app_url"    placeholder="App URL" >
+                            <input type="text" class="form-control"  formControlName="bank_app_url"    placeholder="App URL" >
                             
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Bank App Key</label>
-                            <input type="text" class="form-control"  [ngModel]="AppKey"  formControlName="bank_app_key_code"   placeholder="App Key" >
+                            <input type="text" class="form-control"  formControlName="bank_app_key_code"   placeholder="App Key" >
                         </div>
                     </div>
             </div>

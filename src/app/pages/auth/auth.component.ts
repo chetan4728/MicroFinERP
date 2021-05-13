@@ -27,6 +27,7 @@ export class AuthComponent implements OnInit {
    AppKey: any;
    ShowRegistration: any;
    ShowLogin: any;
+   bank_name_title:any;
   constructor(public local: LocalStorageService, private formBuilder: FormBuilder, private router: Router, private api: AuthService,
               private dp: DropDownsService ) {
               }
@@ -44,7 +45,9 @@ export class AuthComponent implements OnInit {
     {
       this.ShowLogin = 'show';
       this.ShowRegistration = 'hide';
-      this.BankDetails = data;
+      this.BankDetails = data.row;
+      this.bank_name_title =  this.BankDetails.bank_name;
+      //console.log(this.BankDetails)
     }
     else
     {

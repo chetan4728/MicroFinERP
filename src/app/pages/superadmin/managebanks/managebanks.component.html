@@ -38,7 +38,7 @@
             <tbody>
                 <tr *ngFor="let row of bankList; let i = index">
                     <td>{{i+1}}</td>
-                    <td>{{row.bank_name}}</td>
+                    <td><img src="{{row.bank_logo}}" style="width: 50px;margin-right: 10px;" class="rounded-circle" alt="{{row.bank_name}}">{{row.bank_name}}</td>
                     <td>{{row.bank_app_key_code}}</td>
                     <td>{{row.added_date}}</td>
                     <td>{{row.bank_url}}</td>
@@ -50,8 +50,8 @@
                       <span  class="badge badge-danger">Inactive</span>
                     </ng-template>
                      </td>
-                    <td><button class="btn btn-success btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm ml-1">Delete</button>
+                    <td><button class="btn btn-success btn-sm" (click)="edit(row)" >Edit</button>
+                        <button class="btn btn-danger btn-sm ml-1" (click)="delete_row(row)">Delete</button>
                  
                       </td>
                 </tr>

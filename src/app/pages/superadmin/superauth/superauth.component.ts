@@ -75,7 +75,7 @@ export class SuperauthComponent implements OnInit {
  };
    this.api._loginSperSession(data).subscribe(res => {
 
-           console.log("employee_data",res);
+          // console.log("employee_data",res);
      if (res.error === true)
      {
       /// console.log("employee_data",res);
@@ -92,7 +92,7 @@ export class SuperauthComponent implements OnInit {
          bank_name: "",
          bank_app_key_code: 0,
         };
-       this.local.set(environment.userSession, session, environment.SessionTime, 's');
+         this.local.set(environment.userSession, session, environment.SessionTime, 's');
         window.location.href = 'superdashboard/';
      }
      else

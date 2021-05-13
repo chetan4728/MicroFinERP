@@ -20,6 +20,14 @@ const routes: Routes = [
     data: {
       title: 'Banks Component'
     }
+  },
+  {
+    path: 'BankEdit/:id',
+    pathMatch: 'full',
+    component: FormbankComponent,
+    data: {
+      title: 'Banks Component'
+    }
   }
 ];
 
