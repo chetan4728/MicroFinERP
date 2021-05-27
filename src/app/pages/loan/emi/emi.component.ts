@@ -41,7 +41,7 @@ export class EmiComponent implements OnInit {
     this.Url = environment.uploads;
   }
   getListing():void{
-      this.api._get_loan_distribution_applications({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
+      this.api._get_loan_distribution_applications({bank_id:this.SessionData.bank_id}).subscribe(data  => {
         this.ListingData = data;
         if (this.isDtInitialized) {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

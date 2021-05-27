@@ -110,7 +110,7 @@ export class AuthComponent implements OnInit {
     this.api._loginSession(data).subscribe(res => {
       if (res.error === true)
       {
-       /// console.log("employee_data",res);
+        console.log("employee_data",res);
         const session = {
           employee_id: res.employee_id,
           token: res.token,
@@ -124,6 +124,7 @@ export class AuthComponent implements OnInit {
           branch_name: res.branch_name,
           bank_name: res.bank_name,
           bank_app_key_code: res.bank_app_key_code,
+          bank_intrest_type: res.bank_intrest_type,
          };
         this.local.set(environment.userSession, session, environment.SessionTime, 's');
          window.location.href = 'dashboard/';

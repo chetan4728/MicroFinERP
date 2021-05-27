@@ -38,8 +38,8 @@ export class UsersService {
       catchError(this.handleError)
     );
   }
-  _get_branch(): Observable<Users[]>{
-    return this.httpClient.get<Users[]>(`${this.GET_USERS_TABLE}`).pipe(
+  _get_users(data): Observable<Users[]>{
+    return this.httpClient.post<Users[]>(`${this.GET_USERS_TABLE}`,data).pipe(
       catchError(this.handleError)
     );
   }

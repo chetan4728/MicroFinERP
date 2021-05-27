@@ -30,6 +30,7 @@ export class DisbursementComponent implements OnInit {
   center_dp:any="";
   group_dp:any="";
   filter:any = [];
+ 
   constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class DisbursementComponent implements OnInit {
     this.Url = environment.uploads;
   }
   getListing():void{
-      this.api._get_loan_distribution_applications({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
+      this.api._get_loan_distribution_applications({bank_id:this.SessionData.bank_id}).subscribe(data  => {
         this.ListingData = data;
         if (this.isDtInitialized) {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -54,7 +55,7 @@ export class DisbursementComponent implements OnInit {
   }
 
   loadBranch():void{
-    this.api._get_branch().subscribe(data => {
+    this.api._get_branch({bank_id:this.SessionData.bank_id}).subscribe(data => {
       this.BranchList = data;
    });
   }

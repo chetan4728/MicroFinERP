@@ -46,7 +46,15 @@ export class FormbankComponent implements OnInit {
             bank_email: this.selectRoleRow.bank_email,
             bank_status:this.selectRoleRow.bank_status,
             bank_logo: this.selectRoleRow.bank_logo,
-         });
+            user_email: this.selectRoleRow.employee_email_id,
+            user_contact: this.selectRoleRow.employee_contact_no,
+            fname:this.selectRoleRow.employee_first_name,
+            lname: this.selectRoleRow.employee_last_name,
+            username: this.selectRoleRow.employee_login_code,
+            password: this.selectRoleRow.employee_login_password,
+            bank_intrest_type:this.selectRoleRow.bank_intrest_type,
+            activation_date: this.selectRoleRow.added_date,
+              });
         
       });
     }
@@ -61,6 +69,37 @@ export class FormbankComponent implements OnInit {
   
       const formData: any = new FormData();
       
+      formData.append('bank_url', this.Form.get('bank_url').value);
+      formData.append('bank_name', this.Form.get('bank_name').value);
+      formData.append('bank_state', this.Form.get('bank_state').value);
+      formData.append('bank_district', this.Form.get('bank_district').value);
+      formData.append('bank_address', this.Form.get('bank_address').value);
+      formData.append('bank_app_key_code', this.Form.get('bank_app_key_code').value);
+      formData.append('bank_contact_no', this.Form.get('bank_contact_no').value);
+      formData.append('bank_email', this.Form.get('bank_email').value);
+      formData.append('bank_status', this.Form.get('bank_status').value);
+      formData.append('bank_logo', this.Form.get('bank_logo').value);
+      formData.append('bank_id', id);
+      formData.append('user_contact', this.Form.get('user_contact').value);
+      formData.append('user_email', this.Form.get('user_email').value);
+      formData.append('fname', this.Form.get('fname').value);
+      formData.append('lname', this.Form.get('lname').value);
+      formData.append('username', this.Form.get('username').value);
+      formData.append('password', this.Form.get('password').value);
+      formData.append('bank_intrest_type', this.Form.get('bank_intrest_type').value);
+      formData.append('activation_date', this.Form.get('activation_date').value);
+     
+
+      //console.log(formData);
+      this.api._update(formData).subscribe(data => {
+      this.dataset = data;
+      this.route.navigateByUrl('/Activebanks');
+    });
+    }
+    else
+    {
+      const formData: any = new FormData();
+      
       formData.append('bank_logo', this.Form.get('bank_logo').value);
       formData.append('bank_url', this.Form.get('bank_url').value);
       formData.append('bank_name', this.Form.get('bank_name').value);
@@ -71,31 +110,18 @@ export class FormbankComponent implements OnInit {
       formData.append('bank_contact_no', this.Form.get('bank_contact_no').value);
       formData.append('bank_email', this.Form.get('bank_email').value);
       formData.append('bank_status', this.Form.get('bank_status').value);
-      formData.append('bank_id', id);
+      formData.append('user_contact', this.Form.get('user_contact').value);
+      formData.append('user_email', this.Form.get('user_email').value);
+      formData.append('fname', this.Form.get('fname').value);
+      formData.append('lname', this.Form.get('lname').value);
+      formData.append('username', this.Form.get('username').value);
+      formData.append('password', this.Form.get('password').value);
+      formData.append('bank_intrest_type', this.Form.get('bank_intrest_type').value);
+      formData.append('activation_date', this.Form.get('activation_date').value);
 
-      console.log(formData);
-      this.api._update(formData).subscribe(data => {
+    this.api._add_user(formData).subscribe(data => {
         this.dataset = data;
-         console.log( this.dataset);
-         this.api._upload_photo(this.Form, this.dataset.bank_id).subscribe(res => {
-
-          this.route.navigateByUrl('/Activebanks');
-         });
-        //this.Form.reset();
-    
-       
-     
-    });
-    }
-    else
-    {
-
-    this.api._add_user(this.Form.value).subscribe(data => {
-        this.dataset = data;
-         console.log(this.dataset);
-          this.api._upload_photo(this.Form, this.dataset.bank_id).subscribe(res => {
-         });
-        //this.Form.reset();
+         
         this.route.navigateByUrl('/Activebanks');
        
      
@@ -128,7 +154,15 @@ export class FormbankComponent implements OnInit {
       bank_contact_no: ['', [Validators.required, Validators.pattern(new RegExp('[0-9 ]{10}'))]],
       bank_email: ['', [Validators.required , Validators.email]],
       bank_status: ['', Validators.required],
-      bank_logo: [null]
+      bank_logo: [null],
+      user_email: ['', [Validators.required , Validators.email]],
+      user_contact: ['', [Validators.required, Validators.pattern(new RegExp('[0-9 ]{10}'))]],
+      fname: ['', Validators.required],
+      lname: ['', Validators.required],
+      username: ['', [Validators.required,Validators.minLength(8)]],
+      password: ['', [Validators.required,Validators.minLength(8)]],
+      bank_intrest_type: ['', Validators.required],
+      activation_date: [''],
     });
 
   }

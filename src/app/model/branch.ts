@@ -10,5 +10,5 @@ export class Branch {
     post_code: string;
     phone_no: string;
     contact_no: string;
-    branch_status: number;
+    branch_status: string;
 }

@@ -6,6 +6,8 @@ import { Users } from 'src/app/model/users';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { LocalStorageService } from 'angular-web-storage';
+import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
@@ -20,16 +22,18 @@ export class UserFormComponent implements OnInit {
   debouncer: any;
   UserCode: any;
   url: any;
+  session:any;
   selectRoleRow: Users = { employee_id: 0 , employee_branch_id : '', employee_address : null,
     employee_adhar_card_no : null, employee_alt_contact_no : null, employee_bank_id: null ,
     employee_center_id: null , employee_contact_no: null, employee_district_id:  '', employee_dob: null, employee_email_id: null,
     employee_first_name: null , employee_gender: '' , employee_last_name: null, employee_login_code: null,
     employee_login_password: null, employee_middle_name: null, employee_pan_card_no: null, profile: null,
-    employee_role_id:  '', employee_state_id:  '', employee_status:  ''};
-  constructor(private param: ActivatedRoute , private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
+    employee_role_id:  '', employee_state_id:  '', employee_status:  '',bank_id:0};
+  constructor(public local: LocalStorageService,private param: ActivatedRoute , private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
               private auth: AuthService, private api: UsersService) { }
 
   ngOnInit(): void {
+    this.session = this.local.get(environment.userSession);
     this.initForm();
     this.initRole();
     this.initState();
@@ -54,7 +58,7 @@ export class UserFormComponent implements OnInit {
 
   initBranch(): void
   {
-    this.dp._get_branch().subscribe(data => {
+    this.dp._get_branch({bank_id:this.session.bank_id}).subscribe(data => {
       this.BranchList = data;
      // console.log(this.StateList);
     });
@@ -68,7 +72,7 @@ export class UserFormComponent implements OnInit {
   }
   initRole(): void
   {
-    this.dp._getRole().subscribe(data => {
+    this.dp._getRole({bank_id:this.session.bank_id}).subscribe(data => {
       this.RoleList = data;
 
     });
@@ -92,7 +96,8 @@ export class UserFormComponent implements OnInit {
       employee_branch_id: ['', Validators.required],
       employee_role_id: ['', Validators.required],
       employee_status: ['', Validators.required],
-      profile: [null]
+      profile: [null],
+      bank_id:this.session.bank_id
     });
 
   }
@@ -136,12 +141,15 @@ submit(): void{
   if (this.selectRoleRow.employee_id > 0)
   {
 
-
+    this.selectRoleRow.bank_id = this.session.bank_id;
     this.api._update_branch(this.selectRoleRow).subscribe(data => {
     
-        this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
+        if(this.Form.get("profile").value!=null)
+        {
+          this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
 
-        });
+          })
+      }
         this.Form.reset();
         Swal.fire({
             position: 'top-end',
@@ -160,9 +168,10 @@ submit(): void{
     this.api._add_user(this.Form.value).subscribe(data => {
       if (data.employee_id > 0)
       {
-        this.api._upload_photo(this.Form, data.employee_id).subscribe(res => {
+        alert(this.Form.get("profile").value)
+        //this.api._upload_photo(this.Form, data.employee_id).subscribe(res => {
 
-        });
+      //  });
         this.Form.reset();
         Swal.fire({
             position: 'top-end',

@@ -28,19 +28,21 @@ export class RoleComponent implements OnInit {
   constructor(public local: LocalStorageService,private formBuilder: FormBuilder, private api: RoleService) { }
 
   ngOnInit(): void {
+    this.SessionData = this.local.get(environment.userSession);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 15
     };
     this.LoadDatatable();
     this.initForm();
-    this.SessionData = this.local.get(environment.userSession);
+ 
   }
   initForm(): void {
     this.RoleForm = this.formBuilder.group({
       role_name: ['', Validators.required],
       role_code: ['', Validators.required],
       status: ['', Validators.required],
+      bank_id:this.SessionData.bank_id
     });
   }
   editRecord(role: Role): void{
@@ -49,8 +51,8 @@ export class RoleComponent implements OnInit {
   }
 
   LoadDatatable(): void{
-
-    this.api._getRole({bank_id:1}).subscribe((roles: Role[]) => {
+ 
+    this.api._getRole({bank_id:this.SessionData.bank_id}).subscribe((roles: Role[]) => {
 
       this.rolesList = roles;
       if (this.isDtInitialized) {
@@ -67,7 +69,7 @@ export class RoleComponent implements OnInit {
 
   showModal(): void {
     $('#myModal').modal('show');
-    this.selectRoleRow = { role_id : 0 , role_name: '', role_code: '' , status: 0,bank_id:0};
+    this.selectRoleRow = { role_id : 0 , role_name: '', role_code: '' , status: 0,bank_id:this.SessionData.bank_id};
 
   }
   sendModal(): void {
@@ -76,7 +78,7 @@ export class RoleComponent implements OnInit {
   }
   hideModal(): void {
     document.getElementById('close-modal').click();
-    this.selectRoleRow = { role_id : 0 , role_name: '', role_code: '' , status: 0,bank_id:0};
+    this.selectRoleRow = { role_id : 0 , role_name: '', role_code: '' , status: 0,bank_id:this.SessionData.bank_id};
   }
 
    ngOnDestroy(): void {
@@ -87,7 +89,7 @@ export class RoleComponent implements OnInit {
   {
    if (this.selectRoleRow.role_id > 0)
    {
-    this.selectRoleRow.bank_id = this.SessionData.bank_id;
+ 
     this.api._update_role(this.selectRoleRow).subscribe(data =>
       {
          this.LoadDatatable();

@@ -22,4 +22,5 @@ export class Users {
     employee_login_code: number;
     employee_login_password: number;
     employee_status: any;
+    bank_id:number;
 }

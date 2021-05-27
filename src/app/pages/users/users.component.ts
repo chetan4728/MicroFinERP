@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
 import Swal from 'sweetalert2';
 import { Users } from 'src/app/model/users';
+import { LocalStorageService } from 'angular-web-storage';
+import { environment } from 'src/environments/environment.prod';
 declare var $: any;
 
 @Component({
@@ -24,16 +26,18 @@ export class UsersComponent implements OnInit {
   StateList: [];
   DistrictList: [];
   UserList: Users[];
+  session:any;
 
 
-  constructor(private router: Router, private dp: DropDownsService, private api: UsersService) { }
+  constructor(public local: LocalStorageService,private router: Router, private dp: DropDownsService, private api: UsersService) { }
 
   ngOnInit(): void {
+    this.session = this.local.get(environment.userSession);
     this.LoadTable();
   }
   LoadTable(): void{
 
-    this.api._get_branch().subscribe((users: Users[]) => {
+    this.api._get_users({bank_id: this.session.bank_id}).subscribe((users: Users[]) => {
 
       this.UserList = users;
       if (this.isDtInitialized) {

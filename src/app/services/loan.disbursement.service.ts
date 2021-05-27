@@ -67,8 +67,8 @@ export class LoanDisbursementService {
       catchError(this.handleError)
     );
   }
-  _get_branch(): Observable<String>{
-    return this.httpClient.get<String>(`${this.GET_BRANCH_TABLE}`).pipe(
+  _get_branch(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_BRANCH_TABLE}`,data).pipe(
       catchError(this.handleError)
     );
   }

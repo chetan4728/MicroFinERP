@@ -27,7 +27,7 @@ export class BranchComponent implements OnInit {
   BranchList: Branch[];
   session:any
   selectRoleRow: Branch = {address: null , branch_id : 0,bank_id:0, branch_code : null,
-  branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
+  branch_name : null, branch_status : "", contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
   constructor(public local: LocalStorageService,private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
 
   ngOnInit(): void {
@@ -67,12 +67,13 @@ export class BranchComponent implements OnInit {
       phone_no: ['', Validators.required],
       contact_no: ['', [Validators.required, Validators.pattern(new RegExp('[0-9 ]{10}'))]],
       branch_status: ['', Validators.required],
+      bank_id: this.session.bank_id
     });
   }
 
   showModal(): void {
     this.selectRoleRow = {address: null , branch_id : 0,bank_id:0, branch_code : null,
-      branch_name : null, branch_status : 0, contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
+      branch_name : null, branch_status : "", contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
     $('#myModal').modal('show');
 
   }

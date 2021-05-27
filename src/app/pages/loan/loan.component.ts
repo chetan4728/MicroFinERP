@@ -38,7 +38,7 @@ export class LoanComponent implements OnInit {
     this.Url = environment.uploads;
   }
   getListing():void{
-    this.api._get_loans({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
+    this.api._get_loans({bank_id:this.SessionData.bank_id}).subscribe(data  => {
       console.log(data);
       this.ListingData = data;
       if (this.isDtInitialized) {
@@ -53,7 +53,7 @@ export class LoanComponent implements OnInit {
   });
   }
   loadBranch():void{
-    this.api._get_branch().subscribe(data => {
+    this.api._get_branch({bank_id:this.SessionData.bank_id}).subscribe(data => {
       this.BranchList = data;
       
     
