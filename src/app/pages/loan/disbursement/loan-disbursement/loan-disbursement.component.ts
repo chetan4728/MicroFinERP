@@ -34,6 +34,7 @@ export class LoanDisbursementComponent implements OnInit {
    total_intrest:any = 0;
    total_intrest_in_per:any = 0;
    interest_table:any;
+   members_ids:any;
   constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
 
   ngOnInit(): void {
@@ -75,7 +76,18 @@ export class LoanDisbursementComponent implements OnInit {
       
       this.members = data;
       
-      
+      this.members_ids = [];
+      for(let i=0;i< this.members.length;i++)
+      {
+        //this.acutal_members =this.members[i].member_limit;
+        this.members_ids.push(this.members[i].loan_application_no)
+        if(this.members[i].approved_status==1 && isNaN(this.members[i].approved_status)!=true)
+        {
+          //alert(this.members[i].approved_status)
+          this.acutal_members = parseInt(this.acutal_members + this.members[i].approved_status);
+         
+        }
+      }
      
       
      });
@@ -304,6 +316,36 @@ export class LoanDisbursementComponent implements OnInit {
       
   }
   submitData():void{
+
+    const branch_id = this.param.snapshot.paramMap.get('branch_id');
+    const area_id = this.param.snapshot.paramMap.get('area_id');
+    const center_id = this.param.snapshot.paramMap.get('center_id');
+    const group_id = this.param.snapshot.paramMap.get('group_id');
+    var param = {
+      branch_id:branch_id,
+      area_id:area_id,
+      center_id:center_id,
+      group_id:group_id,
+      total_loan_amount:this.total_amount,
+      loan_members:this.GroupData.member_limit,
+      anual_percentage_rate:this.intrest,
+      term_year:this.term,
+      disburstment_date:this.disburstment_date,
+      emi_date:this.emi_date,
+      principle_amount:this.Principle_amount,
+      monthly_intrest:this.monthly_intrest,
+      monthly_emi:this.monthly_emi,
+      total_payments:this.total_payments,
+      total_intrest:this.total_intrest,
+      total_intrest_in_per:this.total_intrest_in_per,
+      loan_data_emi:this.interest_table,
+      members_id:this.members_ids,
+      intrest_product:this.intrest,
+      bank_intrest_type:this.intrest_type,
+      bank_id:this.SessionData.bank_id
+  };
+
+
     if(this.param.snapshot.paramMap.get('action')=="add")
     {
     if(0)
@@ -333,12 +375,7 @@ export class LoanDisbursementComponent implements OnInit {
     }
     else
     {
-      const branch_id = this.param.snapshot.paramMap.get('branch_id');
-      const area_id = this.param.snapshot.paramMap.get('area_id');
-      const center_id = this.param.snapshot.paramMap.get('center_id');
-      const group_id = this.param.snapshot.paramMap.get('group_id');
-      var param = {branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id,
-    };
+     
 
     this.api._create_loan_distribution(param).subscribe(data => {
       Swal.fire({
@@ -349,14 +386,25 @@ export class LoanDisbursementComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-      this.route.navigate(['/disbursement']);
+     // this.route.navigate(['/disbursement']);
     });
     }
   }
-  else
+  else if(this.param.snapshot.paramMap.get('action')=="edit")
   {
-    alert()
+    this.api._create_loan_distribution(param).subscribe(data => {
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'success',
+        title: 'Group Loan Disbursement Created',
+        showConfirmButton: false,
+        timer: 1500
+      });
+     // this.route.navigate(['/disbursement']);
+    });
   }
+
   }
 
   viewForm(data): void
