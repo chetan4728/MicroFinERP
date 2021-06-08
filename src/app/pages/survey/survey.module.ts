@@ -6,9 +6,10 @@ import { AgmCoreModule } from '@agm/core';
 import { ListingComponent } from './survey-listing/listing/listing.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AppsurveyComponent } from './appsurvey/appsurvey.component';
 
 @NgModule({
-  declarations: [SurveyComponent, ListingComponent],
+  declarations: [SurveyComponent, ListingComponent, AppsurveyComponent],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD0fhyInxQCAVmBPVGJLN_QIF29pJfyYfQ',

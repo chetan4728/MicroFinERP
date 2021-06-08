@@ -62,16 +62,147 @@
                 <p>Manage Branch</p>
               </a>
             </li>
+            <li class="nav-item has-treeview">
+              <a  class="nav-link">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Manage User
+                  <i class="right fas fa-angle-left"></i>
+          
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a  [routerLink]="['/users']" routerLinkActive="active"   class="nav-link">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>All Users</p>
+                  </a>
+                </li>
+              
+      
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>Change Officer</p>
+                  </a>
+                </li>
+      
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>Assign FO/TE</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>Edit Group Leader</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Manage Surveys
+              <i class="right fas fa-angle-left"></i>
+            
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a    [routerLink]="['/app-survey']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Surveys</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a [routerLink]="['/survey']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Assign Target</p>
+              </a>
+            </li>
+            
+          
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Manage Center
+              <i class="right fas fa-angle-left"></i>
+            
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a    [routerLink]="['/centers']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Center</p>
+              </a>
+            </li>
   
-            <li class="nav-item" *ngIf="this.Role=='AD'" >
-              <a  [routerLink]="['/users']" routerLinkActive="active"   class="nav-link">
-                <i class="far fa-user nav-icon"></i>
-                <p>System Users</p>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Manage Groups
+              <i class="right fas fa-angle-left"></i>
+             
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a   [routerLink]="['/Groups']" routerLinkActive="active"    class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Groups</p>
+              </a>
+            </li>
+  
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Groups Mapping</p>
               </a>
             </li>
           </ul>
         </li>
-       
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="fas fa-chart-line nav-icon"></i>
+            <p>
+              CST Process
+              <i class="right fas fa-angle-left"></i>
+              
+         
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                
+                <p>View CGT</p>
+              </a>
+            </li>
+  
+            
+          </ul>
+        </li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-hand-holding-usd"></i>
@@ -154,51 +285,8 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item has-treeview">
-          <a  class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Manage User
-              <i class="right fas fa-angle-left"></i>
-      
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-           
-  
-            <li class="nav-item">
-              <a  class="nav-link">
-                <i class="far fa-user nav-icon"></i>
-                <p>Change Officer</p>
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <a  class="nav-link">
-                <i class="far fa-user nav-icon"></i>
-                <p>Assign FO/TE</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a  class="nav-link">
-                <i class="far fa-user nav-icon"></i>
-                <p>Edit Group Leader</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a  class="nav-link">
-            <i class="fas fa-bullseye nav-icon"></i>
-            <p>Assign Target</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['/survey']" routerLinkActive="active"  class="nav-link">
-            <i class="fas fa-map nav-icon"></i>
-            <p>Assign Survey Area</p>
-          </a>
-        </li>
+        
+        
   
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
@@ -229,81 +317,11 @@
            
           </ul>
         </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user"></i>
-            <p>
-              Manage Center
-              <i class="right fas fa-angle-left"></i>
-            
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a    [routerLink]="['/centers']" routerLinkActive="active"  class="nav-link">
-                <i class="fas fas fa-angle-right nav-icon"></i>
-                <p>View Center</p>
-              </a>
-            </li>
-  
-            
-          </ul>
-        </li>
+       
         
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Manage Groups
-              <i class="right fas fa-angle-left"></i>
-             
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a   [routerLink]="['/Groups']" routerLinkActive="active"    class="nav-link">
-                <i class="fas fas fa-angle-right nav-icon"></i>
-                <p>View Groups</p>
-              </a>
-            </li>
+       
   
-            <li class="nav-item">
-              <a     class="nav-link">
-                <i class="fas fas fa-angle-right nav-icon"></i>
-                <p>Groups Mapping</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a     class="nav-link">
-            <i class="fas fa-thumbtack nav-icon"></i>
-            <p>Tag Center</p>
-          </a>
-        </li>
-  
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="fas fa-chart-line nav-icon"></i>
-            <p>
-              CST Process
-              <i class="right fas fa-angle-left"></i>
-              
-         
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a     class="nav-link">
-                <i class="fas fas fa-angle-right nav-icon"></i>
-                
-                <p>View CGT</p>
-              </a>
-            </li>
-  
-            
-          </ul>
-        </li>
+        
   
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
