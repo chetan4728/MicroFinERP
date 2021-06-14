@@ -15,6 +15,7 @@ export class BranchService {
   private update = this.REST_API_SERVER + 'Branch/update';
   private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
   private DELETE_BRANCH = this.REST_API_SERVER + 'Branch/delete';
+  
   constructor(private httpClient: HttpClient) { }
 
 

@@ -16,6 +16,7 @@ export class SurveyService {
   private ADD = this.REST_API_SERVER + 'Survey/Add';
   private UPDATE = this.REST_API_SERVER + 'Survey/update';
   private GET = this.REST_API_SERVER + 'Survey/LoadTable';
+  private getAreaSurveys = this.REST_API_SERVER + 'Survey/AreaSurveys';
   private DELETE = this.REST_API_SERVER + 'Survey/delete';
   constructor(private httpClient: HttpClient) { }
 
@@ -33,6 +34,12 @@ export class SurveyService {
   }
   _get_survey(data): Observable<Survey[]>{
     return this.httpClient.post<Survey[]>(`${this.GET}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _getAreaSurveys(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.getAreaSurveys}`,data).pipe(
       catchError(this.handleError)
     );
   }

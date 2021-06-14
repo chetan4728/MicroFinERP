@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.prod';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-bank',
   templateUrl: './bank.component.html',
@@ -29,6 +30,7 @@ export class BankComponent implements OnInit {
     this.int_bank_intrest();
 
     const id = this.session.bank_id;
+    
     if (id != null)
     {
       
@@ -67,70 +69,49 @@ export class BankComponent implements OnInit {
 
   submit():void{
 
-    const id = this.param.snapshot.paramMap.get('id');
+    const id = this.session.bank_id;
     if (id != null)
     {
   
-      const formData: any = new FormData();
-      
-      formData.append('bank_url', this.Form.get('bank_url').value);
-      formData.append('bank_name', this.Form.get('bank_name').value);
-      formData.append('bank_state', this.Form.get('bank_state').value);
-      formData.append('bank_district', this.Form.get('bank_district').value);
-      formData.append('bank_address', this.Form.get('bank_address').value);
-      formData.append('bank_app_key_code', this.Form.get('bank_app_key_code').value);
-      formData.append('bank_contact_no', this.Form.get('bank_contact_no').value);
-      formData.append('bank_email', this.Form.get('bank_email').value);
-      formData.append('bank_status', this.Form.get('bank_status').value);
-      formData.append('bank_logo', this.Form.get('bank_logo').value);
-      formData.append('bank_id', id);
-      formData.append('user_contact', this.Form.get('user_contact').value);
-      formData.append('user_email', this.Form.get('user_email').value);
-      formData.append('fname', this.Form.get('fname').value);
-      formData.append('lname', this.Form.get('lname').value);
-      formData.append('username', this.Form.get('username').value);
-      formData.append('password', this.Form.get('password').value);
-      formData.append('bank_intrest_type', this.Form.get('bank_intrest_type').value);
-      formData.append('activation_date', this.Form.get('activation_date').value);
-     
+          const formData: any = new FormData();
+          
+          formData.append('bank_url', this.Form.get('bank_url').value);
+          formData.append('bank_name', this.Form.get('bank_name').value);
+          formData.append('bank_state', this.Form.get('bank_state').value);
+          formData.append('bank_district', this.Form.get('bank_district').value);
+          formData.append('bank_address', this.Form.get('bank_address').value);
+          formData.append('bank_app_key_code', this.Form.get('bank_app_key_code').value);
+          formData.append('bank_contact_no', this.Form.get('bank_contact_no').value);
+          formData.append('bank_email', this.Form.get('bank_email').value);
+          formData.append('bank_status', this.Form.get('bank_status').value);
+          formData.append('bank_logo', this.Form.get('bank_logo').value);
+          formData.append('bank_id', id);
+          formData.append('user_id', this.Form.get('user_email').value);
+          formData.append('user_contact', this.Form.get('user_contact').value);
+          formData.append('user_email', this.Form.get('user_email').value);
+          formData.append('fname', this.Form.get('fname').value);
+          formData.append('lname', this.Form.get('lname').value);
+          formData.append('username', this.Form.get('username').value);
+          formData.append('password', this.Form.get('password').value);
+          formData.append('bank_intrest_type', this.Form.get('bank_intrest_type').value);
+          formData.append('activation_date', this.Form.get('activation_date').value);
+        
 
-      //console.log(formData);
-      this.api._update(formData).subscribe(data => {
-      this.dataset = data;
-      this.route.navigateByUrl('/Activebanks');
-    });
+          //console.log(formData);
+          this.api._update(formData).subscribe(data => {
+          this.dataset = data;
+          Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'success',
+            title: 'Bank Details Updated Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.route.navigateByUrl('/bank-details');
+        });
     }
-    else
-    {
-      const formData: any = new FormData();
-      
-      formData.append('bank_logo', this.Form.get('bank_logo').value);
-      formData.append('bank_url', this.Form.get('bank_url').value);
-      formData.append('bank_name', this.Form.get('bank_name').value);
-      formData.append('bank_state', this.Form.get('bank_state').value);
-      formData.append('bank_district', this.Form.get('bank_district').value);
-      formData.append('bank_address', this.Form.get('bank_address').value);
-      formData.append('bank_app_key_code', this.Form.get('bank_app_key_code').value);
-      formData.append('bank_contact_no', this.Form.get('bank_contact_no').value);
-      formData.append('bank_email', this.Form.get('bank_email').value);
-      formData.append('bank_status', this.Form.get('bank_status').value);
-      formData.append('user_contact', this.Form.get('user_contact').value);
-      formData.append('user_email', this.Form.get('user_email').value);
-      formData.append('fname', this.Form.get('fname').value);
-      formData.append('lname', this.Form.get('lname').value);
-      formData.append('username', this.Form.get('username').value);
-      formData.append('password', this.Form.get('password').value);
-      formData.append('bank_intrest_type', this.Form.get('bank_intrest_type').value);
-      formData.append('activation_date', this.Form.get('activation_date').value);
-
-    this.api._add_user(formData).subscribe(data => {
-        this.dataset = data;
-         
-        this.route.navigateByUrl('/Activebanks');
-       
-     
-    });
-  }
+  
   }
   initState(): void
   {

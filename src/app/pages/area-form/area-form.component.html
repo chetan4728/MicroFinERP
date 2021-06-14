@@ -7,8 +7,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a [routerLink]="['/branch']">Branch</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
             <li class="breadcrumb-item active">Area</li>
            
           </ol>
@@ -28,7 +27,6 @@
             <thead>
                 <tr>
                     <th>Sr no</th>
-                    <th>Branch Name</th>
                     <th>Area Name</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -37,8 +35,6 @@
             <tbody>
                 <tr *ngFor="let row of AreaList; let i = index">
                     <td>{{i+1}}</td>
-        
-                    <td>{{row.branch_name}}</td>
                     <td>{{row.area_name}}</td>
                     <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
                     <ng-template #thenTemplate>
@@ -60,8 +56,8 @@
         </div>
   </section>
   <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content  ">
   
         <!-- Modal Header -->
         <div class="modal-header">
@@ -69,23 +65,34 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
         </div>
         <div class="modal-body">
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+              ></agm-marker>
+          </agm-map><br>
             <form  [formGroup]="Form" (submit)="submit()" >  
             <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Branch Name </label>
-                        <select class="form-control"  readonly [(ngModel)]="id" formControlName="branch_id" >
-                            <option *ngFor="let row of BranchList; let i = index" [value]="row.branch_id" >{{row.branch_name}}</option>
-                           </select>
-                    </div>
-                </div>
-
+          
+           
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Area Name</label>
                         <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.area_name"  formControlName="area_name" placeholder="Area Name" >
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label>Latitude</label>
+                      <input type="text" class="form-control"  [(ngModel)]="this.selectRoleRow.latitude"  formControlName="latitude"  placeholder="Latitude" >
+                  </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="text" class="form-control"  [(ngModel)]="this.selectRoleRow.longitude" formControlName="longitude"   placeholder="Longitude" >
+                </div>
+            </div>
 
                 <div class="col-md-12">
                     <div class="form-group">

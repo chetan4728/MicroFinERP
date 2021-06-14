@@ -32,10 +32,8 @@ export class AuthService {
   {
     return this.httpClient.post<any>(`${this.CHECK_SUPER_LOGIN}`, data);
   }
-  _getRole(): Observable<Role[]>{
-    return this.httpClient.get<Role[]>(`${this.ROLL_API}`).pipe(
-      catchError(this.handleError)
-    );
+  _getRole(data): Observable<Role[]>{
+    return this.httpClient.post<Role[]>(`${this.ROLL_API}`,data);
   }
   _checkUser(data): Observable<any>{
     return this.httpClient.post<any>(`${this.CHECK_USER}`, data);

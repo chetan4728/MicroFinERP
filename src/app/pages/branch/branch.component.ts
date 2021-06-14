@@ -9,6 +9,7 @@ import { BranchService } from 'src/app/services/branch.service';
 import { DropDownsService } from 'src/app/services/DropDowns.service';
 import { LocalStorageService} from 'angular-web-storage';
 import { environment } from 'src/environments/environment.prod';
+import { AreaService } from 'src/app/services/area.service';
 declare var $: any;
 @Component({
   selector: 'app-branch',
@@ -23,16 +24,18 @@ export class BranchComponent implements OnInit {
   dtTrigger: Subject<Branch> =  new Subject();
   Form: FormGroup;
   StateList: [];
+  AreaList:any;
   DistrictList: [];
   BranchList: Branch[];
   session:any
-  selectRoleRow: Branch = {address: null , branch_id : 0,bank_id:0, branch_code : null,
+  selectRoleRow: Branch = {area_name:"",address: null , branch_id : 0,bank_id:0, area_id : null,
   branch_name : null, branch_status : "", contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
-  constructor(public local: LocalStorageService,private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
+  constructor(public apiarea :AreaService, public local: LocalStorageService,private router: Router,private formBuilder: FormBuilder, private dp: DropDownsService, private api: BranchService) { }
 
   ngOnInit(): void {
     this.session = this.local.get(environment.userSession);
     this.initForm();
+    this.LoadAreaData();
     this.dp._getStats().subscribe(data => {
       this.StateList = data;
       console.log(this.StateList);
@@ -44,6 +47,7 @@ export class BranchComponent implements OnInit {
 
     this.api._get_branch({bank_id:this.session.bank_id,token:this.session.token}).subscribe((branches: Branch[]) => {
 
+      console.log(branches)
       this.BranchList = branches;
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -60,7 +64,7 @@ export class BranchComponent implements OnInit {
     this.Form = this.formBuilder.group({
       branch_name: ['', Validators.required],
       state_id: ['', Validators.required],
-      branch_code: ['', Validators.required],
+      area_id: ['', Validators.required],
       district_id: ['', Validators.required],
       post_code: ['', [Validators.required, Validators.pattern(new RegExp('[0-9 ]{6}'))]],
       address: [''],
@@ -71,8 +75,16 @@ export class BranchComponent implements OnInit {
     });
   }
 
+
+  LoadAreaData(): void {
+    this.apiarea._get_area({bank_id:this.session.bank_id,token:this.session.token}).subscribe((data) => {
+
+      this.AreaList = data;
+      
+  });
+  }
   showModal(): void {
-    this.selectRoleRow = {address: null , branch_id : 0,bank_id:0, branch_code : null,
+    this.selectRoleRow = {area_name:"",address: null , branch_id : 0,bank_id:0, area_id : null,
       branch_name : null, branch_status : "", contact_no: null , district_id: null , phone_no: null, post_code: null, state_id: null};
     $('#myModal').modal('show');
 

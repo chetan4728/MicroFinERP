@@ -88,6 +88,13 @@ export const routes: Routes = [
           data: {
             title: 'role Page'
           },
+        },
+        {
+          path: 'area',
+          loadChildren: () => import('../app/pages/area-form/area-form.module').then(m => m.AreaFormModule),
+          data: {
+            title: 'Branch Page'
+          },
         }
         ,
         {
@@ -104,6 +111,15 @@ export const routes: Routes = [
             title: 'survey Page'
           },
         },
+        {
+          path: 'area-survey',
+          loadChildren: () => import('../app/pages/areasurvey/areasurvey.module').then(m => m.AreaSurveyModule),
+          data: {
+            title: 'survey Page'
+          },
+        },
+
+        
         {
           path: 'centers',
           loadChildren: () => import('../app/pages/centers/centers.module').then(m => m.CentersModule),

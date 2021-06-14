@@ -1,5 +1,4 @@
-import { Branch } from './../../../../model/branch';
-import { SurveyService } from './../../../../services/survey.service';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -7,6 +6,7 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
 import { environment } from 'src/environments/environment.prod';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { SurveyService } from 'src/app/services/survey.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -32,8 +32,8 @@ export class ListingComponent implements OnInit {
   }
   getListing():void{
 
-  this.api._get_survey({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
-    console.log(data);
+  this.api._get_survey({branch_id:this.SessionData.employee_branch_id,bank_id:this.SessionData.bank_id}).subscribe(data  => {
+    //console.log(data);
     this.ListingData = data;
     
     if (this.isDtInitialized) {

@@ -1,26 +1,20 @@
-import { SurveyComponent } from './survey.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
-import { ListingComponent } from './survey-listing/listing.component';
+import { AreasurveyComponent } from './areasurvey.component';
+
 
 const routes: Routes = [
     {
       path: '',
       pathMatch: 'full',
-      component: ListingComponent,
+      component: AreasurveyComponent,
       data: {
         title: 'Assign Survey Details'
       }
     }
-    ,
-    {
-      path: 'assign-survey',
-      pathMatch: 'full',
-      component: SurveyComponent,
-      data: {
-        title: 'Assign Survey'
-      }
-    }
+    
+    
   
   ];
 
@@ -33,4 +27,4 @@ const routes: Routes = [
     ]
   })
 
-export class SurveyRoutingModule { }
+export class AreaSurveyRoutingModule { }

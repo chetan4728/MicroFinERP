@@ -1,15 +1,13 @@
 import { AreaFormComponent } from '../area-form/area-form.component';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule} from '@angular/router';
-import { BranchComponent } from './branch.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: BranchComponent,
+    component: AreaFormComponent,
     data: {
       title: 'Dashboard Component'
     }
@@ -24,4 +22,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class BranchRoutingModule { }
+export class AreaFormRoutingModule { }

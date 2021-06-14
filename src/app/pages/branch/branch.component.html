@@ -28,7 +28,7 @@
                 <tr>
                     <th>Sr no</th>
                     <th>Branch Name</th>
-                    <th>Branch Code</th>
+                    <th>Area Name</th>
                     <th>Branch Postal Code</th>
                     <th>Branch Status</th>
                     <th>Action</th>
@@ -38,7 +38,7 @@
               <tr *ngFor="let row of BranchList; let i = index">
                   <td>{{i+1}}</td>
                   <td>{{row.branch_name}}</td>
-                  <td>{{row.branch_code}}</td>
+                  <td>{{row.area_name}}</td>
                   <td>{{row.post_code}}</td>
                   <td><ng-container *ngIf="row.branch_status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
@@ -50,7 +50,6 @@
                    </td>
                   <td><button class="btn btn-success btn-sm" (click)="editRecord(row)"  >Edit</button>
                       <button class="btn btn-danger btn-sm ml-1" (click)="deleteRecord({branch_id:row.branch_id,bank_id:row.bank_id})" >Delete</button>
-                      <button class="btn btn-primary btn-sm ml-1" (click)="area(row)" >Add Area</button>
                     </td>
               </tr>
             </tbody>
@@ -87,12 +86,15 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                        <label>Branch Code</label>
-                        <input type="text" [(ngModel)]="selectRoleRow.branch_code"  class="form-control" id="branch_code" formControlName="branch_code" placeholder="Branch Code" >
+                        <label>Area</label>
+                        <select class="form-control"  [(ngModel)]="selectRoleRow.area_id"  formControlName="area_id" >
+                          <option value="null">Select Area</option>
+                          <option *ngFor="let row of AreaList; let i = index" [value]="row.area_id" >{{row.area_name}}</option>
+                         </select>
 
-                        <p class="error" *ngIf="Form.get('branch_code').invalid && (Form.get('branch_code').dirty || Form.get('branch_code').touched)">
-                          <ng-container *ngIf="Form.get('branch_code').hasError('required')">
-                            Branch Code is required!
+                        <p class="error" *ngIf="Form.get('area_id').invalid && (Form.get('area_id').dirty || Form.get('area_id').touched)">
+                          <ng-container *ngIf="Form.get('area_id').hasError('required')">
+                            Area Name is required!
                           </ng-container>
                          
                       </p>

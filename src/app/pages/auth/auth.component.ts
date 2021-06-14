@@ -18,6 +18,7 @@ export class AuthComponent implements OnInit {
    UserNameIcon: any;
    UserPassIcon: any;
    BankDetails: any;
+   bank_id:any;
    StateList: [];
    DistrictList: [];
    url: any;
@@ -33,7 +34,7 @@ export class AuthComponent implements OnInit {
               }
   ngOnInit(): void {
     this.initForm();
-    this.LoadRoles();
+   
     this.initState();
     this.initSetupForm();
     this.UserNameIcon = 'fas fa-envelope';
@@ -47,7 +48,9 @@ export class AuthComponent implements OnInit {
       this.ShowRegistration = 'hide';
       this.BankDetails = data.row;
       this.bank_name_title =  this.BankDetails.bank_name;
-      //console.log(this.BankDetails)
+      this.bank_id =  this.BankDetails.bank_id;
+     // console.log(this.bank_id)
+     this.LoadRoles();
     }
     else
     {
@@ -55,11 +58,14 @@ export class AuthComponent implements OnInit {
       this.ShowRegistration = 'show';
     }
     });
+
   }
 
   LoadRoles(): void{
 
-    this.api._getRole().subscribe((roles: Role[]) => {
+   
+
+    this.api._getRole({bank_id:this.bank_id}).subscribe((roles: Role[]) => {
 
       this.rolesList = roles;
   });

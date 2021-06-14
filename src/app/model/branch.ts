@@ -3,7 +3,8 @@ export class Branch {
     branch_id: number;
     bank_id:number;
     branch_name: string;
-    branch_code: string;
+    area_name:any;
+    area_id: any;
     state_id: number;
     district_id: number;
     address: string;

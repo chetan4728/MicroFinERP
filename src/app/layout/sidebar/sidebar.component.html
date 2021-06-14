@@ -45,20 +45,26 @@
 
             <li class="nav-item">
               <a [routerLink]="['/bank-details']" routerLinkActive="active" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fas fa-angle-right nav-icon"></i>
                 <p>Edit Bank Details</p>
               </a>
             </li>
 
             <li class="nav-item" *ngIf="this.Role=='AD'" >
               <a [routerLink]="['/role']" routerLinkActive="active" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fas fa-angle-right nav-icon"></i>
                 <p>Manage Role</p>
               </a>
             </li>
             <li class="nav-item" *ngIf="this.Role=='AD'" >
+              <a [routerLink]="['/area']" routerLinkActive="active" class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Manage Area</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
               <a [routerLink]="['/branch']" routerLinkActive="active" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fas fa-angle-right nav-icon"></i>
                 <p>Manage Branch</p>
               </a>
             </li>
@@ -74,7 +80,7 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a  [routerLink]="['/users']" routerLinkActive="active"   class="nav-link">
-                    <i class="far fa-user nav-icon"></i>
+                    <i class="fas fas fa-angle-right nav-icon"></i>
                     <p>All Users</p>
                   </a>
                 </li>
@@ -82,20 +88,20 @@
       
                 <li class="nav-item">
                   <a  class="nav-link">
-                    <i class="far fa-user nav-icon"></i>
+                    <i class="fas fas fa-angle-right nav-icon"></i>
                     <p>Change Officer</p>
                   </a>
                 </li>
       
                 <li class="nav-item">
                   <a  class="nav-link">
-                    <i class="far fa-user nav-icon"></i>
+                    <i class="fas fas fa-angle-right nav-icon"></i>
                     <p>Assign FO/TE</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a  class="nav-link">
-                    <i class="far fa-user nav-icon"></i>
+                    <i class="fas fas fa-angle-right nav-icon"></i>
                     <p>Edit Group Leader</p>
                   </a>
                 </li>
@@ -115,20 +121,22 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a    [routerLink]="['/app-survey']" routerLinkActive="active"  class="nav-link">
-                <i class="fas fas fa-angle-right nav-icon"></i>
-                <p>View Surveys</p>
-              </a>
-            </li>
 
             <li class="nav-item">
               <a [routerLink]="['/survey']" routerLinkActive="active"  class="nav-link">
                 <i class="fas fas fa-angle-right nav-icon"></i>
-                <p>Assign Target</p>
+                <p>Assign Area Surveys</p>
               </a>
             </li>
             
+            <li class="nav-item">
+              <a    [routerLink]="['/area-survey']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Area Surveys</p>
+              </a>
+            </li>
+
+           
           
             
           </ul>
