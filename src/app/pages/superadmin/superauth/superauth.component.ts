@@ -51,13 +51,6 @@ export class SuperauthComponent implements OnInit {
    });
  }
 
- LoadRoles(): void{
-
-   this.api._getRole().subscribe((roles: Role[]) => {
-
-     this.rolesList = roles;
- });
- }
  initForm(): void {
    this.LoginForm = this.formBuilder.group({
      employee_login_code: ['', Validators.required],

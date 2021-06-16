@@ -28,7 +28,7 @@
       </agm-map>
   <form [formGroup]="Form" (ngSubmit)="submit()">
      <div class="row container">
-         <div class="col-md-6">
+         <div class="col-md-4">
              <div class="form-group">
                  <label>Employee Name</label>
                  <select class="form-control" [(ngModel)]="selectRoleRow.user_id"  formControlName="user_id" >
@@ -37,21 +37,28 @@
                  </select>
              </div>
          </div>
-         <div class="col-md-6">
+
+         
+         <div class="col-md-4">
             <div class="form-group">
                 <label>Enter Area Name</label>
                 <input type="text" class="form-control" [(ngModel)]="selectRoleRow.area_name" formControlName="area_name"  placeholder="Enter Area Name"/>
             </div>
         </div>
-
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <div class="form-group">
+              <label>Assign Date</label>
+              <input type="date" class="form-control" [(ngModel)]="selectRoleRow.date_assigned" formControlName="date_assigned"  placeholder="Enter Date"/>
+          </div>
+      </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label>Latitude</label>
                 <input type="text" class="form-control" [(ngModel)]="selectRoleRow.latitude"  formControlName="latitude"  placeholder="Enter Latitude"/>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label>Longitude</label>
                 <input type="hidden" [(ngModel)]="selectRoleRow.branch_id"   formControlName="branch_id" >
@@ -60,7 +67,7 @@
         </div>
      </div> 
 
-     <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="!Form.valid"     >Assign Survey</button>
+     <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="!Form.valid"   >Submit</button>
     </form>
   </div>
 

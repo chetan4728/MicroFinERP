@@ -42,14 +42,14 @@
                 
                 <td><ng-container *ngIf="row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
-                    <span  class="badge badge-success ">Active</span>
+                    <span  class="badge badge-success ">Approved</span>
                   </ng-template>
                   <ng-template #elseTemplate>
-                    <span  class="badge badge-danger">Inactive</span>
+                    <span  class="badge badge-danger">pending</span>
                   </ng-template>
                    </td>
 
-                   <td><button class="btn btn-success btn-sm"   >View</button>
+                   <td><button class="btn btn-success btn-sm" (click)="viewSurvey(row.survey_no)"  >View</button>
                 
                 
                   </td>

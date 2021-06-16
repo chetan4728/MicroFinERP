@@ -1,0 +1,674 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+  
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" [routerLink]="['/area-survey']" >Area Surveys</a></li>
+            <li class="breadcrumb-item active">Survey</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <div class="container card">
+
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Survery  <span  class="badge badge-warning">{{this.row.survey_no}}</span> Infomration 
+        <ng-container *ngIf="this.row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-template #thenTemplate>
+          <span  class="badge badge-success ">Approved</span>
+        </ng-template>
+        <ng-template #elseTemplate>
+          <span  class="badge badge-danger">Pending</span>
+        </ng-template></legend> 
+       
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+            ></agm-marker>
+        </agm-map><br>
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Area Name</label>
+                <input readonly class="form-control" value="{{row.area_name}}" />
+    
+            </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+              <label>Area Name</label>
+              <input readonly class="form-control" value="{{row.mbb_name}}" />
+  
+          </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Created By</label>
+            <input readonly class="form-control" value="{{row.employee_first_name}} {{row.employee_last_name}}" />
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+          <label>Created Date</label>
+          <input readonly class="form-control" value="{{row.survey_created}}" />
+
+      </div>
+  </div>
+
+
+      </div>
+         
+    
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Number Of households</legend> 
+        <div class="row"> 
+        <div class="col-md-4">
+          <div class="form-group">
+              <label>Total Households</label>
+              <input readonly class="form-control" value="{{row.total_household}}" />
+  
+          </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Enter Minority Households</label>
+            <input readonly class="form-control" value="{{row.minority_household}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Enter SC Households</label>
+            <input readonly class="form-control" value="{{row.sc_household}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Enter OBC Households</label>
+            <input readonly class="form-control" value="{{row.obc_household}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Enter ST Households</label>
+            <input readonly class="form-control" value="{{row.st_household}}" />
+
+        </div>
+      </div> 
+    </div>
+
+
+      </fieldset>
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Agriculture Details</legend> 
+        
+        <div class="row">
+          
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Total Area (acers)</label>
+            <input readonly class="form-control" value="{{row.area_acres}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Water Reservoir</label>
+            <input readonly class="form-control" value="{{row.water_reservolr}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Rain Fed (Acres)</label>
+            <input readonly class="form-control" value="{{row.rain_fed}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Forest Land (Acres)</label>
+            <input readonly class="form-control" value="{{row.forest_land}}" />
+
+        </div>
+      </div> 
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <label>Forest Irrigated (Acres)</label>
+            <input readonly class="form-control" value="{{row.irrigated_area}}" />
+
+        </div>
+      </div> 
+
+        </div>
+     
+      </fieldset>
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Agriculture Yield And Productvity</legend> 
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Crop Name</label>
+                <input readonly class="form-control" value="{{row.crop_name}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.under_cultivation}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.per_acre_yield}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 2 Crop Name </label>
+                <input readonly class="form-control" value="{{row.crop_name_second}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 2 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.under_cultivation_second}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 2 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.per_acre_yield_second}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 3 Crop Name </label>
+                <input readonly class="form-control" value="{{row.crop_name_third}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 3 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.under_cultivation_third}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 3 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.per_acre_yield_fourth}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 4 Crop Name </label>
+                <input readonly class="form-control" value="{{row.crop_name_fourth}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 4 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.under_cultivation_fourth}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter 4 Acres Under Cultivation</label>
+                <input readonly class="form-control" value="{{row.per_acre_yield_third}}" />
+    
+            </div>
+          </div> 
+        </div>
+     
+      </fieldset>
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Details of important NFS Bussiness</legend> 
+         <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Hotels</label>
+                <input readonly class="form-control" value="{{row.number_of_hotels}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Utensil Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_utensil_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Tea Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_tea_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Agri Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_agri_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Kirana Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_kirana_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Agree Processing Unit</label>
+                <input readonly class="form-control" value="{{row.number_of_agree_proce_unit}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Tailoring Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_tailoring_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Pan Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_pan_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Cycle Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_cycle_shops}}" />
+    
+            </div>
+          </div> 
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Electrical Repair Shops</label>
+                <input readonly class="form-control" value="{{row.number_of_repair_service_shops}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Number Of Others</label>
+                <input readonly class="form-control" value="{{row.number_of_other_shops}}" />
+    
+            </div>
+          </div> 
+         </div>
+     
+      </fieldset>  
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Availability of Services</legend> 
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Bus Services</label>
+                <input readonly class="form-control" value="{{row.bus_service}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Auto Services</label>
+                <input readonly class="form-control" value="{{row.auto_service}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Police Stations</label>
+                <input readonly class="form-control" value="{{row.police_station}}" />
+    
+            </div>
+          </div> 
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Markets</label>
+                <input readonly class="form-control" value="{{row.market}}" />
+    
+            </div>
+          </div> 
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Primary Helth Center</label>
+                <input readonly class="form-control" value="{{row.primary_health_center}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Primary School</label>
+                <input readonly class="form-control" value="{{row.primary_school}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>No of School</label>
+                <input readonly class="form-control" value="{{row.number_of_school}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Quality Of Roads</label>
+                <input readonly class="form-control" value="{{row.quality_of_roads}}" />
+    
+            </div>
+          </div> 
+        </div>
+     
+      </fieldset>  
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Non Fincanial Institution</legend> 
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Dairy Society Number</label>
+                <input readonly class="form-control" value="{{row.dairy_society_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Dairy Society Client</label>
+                <input readonly class="form-control" value="{{row.dairy_society_client}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Farmers Club Number</label>
+                <input readonly class="form-control" value="{{row.farmers_club_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Farmers Club Client</label>
+                <input readonly class="form-control" value="{{row.farmers_club_client}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>SHG's Number</label>
+                <input readonly class="form-control" value="{{row.shgs_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>SHG's Client</label>
+                <input readonly class="form-control" value="{{row.shgs_client}}" />
+    
+            </div>
+          </div> 
+        </div>
+     
+      </fieldset>  
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Fincanial Institution</legend> 
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Co-Operative Credit Society Number</label>
+                <input readonly class="form-control" value="{{row.co_operative_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Co-Operative Credit Society Client</label>
+                <input readonly class="form-control" value="{{row.co_operative_client}}" />
+    
+            </div>
+          </div> 
+
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Co-Operative Bank Branch Number</label>
+                <input readonly class="form-control" value="{{row.co_operative_branch_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Co-Operative Bank Branch Client</label>
+                <input readonly class="form-control" value="{{row.co_operative_branch_client}}" />
+    
+            </div>
+          </div> 
+
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Grameen Bank Branch Number</label>
+                <input readonly class="form-control" value="{{row.grameem_branch_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Grameen  Bank Branch Client</label>
+                <input readonly class="form-control" value="{{row.grameem_branch_client}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Commercial Bank Branch Number</label>
+                <input readonly class="form-control" value="{{row.comercial_branch_number}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Commercial  Bank Branch Client</label>
+                <input readonly class="form-control" value="{{row.comercial_branch_client}}" />
+    
+            </div>
+          </div> 
+        </div>
+     
+      </fieldset>  
+
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">MFIS</legend> 
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Name 1</label>
+                <input readonly class="form-control" value="{{row.mfi_name_1}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Number 1</label>
+                <input readonly class="form-control" value="{{row.mfi_number_1}}" />
+    
+            </div>
+          </div> 
+          
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Client 1</label>
+                <input readonly class="form-control" value="{{row.mfi_client_1}}" />
+    
+            </div>
+          </div> 
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Name 2</label>
+                <input readonly class="form-control" value="{{row.mfi_name_2}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Number 2</label>
+                <input readonly class="form-control" value="{{row.mfi_number_2}}" />
+    
+            </div>
+          </div> 
+          
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Client 2</label>
+                <input readonly class="form-control" value="{{row.mfi_client_2}}" />
+    
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Name 3</label>
+                <input readonly class="form-control" value="{{row.mfi_name_3}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Number 3</label>
+                <input readonly class="form-control" value="{{row.mfi_number_3}}" />
+    
+            </div>
+          </div> 
+          
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Client 3</label>
+                <input readonly class="form-control" value="{{row.mfi_client_3}}" />
+    
+            </div>
+          </div> 
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Name 4</label>
+                <input readonly class="form-control" value="{{row.mfi_name_4}}" />
+    
+            </div>
+          </div> 
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Number 4</label>
+                <input readonly class="form-control" value="{{row.mfi_number_4}}" />
+    
+            </div>
+          </div> 
+          
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Client 4</label>
+                <input readonly class="form-control" value="{{row.mfi_client_4}}" />
+    
+            </div>
+          </div> 
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button  class="btn btn-success">Submit</button>
+          </div>
+      </fieldset>   
+
+    </div>
+  
+<!-- /.content-wrapper -->

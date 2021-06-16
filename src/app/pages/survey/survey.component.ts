@@ -22,16 +22,21 @@ export class SurveyComponent implements OnInit {
   zoom:number;
   private geoCoder;
   address: string;
-  selectRoleRow: Survey = {  assign_area_id:0 , area_name:null, branch_id:0 , latitude:null, longitude:null ,user_id:0};
+  selectRoleRow: Survey = { date_assigned:null, assign_area_id:0 , area_name:null, branch_id:0 , latitude:null, longitude:null ,user_id:0};
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  constructor( private route: Router , private formBuilder: FormBuilder ,public local: LocalStorageService, private mapsAPILoader: MapsAPILoader,
+  constructor(private param: ActivatedRoute ,private route: Router , private formBuilder: FormBuilder ,public local: LocalStorageService, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,private dp: DropDownsService ,private api: SurveyService) { }
 
   ngOnInit(): void {
+    
     this.initForm();
     this.SessionData = this.local.get(environment.userSession);
     this.selectRoleRow.branch_id = this.SessionData.employee_branch_id;
+
+    const id = this.param.snapshot.paramMap.get('id');
+
+  
     this.mapsAPILoader.load().then(() => {
     this.setCurrentLocation();
    
@@ -59,12 +64,23 @@ export class SurveyComponent implements OnInit {
       });
     });
     this.getEmployee();
+
+    if(id!=null)
+    {
+      this.api._get_survey_row({bank_id:this.SessionData.bank_id,assign_area_id:id}).subscribe((survey: Survey[])  => {
+   
+       this.selectRoleRow = survey[0];
+        this.latitude = parseFloat(survey[0].latitude);
+        this.longitude = parseFloat(survey[0].longitude);
+      });
+    }
   }
 
   initForm(): void {
     this.Form = this.formBuilder.group({
       user_id: ['', Validators.required],
       area_name: ['', Validators.required],
+      date_assigned:[''],
       branch_id: ['', Validators.required],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
@@ -75,9 +91,7 @@ export class SurveyComponent implements OnInit {
   }
   getEmployee()
   {
- 
     this.dp._get_branch_employee({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
-      //console.log(data);
       this.employeeDp = data;
   });
   }
@@ -125,24 +139,18 @@ export class SurveyComponent implements OnInit {
       {
 
 
-        /*this.api._update_branch(this.selectRoleRow).subscribe(data => {
-          if (data.employee_id > 0)
-          {
-            this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
-
+        this.api._update_survey(this.selectRoleRow).subscribe(data => {
+          this.Form.reset();
+          Swal.fire({
+              position: 'top-end',
+              toast: true,
+              icon: 'success',
+              title: 'Data Updated Successfully',
+              showConfirmButton: false,
+              timer: 1500
             });
-            this.Form.reset();
-            Swal.fire({
-                position: 'top-end',
-                toast: true,
-                icon: 'success',
-                title: 'Data Updated Successfully',
-                showConfirmButton: false,
-                timer: 1500
-              });
-
-        }
-        });*/
+          this.route.navigateByUrl('/survey');
+        });
       }
       else
       {

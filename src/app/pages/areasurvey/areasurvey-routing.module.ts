@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { AreasurveyComponent } from './areasurvey.component';
+import { ViewsurveyComponent } from './viewsurvey/viewsurvey.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,16 @@ const routes: Routes = [
       data: {
         title: 'Assign Survey Details'
       }
+    },
+    {
+      path: 'viewsurivey/:id',
+      pathMatch: 'full',
+      component: ViewsurveyComponent,
+      data: {
+        title: 'Assign Survey Details'
+      }
     }
+    
     
     
   

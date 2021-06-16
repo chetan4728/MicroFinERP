@@ -21,6 +21,15 @@ const routes: Routes = [
         title: 'Assign Survey'
       }
     }
+    ,
+    {
+      path: 'assign-survey-edit/:id',
+      pathMatch: 'full',
+      component: SurveyComponent,
+      data: {
+        title: 'Assign Survey'
+      }
+    }
   
   ];
 

@@ -30,6 +30,14 @@ export class ListingComponent implements OnInit {
   add():void{
     this.router.navigate(['/survey/assign-survey']);
   }
+  edit(id):void
+  {
+    //alert(id)
+    this.router.navigate(['/survey/assign-survey-edit/'+id+'']);
+  }
+  delete_row(id):void{
+      alert(id)
+  }
   getListing():void{
 
   this.api._get_survey({branch_id:this.SessionData.employee_branch_id,bank_id:this.SessionData.bank_id}).subscribe(data  => {

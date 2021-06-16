@@ -8,10 +8,11 @@ import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AreasurveyComponent } from './areasurvey.component';
 import { AreaSurveyRoutingModule } from './areasurvey-routing.module';
+import { ViewsurveyComponent } from './viewsurvey/viewsurvey.component';
 
 
 @NgModule({
-  declarations: [AreasurveyComponent],
+  declarations: [AreasurveyComponent, ViewsurveyComponent],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD0fhyInxQCAVmBPVGJLN_QIF29pJfyYfQ',

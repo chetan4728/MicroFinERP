@@ -25,6 +25,11 @@ export class AreasurveyComponent implements OnInit {
     this.SessionData = this.local.get(environment.userSession);
     this.getListing();
   }
+
+  viewSurvey(id):void{
+      
+         this.router.navigate(['/area-survey/viewsurivey/' + id]);
+  }
   getListing():void{
 
     this.api._getAreaSurveys({bank_id:this.SessionData.bank_id}).subscribe(data  => {
