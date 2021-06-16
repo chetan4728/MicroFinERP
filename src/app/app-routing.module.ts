@@ -118,6 +118,13 @@ export const routes: Routes = [
             title: 'survey Page'
           },
         },
+        {
+          path: 'cgt',
+          loadChildren: () => import('../app/pages/cgt/cgt.module').then(m => m.CgtModule),
+          data: {
+            title: 'CGT'
+          },
+        },
 
         
         {
