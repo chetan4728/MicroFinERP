@@ -26,17 +26,18 @@
       <div class="container-fluid card">
         <div class="row filters">
           <div class="col-md-3">
-            <select class="form-control" [(ngModel)]="branch_dp" (change)="onChangeBranch($event.target.value)" >
-              <option value="">Select Branch</option>
-              <option *ngFor="let row of this.BranchList; let i = index" value="{{row.branch_id}}">{{row.branch_name}}</option>
-            </select>
-          </div>
-          <div class="col-md-3">
             <select class="form-control" [(ngModel)]="area_dp" (change)="onChangeArea($event.target.value)" >
               <option value="">Select Area</option>
               <option *ngFor="let row of this.AreaList; let i = index" value="{{row.area_id}}">{{row.area_name}}</option>
             </select>
           </div>
+          <div class="col-md-3">
+            <select class="form-control" [(ngModel)]="branch_dp" (change)="onChangeBranch($event.target.value)" >
+              <option value="">Select Branch</option>
+              <option *ngFor="let row of this.BranchList; let i = index" value="{{row.branch_id}}">{{row.branch_name}}</option>
+            </select>
+          </div>
+         
           <div class="col-md-2">
             <select class="form-control" [(ngModel)]="center_dp" (change)="onChangeCenter($event.target.value)" >
               <option value="">Select Center</option>
@@ -65,7 +66,6 @@
                     <th>Group</th>
                     <th>Limit</th>
                     <th>Total Loan Amount</th>
-                    <th>Loan Amount (Per Member)</th>
                     <th>Loan Date</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -80,8 +80,8 @@
                 <td>{{row.group_name}}</td>
                 <td>{{row.loan_members}}</td>
                 <td>{{ row.total_loan_amount | currency:'INR' }}</td>
-                <td>{{ row.loan_amount_per_member | currency:'INR' }} </td>
-                <td>{{row.loan_date}}</td>
+       
+                <td>{{row.disburstment_date}}</td>
                 
                 <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>

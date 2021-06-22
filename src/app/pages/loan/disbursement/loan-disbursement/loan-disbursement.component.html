@@ -170,7 +170,7 @@
        <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Loan Distribution's</legend> 
         <div class="row cal_box">
-        <ng-container *ngIf="this.intrest_type == 'reducing'; then reducing; else compound"></ng-container>
+        <ng-container *ngIf="'reducing' == 'reducing'; then reducing; else compound"></ng-container>
                   <ng-template #reducing>
                     <h2 style="font-size: 18px;" class="badge badge-warning ">Reducing Intrest Loan calculation</h2>
                   </ng-template>

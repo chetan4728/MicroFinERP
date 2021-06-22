@@ -35,6 +35,7 @@ export class LoanDisbursementComponent implements OnInit {
    total_intrest_in_per:any = 0;
    interest_table:any;
    members_ids:any;
+   row:any;
   constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
 
   ngOnInit(): void {
@@ -54,9 +55,19 @@ export class LoanDisbursementComponent implements OnInit {
 
     if(action=="edit")
     {
-      this.api._get_loan_distribution_applications_data({loan_distribution_id:loan_distribution_id,branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data => {
-            
-       
+      this.api._get_loan_distribution_applications_data({bank_id:this.SessionData.bank_id,loan_distribution_id:loan_distribution_id,branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data => {
+        this.row =  data['loan_details'];
+        this.total_amount = this.row.total_loan_amount;
+        this.term = this.row.term_year;
+        this.intrest = this.row.anual_percentage_rate;
+        this.disburstment_date = this.row.disburstment_date;
+        this.emi_date = this.row.emi_date;
+        this.monthly_emi = this.row.monthly_emi;
+        this.monthly_intrest = this.row.monthly_intrest;
+        this.total_payments = this.row.total_payments;
+        this.total_intrest =   this.row.total_intrest;
+        this.total_intrest_in_per = this.row.total_intrest_in_per;
+         this.getEmiTable();
           
         });
     }
@@ -386,7 +397,7 @@ export class LoanDisbursementComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-     // this.route.navigate(['/disbursement']);
+     this.route.navigate(['/disbursement']);
     });
     }
   }
@@ -401,7 +412,7 @@ export class LoanDisbursementComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-     // this.route.navigate(['/disbursement']);
+      this.route.navigate(['/disbursement']);
     });
   }
 

@@ -15,9 +15,9 @@ export class LoanService {
   private REST_API_SERVER = environment.api;
   private GET = this.REST_API_SERVER + 'Loans/LoadTable';
   private GET_SINGLE = this.REST_API_SERVER + 'Loans/get_single_record';
-  private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
+  private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTableByarea';
   private GET_AREA = this.REST_API_SERVER + 'Area/LoadTable';
-  private GET_CENTERS = this.REST_API_SERVER + 'Centers/LoadCentersFromArea';
+  private GET_CENTERS = this.REST_API_SERVER + 'Centers/LoadCentersFrombranch';
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
   private UPDATE_STATUS = this.REST_API_SERVER + 'Loans/Update_status';

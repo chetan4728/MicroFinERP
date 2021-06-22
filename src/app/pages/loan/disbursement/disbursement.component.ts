@@ -21,6 +21,7 @@ export class DisbursementComponent implements OnInit {
   SessionData: any;
   ListingData:any;
   BranchList: any;
+  area_id:any;
   AreaList: any;
   CenterList: any;
   GroupList: any;
@@ -35,7 +36,7 @@ export class DisbursementComponent implements OnInit {
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
-    this.loadBranch();
+    this.loadArea();
     this.getListing();
     this.Url = environment.uploads;
   }
@@ -54,26 +55,41 @@ export class DisbursementComponent implements OnInit {
     });
   }
 
-  loadBranch():void{
-    this.api._get_branch({bank_id:this.SessionData.bank_id}).subscribe(data => {
-      this.BranchList = data;
-   });
+  loadArea()
+  {
+    this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
+      this.AreaList = data;
+
+    
+      
+  });
   }
 
   onChangeBranch(id):void{
-    //alert(id)
-    this.api._get_area({branch_id:id}).subscribe(data => {
-      this.AreaList = data;
+   
+   this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:id,area_id:this.area_id}).subscribe(data => {
+      this.CenterList = data;
   });
+   
   }
 
   onChangeArea(id):void{
     //alert(id)
-    this.api._get_centers({area_id:id}).subscribe(data => {
-      this.CenterList = data;
-  });
-  }
+    this.area_id = id;
 
+    this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
+      this.BranchList = data;
+      
+    
+  });
+
+    /*this.api._get_centers({area_id:id}).subscribe(data => {
+      this.CenterList = data;
+
+    
+   
+  });*/
+  }
   onChangeCenter(id):void{
     //alert(id)
     this.api._get_groups({center_id:id}).subscribe(data => {

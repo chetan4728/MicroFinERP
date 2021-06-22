@@ -132,8 +132,8 @@
                     </tr>
                     <tbody>
                       <tr *ngFor="let row of row.loan_emi; let i = index">
-                        <td>{{i+1}}</td>
-                        <td>{{row.payment_date}}</td>
+                        <td>{{row.emi_no}}</td>
+                        <td>{{row.inc_date}}</td>
                         <td>{{row.begining_bal}}</td>
                         <td>{{row.scheduled_payment}}</td>
                         <td>{{row.interest_paid}}</td>
