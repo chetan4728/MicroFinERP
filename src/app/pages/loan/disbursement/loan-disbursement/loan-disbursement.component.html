@@ -119,6 +119,7 @@
                 <tr>
                     
                     <th>Profile</th>
+                    <th>Application No</th>
                     <th>Name</th>
                     <th>Branch</th>
                     <th>Center</th>
@@ -138,6 +139,7 @@
              <tr *ngFor="let row of members; let i = index">
             
                 <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
+                <td>{{row.loan_application_number}}</td>
                 <td>{{row.applicant_name}}</td>
                 <td>{{row.branch_name}}</td>
                 <td>{{row.center_name}}</td>

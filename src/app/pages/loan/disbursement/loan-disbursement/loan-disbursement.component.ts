@@ -91,7 +91,7 @@ export class LoanDisbursementComponent implements OnInit {
       for(let i=0;i< this.members.length;i++)
       {
         //this.acutal_members =this.members[i].member_limit;
-        this.members_ids.push(this.members[i].loan_application_no)
+        this.members_ids.push(this.members[i].loan_application_number)
         if(this.members[i].approved_status==1 && isNaN(this.members[i].approved_status)!=true)
         {
           //alert(this.members[i].approved_status)
@@ -150,7 +150,7 @@ export class LoanDisbursementComponent implements OnInit {
                 dateSrt.setDate(0);
             }
          
-            var txtDay =    formatDate(dateSrt, 'dd-MM-yyyy', 'en-US');
+            var txtDay =    formatDate(dateSrt, 'yyyy-MM-dd', 'en-US');
             var diffTime:any = Math.abs(dis_date_f - emi_date_f);
             var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             var old_date:any = new Date(formatDate(dateSrt, 'yyyy-MM-dd', 'en-US')); 
@@ -182,7 +182,7 @@ export class LoanDisbursementComponent implements OnInit {
           if (dateSrt.getMonth() > currentMonth + 1) {
               dateSrt.setDate(0);
           }
-          var txtDay = formatDate(dateSrt, 'dd-MM-yyyy', 'en-US');
+          var txtDay = formatDate(dateSrt, 'yyyy-MM-dd', 'en-US');
           var newDay:any = new Date(formatDate(dateSrt, 'yyyy-MM-dd', 'en-US'));
   
           var diffTime:any = Math.abs(old_date - newDay);
