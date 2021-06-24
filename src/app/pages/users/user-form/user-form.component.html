@@ -201,6 +201,16 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
+            <label>Area Name</label>
+            <select class="form-control"   [(ngModel)]="selectRoleRow.employee_branch_id" formControlName="employee_branch_id" >
+                <option value="">Select Area</option>
+                <option *ngFor="let row of BranchList; let i = index" [value]="row.branch_id" >{{row.branch_name}}</option>
+                </select>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
             <label>Branch Name</label>
             <select class="form-control"   [(ngModel)]="selectRoleRow.employee_branch_id" formControlName="employee_branch_id" >
                 <option value="">Select Branch</option>

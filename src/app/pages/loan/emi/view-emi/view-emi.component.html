@@ -143,10 +143,10 @@
                          
                            <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
                             <ng-template #thenTemplate>
-                              <span  class="badge badge-success ">Approved</span>
+                              <span  class="badge badge-success ">Paid</span>
                             </ng-template>
                             <ng-template #elseTemplate>
-                              <span  class="badge badge-danger">Pending</span>
+                              <span  class="badge badge-danger">Unpaid</span>
                             </ng-template>
                              </td>
                            <td>{{row.paid_date}}</td>

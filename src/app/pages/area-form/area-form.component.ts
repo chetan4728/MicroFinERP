@@ -42,7 +42,7 @@ export class AreaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.session = this.local.get(environment.userSession);
-    this.selectRoleRow.bank_id =  this.session.bank_id;
+ 
     this.LoadBranch();
     this.initForm();
     this.LoadTableData();
@@ -118,11 +118,13 @@ export class AreaFormComponent implements OnInit {
     });
   }
   initForm(): void {
+
     this.Form = this.formBuilder.group({
       area_name: ['', Validators.required],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
       status: ['', Validators.required],
+      bank_id:this.session.bank_id
     });
   }
   LoadTableData(): void {
@@ -147,7 +149,7 @@ export class AreaFormComponent implements OnInit {
   }
 
   showModal(): void {
-    this.selectRoleRow = {latitude:0,longitude:0, area_id : 0,area_name :null,bank_id : 0,status:"",branch_name:null};
+    this.selectRoleRow = {latitude:0,longitude:0, area_id : 0,area_name :null,bank_id : this.session.bank_id,status:"",branch_name:null};
     $('#myModal').modal('show');
 
   }
@@ -201,6 +203,7 @@ export class AreaFormComponent implements OnInit {
     {
     this.api._add_area(this.Form.value).subscribe(data =>
       {
+        
         this.LoadTableData();
         document.getElementById('close-modal').click();
         this.Form.reset();
