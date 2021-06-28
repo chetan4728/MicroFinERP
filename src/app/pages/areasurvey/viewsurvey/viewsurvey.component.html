@@ -20,7 +20,7 @@
   <div class="container card">
 
     <fieldset class="scheduler-border">
-      <legend class="scheduler-border">Survery  <span  class="badge badge-warning">{{this.row.survey_no}}</span> Infomration 
+      <legend class="scheduler-border">Survery  Infomration <span  class="badge badge-warning">{{this.row.survey_uniqe_id}}</span>       &nbsp;
         <ng-container *ngIf="this.row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
         <ng-template #thenTemplate>
           <span  class="badge badge-success ">Approved</span>

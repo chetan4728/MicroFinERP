@@ -27,17 +27,17 @@
                 <tr>
                     <th>Sr no</th>
                     <th>Area</th>
-                    <th>Created By</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Created By</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
               <tr *ngFor="let row of ListingData; let i = index">
-                <td>{{i+1}}</td>
+                <td>{{row.survey_uniqe_id}}</td>
                 <td>{{row.area_name}}</td>
-                <td>{{row.employee_first_name}} {{row.employee_last_name}}</td>
+             
                 <td>{{row.survey_created}}</td>
                 
                 <td><ng-container *ngIf="row.surver_verfication_status == 1; then thenTemplate; else elseTemplate"></ng-container>
@@ -48,8 +48,8 @@
                     <span  class="badge badge-danger">pending</span>
                   </ng-template>
                    </td>
-
-                   <td><button class="btn btn-success btn-sm" (click)="viewSurvey(row.survey_no)"  >View</button>
+                   <td>{{row.employee_first_name}} {{row.employee_last_name}}</td>
+                   <td><button class="btn btn-success btn-sm" (click)="viewSurvey(row.survey_uniqe_id)"  >View</button>
                 
                 
                   </td>
