@@ -623,6 +623,29 @@
 
           <div class="col-md-4">
             <div class="form-group">
+              <label>Saving Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Loan Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>External Loan Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
               <label>Application Status </label>
               <select class="form-control" [(ngModel)]="application_status"  >
                 <option value="">Select Status</option>
@@ -640,43 +663,69 @@
       <div class="row">
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
+                  <a href="{{this.folder_url+this.selectRoleRow.member_photo_pr}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_pr" alt="Card image cap">
                     <p>Profile Photo</p>
+                  </a>
                   </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_pan_card" alt="Card image cap">
-                  <p>Pan Card</p>
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_pan_card}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_pan_card">
+                    <p>Pan Card</p>
+                  </a>
+        
                   </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_adhar_card" alt="Card image cap">
-                  <p>Aadhar Card</p>
+
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_adhar_card}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_adhar_card">
+                    <p>Aadhar Card</p>
+                  </a>
+
+                 
                   </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_other_proof" alt="Card image cap">
-                  <p>Other Proof</p>
+
+
+                  
+                  <a href="{{this.folder_url+this.selectRoleRow.member_other_proof}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_other_proof">
+                    <p>Other Proof</p>
+                  </a>
+                 
                   </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_new_business_activity" alt="Card image cap">
-                  <p>Business Proof</p>
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_new_business_activity}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_new_business_activity">
+                    <p>Business Proof</p>
+                  </a>
+                  
                   </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_signature" alt="Card image cap">
-                  <p>Signature Photo</p>
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_photo_signature}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_signature">
+                    <p>Signature Photo</p>
+                  </a>
+                  
                   </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import { environment } from 'src/environments/environment.prod';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -38,6 +39,21 @@ export class FormComponent implements OnInit {
   update():void{
     this.api._Update_Status({branch_id:this.selectRoleRow.branch_id,loan_application_no: this.selectRoleRow.loan_application_no,approved_status:this.application_status,created_by:this.selectRoleRow.created_by}).subscribe((data) => {
     
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'success',
+        title: 'Update Succssfully...',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.api._get_single_loans({loan_application_no: this.param.snapshot.paramMap.get('id')}).subscribe((data) => {
+        this.selectRoleRow = data;
+        this.application_status = this.selectRoleRow.approved_status;
+        this.url =  environment.uploads+this.selectRoleRow.member_photo_pr;
+        this.folder_url = environment.uploads;
+      
+    });
      // alert(data)
   });
     

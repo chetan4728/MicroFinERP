@@ -127,6 +127,8 @@
                       <th>Interest Paid</th>
                       <th>Principle Paid</th>
                       <th>Ending Balance</th>
+                      <th>Paid Amount</th>
+                      
                       <th>Payment Status</th>
                       <th>Paid Date</th>
                     </tr>
@@ -139,7 +141,7 @@
                         <td>{{row.interest_paid}}</td>
                         <td>{{row.principle_paid}}</td>
                         <td>{{row.ending_balance}}</td>
-                        
+                        <td>{{row.paid_amount}}</td>
                          
                            <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
                             <ng-template #thenTemplate>
