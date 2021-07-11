@@ -1,0 +1,738 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+  
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" [routerLink]="['/loans']" >Loan Application Pending</a></li>
+            <li class="breadcrumb-item active">Loan Application</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <div class="container card">
+
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Personal Information  <span  class="badge badge-primary ">{{this.selectRoleRow.loan_application_number}}</span>&nbsp;
+        <ng-container *ngIf="this.selectRoleRow.approved_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-template #thenTemplate>
+          <span  class="badge badge-success ">Approved</span>
+        </ng-template>
+        <ng-template #elseTemplate>
+          <span  class="badge badge-danger">Pending</span>
+        </ng-template></legend> 
+       
+
+         <div class="row">
+           <div class="col-md-3"> <div class="image-container">
+            <img [src]="this.selectRoleRow.member_photo_pr ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+            <input type='file'  class="select-profile-picture">
+            <span class="message">Tap here to select your picture</span>
+           </div></div>
+           <div class=" col-md-8">
+            <div class="row">
+               <div class="col-md-6">
+                <div class="form-group">
+                  <label>Applicant Name</label>
+                  <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_name}}" readonly  >
+              
+               </div>
+             </div>
+
+             <div class="col-md-6">
+              <div class="form-group">
+                <label>Applicant Father Name</label>
+                <input type="text" class="form-control"   value="{{this.selectRoleRow.applicant_father_name}}" readonly  >
+            
+             </div>
+            </div> 
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Gender</label>
+                <input type="text" value="{{this.selectRoleRow.gender}}" class="form-control"  readonly  >
+            
+             </div>
+            </div> 
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>DOB</label>
+                <input type="text" class="form-control"  value="{{this.selectRoleRow.dob}}" readonly  >
+            
+             </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>AGE</label>
+                <input type="text" value="{{this.selectRoleRow.age}}" class="form-control"  readonly  >
+            
+             </div>
+            </div>
+           </div>
+           </div>
+         </div>
+
+         <div class="row">
+          
+          <div class=" col-md-12">
+           <div class="row">
+              <div class="col-md-4">
+               <div class="form-group">
+                 <label>Applicant Mobile no</label>
+                 <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_mob_no}}"  readonly  >
+             
+              </div>
+            </div>
+
+            <div class="col-md-4">
+             <div class="form-group">
+               <label>Applicant UID No</label>
+               <input type="text" class="form-control" value="{{this.selectRoleRow.uid_no}}"  readonly  >
+           
+            </div>
+           </div> 
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>Taluka</label>
+               <input type="text" class="form-control" value="{{this.selectRoleRow.tq}}" readonly  >
+           
+            </div>
+           </div> 
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>District</label>
+               <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" readonly  >
+           
+            </div>
+           </div>
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>State</label>
+               <input type="text" class="form-control"  value="{{this.selectRoleRow.state}}" readonly  >
+           
+            </div>
+           </div>
+
+           <div class="col-md-4">
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" value="{{this.selectRoleRow.pincode}}" readonly  >
+          
+           </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Address</label>
+              <textarea type="text" class="form-control"  readonly  value="{{this.selectRoleRow.address}}"></textarea>
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Center</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.center_name}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Group</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.group_name}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Created By</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.added_by}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Created Date</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.created_date}}"  >
+          
+           </div>
+          </div>
+          </div>
+          </div>
+        </div>
+    
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Cash Flow Information</legend> 
+        <div class="row">
+          
+            <div class=" col-md-12">
+             <div class="row">
+                <div class="col-md-3">
+                 <div class="form-group">
+                   <label>Opening Balance</label>
+                   <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.opening_bal}}"  >
+               
+                </div>
+              </div>
+  
+              <div class="col-md-3">
+               <div class="form-group">
+                 <label>Sale</label>
+                 <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.sale_amount}}"  >
+             
+              </div>
+             </div> 
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Asset Sale</label>
+                 <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.asset_sale}}" >
+             
+              </div>
+             </div> 
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Debt of receipt</label>
+                 <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.deb_receipts}}">
+             
+              </div>
+             </div>
+  
+             <div class="col-md-3">
+               <div class="form-group">
+                 <label>Family Income</label>
+                 <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.family_income}}"  >
+             
+              </div>
+             </div>
+  
+             <div class="col-md-3">
+              <div class="form-group">
+                <label>Other Income</label>
+                <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.other_income}}" >
+            
+             </div>
+            </div>
+  
+            
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Total Income Amount</label>
+                <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.total_income}}" >
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Purchase</label>
+                <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.purchase}}">
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Accountant Fees</label>
+                <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.accountant_fees}}" >
+            
+             </div>
+            </div>
+  
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Solicitor Fees</label>
+                <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.solicitor_fees}}">
+            
+             </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                  <label>Advertising and marketing</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.advertisement_and_marketing}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Bank Fess and Charges</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.bank_charges}}"  >
+              
+               </div>
+              </div>
+              
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Interest Paid</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.interest_paid}}"  >
+
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Credit card Fees</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.credit_card_fees}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Utilities</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.utilities}}"  >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Less or Loan Payments</label>
+                  <input type="text" class="form-control"  readonly   >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Rent and Rates</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.rents_rates}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Motor Vehicle Expenses</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.motor_vehicle_ex}}">
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Repair and Maintenance</label> 
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.repair_maintenance}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Stationary and Printings</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.stationary_printing}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Licensing</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.licensing}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Income Tax</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.income_tax}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Wages</label>
+                  <input type="text" class="form-control"  readonly   value="{{this.selectRoleRow.wages}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Total Outgoing Amount</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.outgoing_amount}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Current Balance</label>
+                  <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.current_bal}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>No of dependant</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.no_of_dep}}" >
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Household Income</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.house_hold_income}}">
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Current Profession</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.current_profession}}">
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Is Lottery Winner</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.lottery}}">
+              
+               </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Spouse Name</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.spouse_name}}">
+              
+               </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Income Of the month</label>
+                  <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.income_of_this_month}}">
+              
+               </div>
+              </div>
+            </div>
+            </div>
+          </div>
+    </fieldset>
+
+     <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Loan Information</legend> 
+        <div class="row">
+
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Loan Cycle</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.loan_cycle}}">
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Loan Amount</label>
+              <input type="text" class="form-control"  readonly  value="{{ this.selectRoleRow.loan_amount | currency:'INR' }}">
+          
+           </div>
+          </div>
+         
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Marital Status</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.marital_status}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Religion</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.religion}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Cast</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.cast}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Co-Applicant Name</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.co_name}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Co-Applicant DOB</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.co_dob}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Person Name 1</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_name1}}">
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Relation Name 1</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_relation1}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Person Name 2</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_name1}}">
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Relation Name 2</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_relation2}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Person Name 3</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_name3}}">
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Relation Name 3</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_relation3}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Person Name 4</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_name4}}">
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Family Relation Name 4</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.family_relation4}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.email_id}}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Ration Card</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.ration_card_no
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Pan Card</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.pan_card_no
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Nominee Name</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.nominee_name
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Nominee Relation</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.nominee_relation
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Nominee Age</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.age
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Loan Proposed</label>
+              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.loan_purpose
+              }}">
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Saving Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Loan Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>External Loan Account Number</label>
+              <input type="text" class="form-control" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Application Status </label>
+              <select class="form-control" [(ngModel)]="application_status"  >
+                <option value="">Select Status</option>
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+                <option value="0">Pending</option>
+              </select>
+           </div>
+          </div>
+    </div>
+           
+    </fieldset>
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Loan Documents</legend> 
+      <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                  <a href="{{this.folder_url+this.selectRoleRow.member_photo_pr}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_pr" alt="Card image cap">
+                    <p>Profile Photo</p>
+                  </a>
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_pan_card}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_pan_card">
+                    <p>Pan Card</p>
+                  </a>
+        
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_adhar_card}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_adhar_card">
+                    <p>Aadhar Card</p>
+                  </a>
+
+                 
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+
+
+                  
+                  <a href="{{this.folder_url+this.selectRoleRow.member_other_proof}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_other_proof">
+                    <p>Other Proof</p>
+                  </a>
+                 
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_new_business_activity}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_new_business_activity">
+                    <p>Business Proof</p>
+                  </a>
+                  
+                  </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+
+                  <a href="{{this.folder_url+this.selectRoleRow.member_photo_signature}}" data-lightbox="roadtrip">
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_signature">
+                    <p>Signature Photo</p>
+                  </a>
+                  
+                  </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <button (click)="update()" class="btn btn-success">Submit</button>
+        </div>
+    </fieldset>
+    </div>
+  
+<!-- /.content-wrapper -->

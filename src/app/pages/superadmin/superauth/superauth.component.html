@@ -1,0 +1,73 @@
+
+<div class="bg">
+   
+    <div class="login-box  {{ShowLogin}}" style="display: none;">
+        <h1 style="text-align: center;
+        padding: 5px;
+        color: red;background: #fff;
+        font-size: 25px;" >Super Admin Panel</h1>
+                <div class="card">
+                    <div class="card-body login-card-body">
+                    <h1 class="login-box-msg">sign in to start your session</h1>
+                
+                    <form [formGroup]="LoginForm"  (ngSubmit)="login()">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="employee_login_code" (change)="checkUsername()" formControlName="employee_login_code" placeholder="Enter username">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span id="usernameLogo" class="{{this.UserNameIcon }}"></span>
+                                </div>
+                            
+                            </div>
+
+                            
+                        </div>
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('employee_login_code').invalid && (LoginForm.get('employee_login_code').dirty || LoginForm.get('employee_login_code').touched)">
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('required')">
+                             Username is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('alreadyExist')">
+                                Username Not Found!
+                               </ng-container>
+                        </p>
+
+                        <div class="input-group mb-3">
+                        <input type="password" class="form-control" (change)="checkPassword()"   id="password" formControlName="password" placeholder="Enter Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="{{this.UserPassIcon }}"></span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('password').invalid && (LoginForm.get('password').dirty || LoginForm.get('password').touched)">
+                            <ng-container *ngIf="LoginForm.get('password').hasError('required')">
+                             Password is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('password').hasError('wrongPass')">
+                                Password is Wrong!
+                               </ng-container>
+                        </p>
+                       
+
+                        <div class="row">
+                       
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit"  [disabled]="!LoginForm.valid"  class="btn btn-primary btn-block">Sign In</button>
+                            
+                        </div>
+                        <!-- /.col -->
+                        </div>
+                    </form>
+                
+                  
+                </div>
+    </div>
+
+    
+</div>
+
+<canvas style="display: none;" id="salesChart"></canvas>
+<canvas style="display: none;"  id="pieChart"></canvas>
+</div>

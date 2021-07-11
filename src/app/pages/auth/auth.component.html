@@ -1,0 +1,240 @@
+
+<div class="bg">
+   
+    <div class="login-box  {{ShowLogin}}" style="display: none;">
+        <h1 style="text-align: center;
+        padding: 5px;
+        color: red;background: #fff;
+        font-size: 25px;" >{{this.bank_name_title}}</h1>
+                <div class="card">
+                    <div class="card-body login-card-body">
+                    <h1 class="login-box-msg">sign in to start your session</h1>
+                
+                    <form [formGroup]="LoginForm"  (ngSubmit)="login()">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="employee_login_code" (change)="checkUsername()" formControlName="employee_login_code" placeholder="Employee Code">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span id="usernameLogo" class="{{this.UserNameIcon }}"></span>
+                                </div>
+                            
+                            </div>
+
+                            
+                        </div>
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('employee_login_code').invalid && (LoginForm.get('employee_login_code').dirty || LoginForm.get('employee_login_code').touched)">
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('required')">
+                             Username is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('employee_login_code').hasError('alreadyExist')">
+                                Username Not Found!
+                               </ng-container>
+                        </p>
+
+                        <div class="input-group mb-3">
+                        <input type="password" class="form-control" (change)="checkPassword()"   id="password" formControlName="password" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="{{this.UserPassIcon }}"></span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('password').invalid && (LoginForm.get('password').dirty || LoginForm.get('password').touched)">
+                            <ng-container *ngIf="LoginForm.get('password').hasError('required')">
+                             Password is required!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('password').hasError('wrongPass')">
+                                Password is Wrong!
+                               </ng-container>
+                        </p>
+                        <div class="input-group mb-3">
+                            <select class="form-control" formControlName="role" >
+                             <option value="">Select Role</option>
+                             <option *ngFor="let item of rolesList; let i = index"  [value]="item.role_id" >{{item.role_name}}</option>
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                  <span class="fa fa-user"></span>
+                                </div>
+                            </div>
+                         </div>
+
+                         <p class="error input-group mb-3" *ngIf="LoginForm.get('role').invalid && (LoginForm.get('role').dirty || LoginForm.get('role').touched)">
+                            <ng-container *ngIf="LoginForm.get('role').hasError('required')">
+                             Select User Role!
+                            </ng-container>
+                            <ng-container *ngIf="LoginForm.get('role').hasError('wrongRole')">
+                                 Wrong User Role!
+                               </ng-container>
+                         
+                        </p>
+                        <div class="row">
+                       
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit"  [disabled]="!LoginForm.valid"  class="btn btn-primary btn-block">Sign In</button>
+                            
+                        </div>
+                        <!-- /.col -->
+                        </div>
+                    </form>
+                
+                  
+                </div>
+    </div>
+
+    
+</div>
+<canvas style="display: none;" id="salesChart"></canvas>
+<canvas style="display: none;"  id="pieChart"></canvas>
+
+<div class="registration-box   {{ShowRegistration}}" style="display: none;">
+  
+    <div class="card">
+        <div class="card-body login-card-body">
+        <h1 class="login-box-msg">Bank Registration</h1>
+        <form [formGroup]="SetupForm" (ngSubmit)="create()">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Bank Information</legend> 
+                <div class="image-container">
+                    <img class="logo_td" [src]="url ? url : 'https://www.qbrobotics.com/wp-content/uploads/2018/03/sample-logo.png'"> <br/>
+                    <input type='file'   (change)="onSelectFile($event)" class="select-profile-picture">
+                    <span class="message">Tap here to select your picture</span>
+                   </div>
+                <div class="row"> 
+                <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label>Bank Name</label>
+                        <input type="text" class="form-control"  formControlName="bank_name"  placeholder="Bank Name" >
+                    
+                        <p class="error" *ngIf="SetupForm.get('bank_name').invalid && (SetupForm.get('bank_name').dirty || SetupForm.get('bank_name').touched)">
+                            <ng-container *ngIf="SetupForm.get('bank_name').hasError('required')">
+                                Bank Name is required!
+                            </ng-container>
+                        
+                        </p>
+                    
+                    </div>
+                </div>
+                <div class="col-md-4">
+                <div class="form-group">
+                    <label>Bank Tagline</label>
+                    <input type="text"   class="form-control"  formControlName="bank_tag_line" placeholder="Bank Tagline" >
+        
+                  
+                </div>
+            </div>
+            
+            
+         
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Contact No</label>
+                    <input type="text" class="form-control"  formControlName="bank_contact_no"    placeholder="Contact No" >
+                    <p class="error" *ngIf="SetupForm.get('bank_contact_no').invalid && (SetupForm.get('bank_contact_no').dirty || SetupForm.get('bank_contact_no').touched)">
+                        <ng-container *ngIf="SetupForm.get('bank_contact_no').hasError('required')">
+                            Contact No is required!
+                        </ng-container>
+                    
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control"  formControlName="bank_email"  placeholder="Bank Email" >
+                    <p class="error" *ngIf="SetupForm.get('bank_email').invalid && (SetupForm.get('bank_email').dirty || SetupForm.get('bank_email').touched)">
+                        <ng-container *ngIf="SetupForm.get('bank_email').hasError('required')">
+                            Email ID is required!
+                        </ng-container>
+                        <ng-container *ngIf="SetupForm.get('bank_email').hasError('email')">
+                            Enter Valid Email ID
+                        </ng-container>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>State</label>
+                    <select class="form-control"   formControlName="bank_state" (change)="onChangeState($event.target.value)"  >
+                    <option value="">Select State</option>
+                    <option *ngFor="let row of StateList; let i = index" [value]="row.id" >{{row.name}}</option>
+                    </select>
+                    <p class="error" *ngIf="SetupForm.get('bank_state').invalid && (SetupForm.get('bank_state').dirty || SetupForm.get('bank_state').touched)">
+                        <ng-container *ngIf="SetupForm.get('bank_state').hasError('required')">
+                           State is required!
+                        </ng-container>
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>City</label>
+                    <select class="form-control"  formControlName="bank_district"    >
+                    <option value="">Select District</option>
+                    <option *ngFor="let row of DistrictList; let i = index" [value]="row.id" >{{row.name}}</option>
+                    </select>
+                    <p class="error" *ngIf="SetupForm.get('bank_district').invalid && (SetupForm.get('bank_district').dirty || SetupForm.get('bank_district').touched)">
+                        <ng-container *ngIf="SetupForm.get('bank_district').hasError('required')">
+                           District is required!
+                        </ng-container>
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Area Code</label>
+                    <input type="text" class="form-control" formControlName="bank_area_code"    placeholder="Area Code" >
+                    <p class="error" *ngIf="SetupForm.get('bank_area_code').invalid && (SetupForm.get('bank_area_code').dirty || SetupForm.get('bank_area_code').touched)">
+                        <ng-container *ngIf="SetupForm.get('bank_area_code').hasError('required')">
+                           Area Code is required!
+                        </ng-container>
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Bank Registration No</label>
+                    <input type="text" class="form-control"  formControlName="bank_registration_no"    placeholder="Registration No" >
+                </div>
+            </div>
+           
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Bank Address</label>
+                    <input type="text" class="form-control address_input"  formControlName="bank_address"    >
+                </div>
+            </div>
+            </div>
+            </fieldset>
+        
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Account Information</legend> 
+                <div class="row"> 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Bank App URL </label>
+                            <input type="text" class="form-control"  formControlName="bank_app_url"    placeholder="App URL" >
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Bank App Key</label>
+                            <input type="text" class="form-control"  formControlName="bank_app_key_code"   placeholder="App Key" >
+                        </div>
+                    </div>
+            </div>
+            </fieldset>
+        
+        <button type="submit" [disabled]="!SetupForm.valid"  class="btn btn-primary">save</button>
+    </form>
+    
+      
+    </div>
+    </div>
+</div>

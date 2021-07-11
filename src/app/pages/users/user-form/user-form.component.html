@@ -1,0 +1,232 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+  
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" [routerLink]="['/users']" >Users</a></li>
+            <li class="breadcrumb-item active">Add User</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <div class="container card">
+    <form  [formGroup]="Form"  (ngSubmit)="submit()">  
+    
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Personal Information</legend> 
+        <div class="image-container">
+            <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+            <input type='file'  (change)="onSelectFile($event)" class="select-profile-picture">
+            <span class="message">Tap here to select your picture</span>
+           </div>
+        <div class="row"> 
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_first_name" formControlName="employee_first_name" placeholder="First Name" >
+            
+                <p class="error" *ngIf="Form.get('employee_first_name').invalid && (Form.get('employee_first_name').dirty || Form.get('employee_first_name').touched)">
+                <ng-container *ngIf="Form.get('employee_first_name').hasError('required')">
+                    First name is required!
+                </ng-container>
+                
+            </p>
+            
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="form-group">
+            <label>Middle Name</label>
+            <input type="text"   class="form-control" [(ngModel)]="selectRoleRow.employee_middle_name" formControlName="employee_middle_name" placeholder="Middle Name" >
+
+            <p class="error" *ngIf="Form.get('employee_middle_name').invalid && (Form.get('employee_middle_name').dirty || Form.get('employee_middle_name').touched)">
+                <ng-container *ngIf="Form.get('employee_middle_name').hasError('required')">
+                    Middle name is required!
+                </ng-container>
+            
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" [(ngModel)]="selectRoleRow.employee_last_name" formControlName="employee_last_name" placeholder="Last Name"  >
+
+            <p class="error" *ngIf="Form.get('employee_last_name').invalid && (Form.get('employee_last_name').dirty || Form.get('employee_last_name').touched)">
+                <ng-container *ngIf="Form.get('employee_last_name').hasError('required')">
+                    Last name is required!
+                </ng-container>
+            
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Gender</label><br>
+            <select class="form-control"  [(ngModel)]="selectRoleRow.employee_gender" formControlName="employee_gender" >
+            <option value="" >Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>DOB</label>
+            <input type="date" class="form-control"    [(ngModel)]="selectRoleRow.employee_dob"   formControlName="employee_dob"  placeholder="Select DOB" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Pan Card No</label>
+            <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_pan_card_no"    formControlName="employee_pan_card_no"  placeholder="Pan No" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Aadhar Card No</label>
+            <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_adhar_card_no"    formControlName="employee_adhar_card_no"  placeholder="Aadhar No" >
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Contact No</label>
+            <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_contact_no"   formControlName="employee_contact_no"  placeholder=" Contact No" >
+            <p class="error" *ngIf="Form.get('employee_contact_no').invalid && (Form.get('employee_contact_no').dirty || Form.get('employee_contact_no').touched)">
+                <ng-container *ngIf="Form.get('employee_contact_no').hasError('required')">
+                    Contact is required!
+                </ng-container>
+                <ng-container *ngIf="Form.get('employee_contact_no').hasError('pattern')">
+                    * Invalid contact number. (Only Numbers)
+                </ng-container>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control"  [(ngModel)]="selectRoleRow.employee_email_id"  formControlName="employee_email_id"  placeholder="Email" >
+            <p class="error" *ngIf="Form.get('employee_email_id').invalid && (Form.get('employee_email_id').dirty || Form.get('employee_email_id').touched)">
+                <ng-container *ngIf="Form.get('employee_email_id').hasError('required')">
+                 Email is required!
+                </ng-container>
+                <ng-container *ngIf="Form.get('employee_email_id').hasError('email')">
+                    Enter Valid Email!
+                   </ng-container>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>State</label>
+            <select class="form-control"   [(ngModel)]="selectRoleRow.employee_state_id"   formControlName="employee_state_id" (change)="onChangeState($event.target.value)">
+            <option value="">Select State</option>
+            <option *ngFor="let row of StateList; let i = index" [value]="row.id" >{{row.name}}</option>
+            </select>
+        
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>City</label>
+            <select class="form-control"  [(ngModel)]="selectRoleRow.employee_district_id"   formControlName="employee_district_id" >
+            <option value="">Select District</option>
+            <option *ngFor="let row of DistrictList; let i = index" [value]="row.id" >{{row.name}}</option>
+            </select>
+        
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Branch Name</label>
+            <select class="form-control"   [(ngModel)]="selectRoleRow.employee_branch_id" formControlName="employee_branch_id" >
+                <option value="">Select Branch</option>
+                <option *ngFor="let row of BranchList; let i = index" [value]="row.branch_id" >{{row.branch_name}}</option>
+                </select>
+
+        </div>
+    </div>
+   
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Address</label>
+            <textarea type="text" class="form-control address_input"    [(ngModel)]="selectRoleRow.employee_address"   formControlName="employee_address" ></textarea>
+        </div>
+    </div>
+    </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Account Information</legend> 
+        <div class="row"> 
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>User Role</label>
+               
+                <select class="form-control"  [(ngModel)]="selectRoleRow.employee_role_id"  formControlName="employee_role_id" >
+                    <option value="">Select Role</option>
+                    <option *ngFor="let row of RoleList; let i = index" [value]="row.role_id" >{{row.role_name}}</option>
+                    </select>
+            
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="form-group">
+            <label>Login Code</label>
+            <input type="text"   class="form-control" [(ngModel)]="selectRoleRow.employee_login_code"  formControlName="employee_login_code" placeholder="Login Code" >
+
+            <p class="error" *ngIf="Form.get('employee_login_code').invalid && (Form.get('employee_login_code').dirty || Form.get('employee_login_code').touched)">
+                <ng-container *ngIf="Form.get('employee_login_code').hasError('required')">
+                 Username is required!
+                </ng-container>
+                <ng-container *ngIf="Form.get('employee_login_code').hasError('alreadyExist')">
+                    Username is already exist!
+                   </ng-container>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" [(ngModel)]="selectRoleRow.employee_login_password"   formControlName="employee_login_password" placeholder="Login Password"  >
+
+            <p class="error" *ngIf="Form.get('employee_login_password').invalid && (Form.get('employee_login_password').dirty || Form.get('employee_login_password').touched)">
+                <ng-container *ngIf="Form.get('employee_login_password').hasError('required')">
+                Password is required!
+                </ng-container>
+            
+            </p>
+        </div>
+    </div>
+   
+   
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control"    [(ngModel)]="selectRoleRow.employee_status" formControlName="employee_status" >
+                <option value="" >Select Status</option>
+                <option value="1">Active</option>
+                <option value="2">DeActive</option>
+            </select>
+        </div>
+    </div>
+ 
+    </div>
+    </fieldset>
+
+<button type="submit" class="btn btn-primary" [disabled]="!Form.valid"     >save</button>
+</form>    
+  </div>
+
+<!-- /.content-wrapper -->

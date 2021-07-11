@@ -1,0 +1,74 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Assign Survey</h1>
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" [routerLink]="['/survey']">Survey Listing</a></li>
+            <li class="breadcrumb-item active">Assign Survey</li>
+           
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <div class="container card">
+    <div class="col-md-12">
+        <label>Enter address</label>
+        <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+      </div> 
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          ></agm-marker>
+      </agm-map>
+  <form [formGroup]="Form" (ngSubmit)="submit()">
+     <div class="row container">
+         <div class="col-md-4">
+             <div class="form-group">
+                 <label>Employee Name</label>
+                 <select class="form-control" [(ngModel)]="selectRoleRow.user_id"  formControlName="user_id" >
+                     <option value="0">Select Employee</option>
+                     <option *ngFor="let row of employeeDp; let i = index" [value]="row.employee_id" >{{row.employee_first_name}} {{row.employee_last_name}}</option>
+                 </select>
+             </div>
+         </div>
+
+         
+         <div class="col-md-4">
+            <div class="form-group">
+                <label>Enter Area Name</label>
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.area_name" formControlName="area_name"  placeholder="Enter Area Name"/>
+            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+              <label>Assign Date</label>
+              <input type="date" class="form-control" [(ngModel)]="selectRoleRow.date_assigned" formControlName="date_assigned"  placeholder="Enter Date"/>
+          </div>
+      </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.latitude"  formControlName="latitude"  placeholder="Enter Latitude"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="hidden" [(ngModel)]="selectRoleRow.branch_id"   formControlName="branch_id" >
+                <input type="text" class="form-control" [(ngModel)]="selectRoleRow.longitude"   formControlName="longitude"   placeholder="Enter Longitude"/>
+            </div>
+        </div>
+     </div> 
+
+     <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="!Form.valid"   >Submit</button>
+    </form>
+  </div>
+
+<!-- /.content-wrapper -->

@@ -1,0 +1,273 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+  
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#" [routerLink]="['/superdashboard']">Home</a></li>
+              <li class="breadcrumb-item"><a href="#" [routerLink]="['/Activebanks']" >Banks</a></li>
+   
+            </ol>
+          </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <div class="container card">
+    <form  [formGroup]="Form"  (ngSubmit)="submit()">  
+    
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Bank Information</legend> 
+        <div class="image-container">
+            <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+            <input type='file'  (change)="onSelectFile($event)" class="select-profile-picture">
+            <span class="message">Tap here to select your picture</span>
+           </div>
+        <div class="row"> 
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Bank Name</label>
+                <input type="text" class="form-control"  formControlName="bank_name" placeholder="First Name" >
+            
+                <p class="error" *ngIf="Form.get('bank_name').invalid && (Form.get('bank_name').dirty || Form.get('bank_name').touched)">
+                <ng-container *ngIf="Form.get('bank_name').hasError('required')">
+                    Bank name is required!
+                </ng-container>
+                
+            </p>
+            
+            </div>
+        </div>
+        
+    
+    
+
+    
+
+   
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Contact No</label>
+            <input type="text" class="form-control"   formControlName="bank_contact_no"  placeholder=" Contact No" >
+            <p class="error" *ngIf="Form.get('bank_contact_no').invalid && (Form.get('bank_contact_no').dirty || Form.get('bank_contact_no').touched)">
+                <ng-container *ngIf="Form.get('bank_contact_no').hasError('required')">
+                    Contact is required!
+                </ng-container>
+                <ng-container *ngIf="Form.get('bank_contact_no').hasError('pattern')">
+                    * Invalid contact number. (Only Numbers)
+                </ng-container>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="bank_email"  placeholder="Email" >
+            <p class="error" *ngIf="Form.get('bank_email').invalid && (Form.get('bank_email').dirty || Form.get('bank_email').touched)">
+                <ng-container *ngIf="Form.get('bank_email').hasError('required')">
+                 Email is required!
+                </ng-container>
+                <ng-container *ngIf="Form.get('bank_email').hasError('email')">
+                    Enter Valid Email!
+                   </ng-container>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+          <label>State</label>
+          <select class="form-control" formControlName="bank_state" (change)="onChangeState($event.target.value)">
+          <option value="">Select State</option>
+          <option *ngFor="let row of StateList; let i = index" [value]="row.id" >{{row.name}}</option>
+          </select>
+      
+      </div>
+  </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label>City</label>
+          <select class="form-control"  formControlName="bank_district" >
+          <option value="">Select District</option>
+          <option *ngFor="let row of DistrictList; let i = index" [value]="row.id" >{{row.name}}</option>
+          </select>
+      
+      </div>
+  </div>
+  
+
+ 
+   
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control address_input"   formControlName="bank_address" >
+        </div>
+    </div>
+    </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Admin Account Information</legend> 
+    <div class="row">
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" formControlName="fname" placeholder="First Name"  >
+                <p class="error" *ngIf="Form.get('fname').invalid && (Form.get('fname').dirty || Form.get('fname').touched)">
+                    <ng-container *ngIf="Form.get('fname').hasError('required')">
+                    First Name required!
+                    </ng-container>
+                
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" formControlName="lname" placeholder="Last Name"  >
+                <p class="error" *ngIf="Form.get('lname').invalid && (Form.get('lname').dirty || Form.get('lname').touched)">
+                    <ng-container *ngIf="Form.get('lname').hasError('required')">
+                        Last Name  required!
+                    </ng-container>
+                
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" formControlName="user_email" placeholder="Email"  >
+                <p class="error" *ngIf="Form.get('user_email').invalid && (Form.get('user_email').dirty || Form.get('user_email').touched)">
+                    <ng-container *ngIf="Form.get('user_email').hasError('required')">
+                     Email is required!
+                    </ng-container>
+                    <ng-container *ngIf="Form.get('user_email').hasError('email')">
+                        Enter Valid Email!
+                       </ng-container>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Contact No</label>
+                <input type="text" class="form-control" formControlName="user_contact" placeholder="Contact No"  >
+                <p class="error" *ngIf="Form.get('user_contact').invalid && (Form.get('user_contact').dirty || Form.get('user_contact').touched)">
+                    <ng-container *ngIf="Form.get('user_contact').hasError('required')">
+                        Contact is required!
+                    </ng-container>
+                    <ng-container *ngIf="Form.get('user_contact').hasError('pattern')">
+                        * Invalid contact number. (Only Numbers)
+                    </ng-container>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" formControlName="username" placeholder="Username"  >
+                <p class="error" *ngIf="Form.get('username').invalid && (Form.get('username').dirty || Form.get('username').touched)">
+                    <ng-container *ngIf="Form.get('username').hasError('required')">
+                        Username required!
+                    </ng-container>
+                    <ng-container *ngIf="Form.get('username').hasError('minlength')">
+                        * Username should contain min 8 characters
+                    </ng-container>
+                </p>
+            
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" class="form-control" formControlName="password" placeholder="password"  >
+                <p class="error" *ngIf="Form.get('password').invalid && (Form.get('password').dirty || Form.get('password').touched)">
+                    <ng-container *ngIf="Form.get('password').hasError('required')">
+                        Password required!
+                    </ng-container>
+                    <ng-container *ngIf="Form.get('password').hasError('minlength')">
+                        * Password should contain min 8 characters
+                    </ng-container>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Bank Code</label>
+                <input type="text"   class="form-control" formControlName="bank_app_key_code" placeholder="Bank Code" >
+                <p class="error" *ngIf="Form.get('bank_app_key_code').invalid && (Form.get('bank_app_key_code').dirty || Form.get('bank_app_key_code').touched)">
+                    <ng-container *ngIf="Form.get('bank_app_key_code').hasError('required')">
+                        Bank Code required!
+                    </ng-container>
+                
+                </p>
+              
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Bank Url</label>
+                <input type="text" class="form-control" formControlName="bank_url" placeholder="Bank Url"  >
+                <p class="error" *ngIf="Form.get('bank_url').invalid && (Form.get('bank_url').dirty || Form.get('bank_url').touched)">
+                    <ng-container *ngIf="Form.get('bank_url').hasError('required')">
+                        Bank URL required!
+                    </ng-container>
+                
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Bank Intrest Type</label>
+                <select class="form-control"  formControlName="bank_intrest_type" >
+                    <option value="" >Select Intrest</option>
+                    <option *ngFor="let row of bank_intrest; let i = index" [value]="row.int_code" >{{row.interest_name}}</option>
+                </select>
+
+                <p class="error" *ngIf="Form.get('bank_intrest_type').invalid && (Form.get('bank_intrest_type').dirty || Form.get('bank_intrest_type').touched)">
+                    <ng-container *ngIf="Form.get('bank_intrest_type').hasError('required')">
+                        Intrest required!
+                    </ng-container>
+                
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Bank Activation Status</label>
+               <select class="form-control" formControlName="bank_status">
+                   <option value="">Select Status</option>
+                   <option value="1">Active</option>
+                   <option value="0">DeActive</option>
+               </select>
+
+               <p class="error" *ngIf="Form.get('bank_status').invalid && (Form.get('bank_status').dirty || Form.get('bank_status').touched)">
+                <ng-container *ngIf="Form.get('bank_status').hasError('required')">
+                    Status required!
+                </ng-container>
+            
+            </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Activation Date</label>
+                <input type="text" class="form-control" readonly formControlName="activation_date"   >
+            </div>
+        </div>
+    </div>
+    </fieldset>
+
+<button type="submit" class="btn btn-primary" [disabled]="!Form.valid"     >save</button>
+</form>    
+  </div>
+
+<!-- /.content-wrapper -->

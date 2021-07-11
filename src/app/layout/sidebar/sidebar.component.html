@@ -1,0 +1,357 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img [src]="SessionData.profile ? SessionData.profile : 'https://www.w3schools.com/howto/img_avatar.png'" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a [routerLink]="['/dashboard']"  class="d-block">{{SessionData.employee_first_name}}  {{SessionData.employee_last_name}}</a>
+        </div>
+      </div>
+  
+      <!-- Sidebar Menu -->
+  
+      
+      <nav class="mt-2">    
+      <ul class="nav nav-pills nav-sidebar flex-column"  data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview menu-open">
+          <a href="#" [routerLink]="['/dashboard']"  routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Performance Dashboard
+         
+            </p>
+          </a>
+        
+        </li>
+      
+        <li class="nav-item has-treeview"  *ngIf="this.Role=='AD'"  >
+          <a href="#"  class="nav-link">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Administration
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+
+
+            <li class="nav-item">
+              <a [routerLink]="['/bank-details']" routerLinkActive="active" class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Edit Bank Details</p>
+              </a>
+            </li>
+
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
+              <a [routerLink]="['/role']" routerLinkActive="active" class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Manage Role</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
+              <a [routerLink]="['/area']" routerLinkActive="active" class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Manage Area</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.Role=='AD'" >
+              <a [routerLink]="['/branch']" routerLinkActive="active" class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Manage Branch</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview" *ngIf="this.Role=='AD'" >
+              <a  class="nav-link">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Manage User
+                  <i class="right fas fa-angle-left"></i>
+          
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a  [routerLink]="['/users']" routerLinkActive="active"   class="nav-link">
+                    <i class="fas fas fa-angle-right nav-icon"></i>
+                    <p>All Users</p>
+                  </a>
+                </li>
+              
+      
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="fas fas fa-angle-right nav-icon"></i>
+                    <p>Change Officer</p>
+                  </a>
+                </li>
+      
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="fas fas fa-angle-right nav-icon"></i>
+                    <p>Assign FO/TE</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a  class="nav-link">
+                    <i class="fas fas fa-angle-right nav-icon"></i>
+                    <p>Edit Group Leader</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Manage Surveys
+              <i class="right fas fa-angle-left"></i>
+            
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a [routerLink]="['/survey']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Assign Area Surveys</p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a    [routerLink]="['/area-survey']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Area Surveys</p>
+              </a>
+            </li>
+
+           
+          
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Manage Center
+              <i class="right fas fa-angle-left"></i>
+            
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a    [routerLink]="['/centers']" routerLinkActive="active"  class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Center</p>
+              </a>
+            </li>
+  
+            
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Manage Groups
+              <i class="right fas fa-angle-left"></i>
+             
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a   [routerLink]="['/Groups']" routerLinkActive="active"    class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>View Groups</p>
+              </a>
+            </li>
+  
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Groups Mapping</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="fas fa-chart-line nav-icon"></i>
+            <p>
+              CST Process
+              <i class="right fas fa-angle-left"></i>
+              
+         
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a   [routerLink]="['/cgt']" routerLinkActive="active"      class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                
+                <p>View CGT</p>
+              </a>
+            </li>
+  
+            
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-hand-holding-usd"></i>
+            <p>
+              Manage Loan
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            
+            <li class="nav-item has-treeview">
+              <a  class="nav-link">
+                <i class="fas fa-rupee-sign nav-icon"></i>
+                <p>
+                  Disbursement 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a [routerLink]="['/loans']" routerLinkActive="active" class="nav-link">
+                    
+                    <i class="fas fa-angle-right nav-icon"></i>
+                    <p>LSP</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="['/disbursement']" routerLinkActive="active" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon"></i>
+                    <p>SBND</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  
+                  <a [routerLink]="['/emi']" routerLinkActive="active" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon"></i>
+                    <p>View EMI</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Recovery  
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a [routerLink]="['/recovery']" routerLinkActive="active" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon"></i>
+                    <p>Approve Transaction</p>
+                  </a>
+                  
+                </li>
+              
+              </ul>
+            </li>
+  
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Re-Loan Customer   
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Re-Loan Customer</p>
+                  </a>
+                </li>
+              
+              </ul>
+            </li>
+          </ul>
+        </li>
+        
+        
+  
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Manage Customers
+              <i class="right fas fa-angle-left"></i>
+    
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>Account Statement</p>
+              </a>
+            </li>
+  
+            <li class="nav-item">
+              <a  class="nav-link">
+             
+                <i class="far fa-address-card nav-icon"></i>
+                <p>View Customer Details</p>
+              </a>
+            </li>
+  
+            
+           
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="fas fa-print nav-icon"></i>
+            <p>
+              Print
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Application Form</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a     class="nav-link">
+                <i class="fas fas fa-angle-right nav-icon"></i>
+                <p>Disburse Document</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  
