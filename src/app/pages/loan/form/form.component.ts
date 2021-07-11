@@ -11,10 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
+
   url:any;
   folder_url:any;
   selectRoleRow: any;
   application_status:any;
+  saving_account_number:any;
+  external_loan_account_number:any;
+  loan_account_number:any;
   constructor(private param: ActivatedRoute ,private api: LoanService) { }
 
   ngOnInit(): void {
@@ -30,6 +34,9 @@ export class FormComponent implements OnInit {
           this.application_status = this.selectRoleRow.approved_status;
           this.url =  environment.uploads+this.selectRoleRow.member_photo_pr;
           this.folder_url = environment.uploads;
+          this.saving_account_number  = this.selectRoleRow.saving_account_number;
+          this.external_loan_account_number  = this.selectRoleRow.external_loan_account_number;
+          this.loan_account_number  = this.selectRoleRow.loan_account_number;
          // alert(this.url)
         //  console.log(this.selectRoleRow.member_photo_pr);
           
@@ -37,7 +44,17 @@ export class FormComponent implements OnInit {
     }
   }
   update():void{
-    this.api._Update_Status({branch_id:this.selectRoleRow.branch_id,loan_application_no: this.selectRoleRow.loan_application_no,approved_status:this.application_status,created_by:this.selectRoleRow.created_by}).subscribe((data) => {
+
+    let update_date = {
+      branch_id:this.selectRoleRow.branch_id,
+      loan_application_no: this.selectRoleRow.loan_application_no,
+      saving_account_number: this.selectRoleRow.saving_account_number,
+      external_loan_account_number: this.selectRoleRow.external_loan_account_number,
+      loan_account_number: this.selectRoleRow.loan_account_number,
+      approved_status:this.application_status,
+      created_by:this.selectRoleRow.created_by
+    };
+    this.api._Update_Status(update_date).subscribe((data) => {
     
       Swal.fire({
         position: 'top-end',
@@ -57,6 +74,6 @@ export class FormComponent implements OnInit {
      // alert(data)
   });
     
-   
   }
+ 
 }

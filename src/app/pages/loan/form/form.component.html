@@ -624,7 +624,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Saving Account Number</label>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" [(ngModel)]="this.saving_account_number" >
           
            </div>
           </div>
@@ -632,14 +632,14 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Loan Account Number</label>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" [(ngModel)]="this.loan_account_number" >
           
            </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label>External Loan Account Number</label>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" [(ngModel)]="this.external_loan_account_number" >
           
            </div>
           </div>
@@ -664,9 +664,10 @@
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
                   <a href="{{this.folder_url+this.selectRoleRow.member_photo_pr}}" data-lightbox="roadtrip">
-                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_pr" alt="Card image cap">
-                    <p>Profile Photo</p>
+                    <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_pr" >
+                    
                   </a>
+                  <p class="form_lable">Profile Photo</p>
                   </div>
             </div>
 
@@ -675,9 +676,9 @@
 
                   <a href="{{this.folder_url+this.selectRoleRow.member_pan_card}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_pan_card">
-                    <p>Pan Card</p>
+                 
                   </a>
-        
+                  <p class="form_lable">Pan Card</p>
                   </div>
             </div>
 
@@ -687,9 +688,9 @@
 
                   <a href="{{this.folder_url+this.selectRoleRow.member_adhar_card}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_adhar_card">
-                    <p>Aadhar Card</p>
+                    
                   </a>
-
+                  <p class="form_lable">Aadhar Card</p>
                  
                   </div>
             </div>
@@ -701,9 +702,9 @@
                   
                   <a href="{{this.folder_url+this.selectRoleRow.member_other_proof}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_other_proof">
-                    <p>Other Proof</p>
-                  </a>
                  
+                  </a>
+                  <p class="form_lable">Other Proof</p>
                   </div>
             </div>
 
@@ -712,9 +713,9 @@
 
                   <a href="{{this.folder_url+this.selectRoleRow.member_new_business_activity}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_new_business_activity">
-                    <p>Business Proof</p>
+                
                   </a>
-                  
+                  <p class="form_lable">Business Proof</p>
                   </div>
             </div>
 
@@ -723,9 +724,9 @@
 
                   <a href="{{this.folder_url+this.selectRoleRow.member_photo_signature}}" data-lightbox="roadtrip">
                     <img class="card-img-top" [src]="this.folder_url+this.selectRoleRow.member_photo_signature">
-                    <p>Signature Photo</p>
+               
                   </a>
-                  
+                  <p class="form_lable">Signature Proof</p>
                   </div>
             </div>
         </div>
