@@ -23,13 +23,19 @@ export class LoanDisbursementService {
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanMembers';
   private create_loan_distribution = this.REST_API_SERVER + 'Loans/create_loan_distribution';
-
+  private create_loan_distribution_blc = this.REST_API_SERVER + 'Loans/create_loan_distribution_blc';
   private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
   private get_loan_distribution_files_edit = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files_edit';
   constructor(private httpClient: HttpClient) { }
 
   _create_loan_distribution(data): Observable<String>{
     return this.httpClient.post<String>(`${this.create_loan_distribution}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _create_Blc_loan_distribution(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.create_loan_distribution_blc}`,data).pipe(
       catchError(this.handleError)
     );
   }

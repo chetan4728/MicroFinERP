@@ -28,7 +28,7 @@
                     <th>Sr no</th>
                     <th>Area Name</th>
                     <th>Center Name</th>
-                    <th>Process</th>
+                    <th>Group Name</th>
                     <th>Day</th>
                     <th>Members</th>
                     <th>Added By</th>
@@ -41,9 +41,9 @@
                   <td>{{i+1}}</td>
                   <td>{{row.area_name}}</td>
                   <td>{{row.center_name}}</td>
-                  <td>{{row.process_name}}</td>
-                  <td>{{row.day_name}}</td>
-                  <td>{{row.number_of_customers}}</td>
+                  <td>{{row.group_name}}</td>
+                  <td>CGT2</td>
+                  <td>{{row.members}}</td>
                   <td>{{row.employee_first_name}} {{row.employee_last_name}}</td>
                   <td><button class="btn btn-success btn-sm" (click)="view_cgt(row)"  >View</button>
               </tr>
@@ -59,23 +59,45 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">CGT Details</h4>
+          <h4 class="modal-title">High Mark Approved  Members</h4>
           <button type="button" class="close"  (click)="hideModal()">&times;</button>
         </div>
   
         <!-- Modal body -->
           <div class="modal-body">
-             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label>Area Name</label>
-                    <input type="text"  class="form-control" id="area_name"  placeholder="Area Name" >
-                 
+            <table  class="table table-striped  table-bordered row-border hover"  >
+              <thead>
+                  <tr>
+                      <th>Sr no</th>
+                      <th>Customer Id</th>
+                      <th>Name</th>
+                      <th>Center Name</th>
+                      <th>Group Name</th>
+                      <th>CGT Status</th>
+                    
+                  </tr>
+              </thead>
+              <tbody>
+         
+                  <tr *ngFor="let row of  this.approved_members; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{row.loan_application_number}}</td>
+                    <td>{{row.applicant_name}}</td>
+                    <td>{{row.center_name}}</td>
+                    <td>{{row.group_name}}</td>
+                    <td><ng-container *ngIf="row.is_cgt_verfied == 1; then thenTemplate; else elseTemplate"></ng-container>
+                      <ng-template #thenTemplate>
+                        <span  class="badge badge-success ">Approved</span>
+                      </ng-template>
+                      <ng-template #elseTemplate>
+                        <span  class="badge badge-danger">Pending</span>
+                      </ng-template>
+                       </td>
+                   
+                </tr>
               
-                  </div>
-            </div>
-             </div>
-  
+              </tbody>
+          </table>
           </div>
   
           

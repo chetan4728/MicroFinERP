@@ -28,6 +28,16 @@
       </agm-map>
   <form [formGroup]="Form" (ngSubmit)="submit()">
      <div class="row container">
+
+      <div class="col-md-4">
+             <div class="form-group">
+                 <label>Branch Name</label>
+                 <select class="form-control" [(ngModel)]="selectRoleRow.branch_id"  formControlName="branch_id" >
+                     <option value="0">Select Branch</option>
+                     <option *ngFor="let row of   this.branch_name; let i = index" [value]="row.branch_id" >{{row.branch_name}}</option>
+                 </select>
+             </div>
+         </div>
          <div class="col-md-4">
              <div class="form-group">
                  <label>Employee Name</label>
@@ -62,6 +72,7 @@
             <div class="form-group">
                 <label>Longitude</label>
                 <input type="hidden" [(ngModel)]="selectRoleRow.branch_id"   formControlName="branch_id" >
+                <input type="hidden" [(ngModel)]="selectRoleRow.bank_id"   formControlName="bank_id" >
                 <input type="text" class="form-control" [(ngModel)]="selectRoleRow.longitude"   formControlName="longitude"   placeholder="Enter Longitude"/>
             </div>
         </div>

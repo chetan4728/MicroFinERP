@@ -21,6 +21,7 @@ export class CgtComponent implements OnInit {
   Form: FormGroup;
   sessiondata:any;
   public rowdata:any;
+  approved_members:any;
   constructor(private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
@@ -63,7 +64,10 @@ export class CgtComponent implements OnInit {
 
   view_cgt(row)
   {
-  this.rowdata  = row;
+  
+
+  this.approved_members = row.approved_members;
+
   $('#myModal').modal('show');
   }
 

@@ -169,7 +169,21 @@ export const routes: Routes = [
           data: {
             title: 'Recovery Page'
           },
+
+          
         }
+
+        ,
+        {
+          path: 'blc-approval',
+          loadChildren: () => import('../app/pages/blc/blc.module').then(m => m.BlcModule),
+          data: {
+            title: 'Recovery Page'
+          },
+
+          
+        }
+        
       ]
     }
 ];

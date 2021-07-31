@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BranchService } from 'src/app/services/branch.service';
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
@@ -22,20 +23,21 @@ export class SurveyComponent implements OnInit {
   zoom:number;
   private geoCoder;
   address: string;
-  selectRoleRow: Survey = { date_assigned:null, assign_area_id:0 , area_name:null, branch_id:0 , latitude:null, longitude:null ,user_id:0};
+  branch_name:any;
+  selectRoleRow: Survey = { date_assigned:null, assign_area_id:0 ,bank_id:null, area_name:null, branch_id:0 , latitude:null, longitude:null ,user_id:0};
   @ViewChild('search')
   public searchElementRef: ElementRef;
   constructor(private param: ActivatedRoute ,private route: Router , private formBuilder: FormBuilder ,public local: LocalStorageService, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private dp: DropDownsService ,private api: SurveyService) { }
+    private ngZone: NgZone,private dp: DropDownsService ,private api: SurveyService,private branch_api:BranchService) { }
 
   ngOnInit(): void {
     
     this.initForm();
     this.SessionData = this.local.get(environment.userSession);
     this.selectRoleRow.branch_id = this.SessionData.employee_branch_id;
-
+    this.selectRoleRow.bank_id = this.SessionData.bank_id;
     const id = this.param.snapshot.paramMap.get('id');
-
+    this.getBranch();
   
     this.mapsAPILoader.load().then(() => {
     this.setCurrentLocation();
@@ -81,13 +83,21 @@ export class SurveyComponent implements OnInit {
       user_id: ['', Validators.required],
       area_name: ['', Validators.required],
       date_assigned:[''],
-      branch_id: ['', Validators.required],
+      branch_id:[''],
+      bank_id: [''],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
 
     });
 
 
+  }
+  getBranch()
+  {
+    this.branch_api._get_branch({bank_id:this.SessionData.bank_id}).subscribe(data =>{
+
+      this.branch_name = data;
+    })
   }
   getEmployee()
   {
@@ -154,6 +164,8 @@ export class SurveyComponent implements OnInit {
       }
       else
       {
+     ///   console.log(this.Form.value)
+
         this.api._add_survey(this.Form.value).subscribe(res => {
           this.Form.reset();
           Swal.fire({

@@ -172,13 +172,7 @@
        <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Loan Distribution's</legend> 
         <div class="row cal_box">
-        <ng-container *ngIf="'reducing' == 'reducing'; then reducing; else compound"></ng-container>
-                  <ng-template #reducing>
-                    <h2 style="font-size: 18px;" class="badge badge-warning ">Reducing Intrest Loan calculation</h2>
-                  </ng-template>
-                  <ng-template #compound>
-                    <h2 style="font-size: 18px;"  class="badge badge-danger">Compund Intrest Loan calculation</h2>
-                  </ng-template>
+       
 
 
                
@@ -196,25 +190,11 @@
                   <td>Loan terms (Months)</td>
                   <td> <input type="text"  (keydown)="numberOnly($event)"  [(ngModel)]="term"   class="form-control margin_left_10" ></td>
                 </tr>
-                <tr>
-                  <td style="width: 40%;">Select Product (Intrest)</td>
-                  <td><select class="form-control margin_left_10" [(ngModel)]="this.intrest"  (change)="int_product_dp($event.target.value)">
-                    <option value="">Select Product</option>
-                    <option value="25" >MLM - 25%</option>
-                    <option value="26" >BC - 26%</option>
-                    
-                  </select></td>
-                </tr>
-
-                <tr>
-                  <td>Loan Disburdtment date</td>
-                  <td> <input type="date" [(ngModel)]="disburstment_date" class="form-control margin_left_10" ></td>
-                </tr>
                 
-                <tr>
-                  <td>Loan Emi date</td>
-                  <td> <input type="date" [(ngModel)]="emi_date" class="form-control margin_left_10" ></td>
-                </tr>
+
+               
+                
+               
                 
 
                 
@@ -229,70 +209,45 @@
               </table>
             </div>
             <div class="col-md-6">
-
-
-              <table>
-                <tr>
-                  <td>Scheduled  Payment</td>
-                  <td><input type="text"  [(ngModel)]="this.monthly_emi" readonly class="form-control margin_left_10" ></td>
-                </tr>
-                
-                <tr>
-                  <td>Intrest Rate (Total)</td>
-                  <td><input type="text"  [(ngModel)]="intrest" readonly class="form-control margin_left_10" ></td>
-                </tr>
-                <tr>
-                  <td>Interest Rate (Per Period)</td>
-                  <td><input type="text" [(ngModel)]="this.monthly_intrest" readonly class="form-control margin_left_10" ></td>
-                </tr>
+                <table>
+                 
+                 
+                  
+                 
+                    <tr>
+                        <td style="width: 40%;">Select Product (Intrest)</td>
+                        <td><select class="form-control margin_left_10" [(ngModel)]="this.intrest"  >
+                          <option value="">Select Product</option>
+                          <option value="25" >MLM - 25%</option>
+                          <option value="26" >BC - 26%</option>
+                          
+                        </select></td>
+                      </tr>
+      
+                      <tr>
+                          <td style="width: 40%;">Approved Status</td>
+                          <td><select class="form-control margin_left_10" [(ngModel)]="this.blc_status"  >
+                            <option value="">Select Status</option>
+                            <option value="1" >Approved</option>
+                            <option value="0" >Pending</option>
+                            <option value="2" >Rejected</option>
+                          </select></td>
+                        </tr>
   
-               
+                  
                 
   
-                <tr>
-                  <td style="width: 40%;"><b>Total Payments</b></td>
-                  <td><input type="text" [(ngModel)]="total_payments" value="{{ total_payments | currency:'INR' }}"  readonly class="form-control margin_left_10" ></td>
-                </tr>
-                <tr>
-                  <td style="width: 40%;"><b>Total Interest Paid</b></td>
-                  <td><input type="text" [(ngModel)]="total_intrest" readonly  class="form-control margin_left_10" ></td>
-                  <td><input type="text" [(ngModel)]="total_intrest_in_per" readonly  class="form-control margin_left_10" ></td>
-                </tr>
-              </table>
-                
-             
-              
-            </div>
-            <div class="row d-flex justify-content-left cal_box">
-              <button (click)="pmt_cal()" class="btn btn-primary">Get Loan Details</button>
-            </div>
+                 
+  
+                 
+  
+  
+                  
+                </table>
+              </div>
+            
           </div> 
-          <div class="row cal_box">
-            <table class="table table-striped  table-bordered row-border hover cal_box">
-              <tr>
-                <th>No</th>
-                <th>Payment Date</th>
-                <th>No of Days</th>
-                <th>Beginning Balance</th>
-                <th>Scheduled Payment</th>
-                <th>Interest Paid</th>
-                <th>Principle Paid</th>
-                <th>Ending Balance</th>
-              </tr>
-              <tbody>
-                <tr *ngFor="let row of interest_table; let i = index">
-                  <td>{{i+1}}</td>
-                  <td>{{row.inc_date}}</td>
-                  <td>{{row.diffDays}}</td>
-                  <td>{{ row.begining_balance | currency:'INR' }}</td>
-                  <td>{{ row.schedule_payment | currency:'INR' }} </td>
-                  <td>{{ row.interest_paid | currency:'INR' }}</td>
-                  <td>{{ row.principle_paid | currency:'INR' }} </td>
-                  <td>{{ row.ending_balance | currency:'INR' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          
           <div class="row d-flex justify-content-center">
             <button (click)="submitData()" class="btn btn-success">Submit</button>
           </div>
