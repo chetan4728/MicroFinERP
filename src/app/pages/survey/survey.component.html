@@ -32,7 +32,7 @@
       <div class="col-md-4">
              <div class="form-group">
                  <label>Branch Name</label>
-                 <select class="form-control" [(ngModel)]="selectRoleRow.branch_id"  formControlName="branch_id" >
+                 <select class="form-control" [(ngModel)]="selectRoleRow.branch_id" (change)="load_emp()"  formControlName="branch_id" >
                      <option value="0">Select Branch</option>
                      <option *ngFor="let row of   this.branch_name; let i = index" [value]="row.branch_id" >{{row.branch_name}}</option>
                  </select>

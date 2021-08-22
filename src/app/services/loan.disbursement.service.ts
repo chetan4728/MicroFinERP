@@ -21,13 +21,23 @@ export class LoanDisbursementService {
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
+  private UPDATE_BLC_STATUS = this.REST_API_SERVER + 'Disbursement/update_blc_status';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanMembers';
+  private GET_GROUP_APPROVED_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanApprovedMembers';
   private create_loan_distribution = this.REST_API_SERVER + 'Loans/create_loan_distribution';
   private create_loan_distribution_blc = this.REST_API_SERVER + 'Loans/create_loan_distribution_blc';
   private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
   private get_loan_distribution_files_edit = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files_edit';
   constructor(private httpClient: HttpClient) { }
 
+  _update_blc_status(data)
+  {
+    return this.httpClient.post<String>(`${this.UPDATE_BLC_STATUS}`,data).pipe(
+      catchError(this.handleError)
+    );
+
+    
+  }
   _create_loan_distribution(data): Observable<String>{
     return this.httpClient.post<String>(`${this.create_loan_distribution}`,data).pipe(
       catchError(this.handleError)
@@ -62,6 +72,11 @@ export class LoanDisbursementService {
     );
   }
 
+  _get_approved_group_members(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_GROUP_APPROVED_MEMBERS}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
   _get_loans_filter(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET_FILTER}`,data).pipe(
       catchError(this.handleError)

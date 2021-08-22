@@ -6,6 +6,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-disbursement',
   templateUrl: './disbursement.component.html',
@@ -55,6 +58,39 @@ export class DisbursementComponent implements OnInit {
     });
   }
 
+
+  applicationPDF(id){
+    let targetURL  = "http://sfsfin.in/portal/application_pdf/"+id
+    window.open(
+      targetURL,
+      '_blank' // <- This is what makes it open in a new window.
+    );
+   }
+
+   SanctionLetterPDF(id){
+    let targetURL  = "http://sfsfin.in/portal/sanction_letter/"+id
+    window.open(
+      targetURL,
+      '_blank' // <- This is what makes it open in a new window.
+    );;
+
+  
+   }
+
+   CollectionDemandPDF(id){
+    let targetURL  = "http://sfsfin.in/portal/collection_sheet/"+id
+    window.open(
+      targetURL,
+      '_blank' // <- This is what makes it open in a new window.
+    );;
+   }
+   DPNPDF(id){
+    let targetURL  = "http://sfsfin.in/portal/dpn/"+id
+    window.open(
+      targetURL,
+      '_blank' // <- This is what makes it open in a new window.
+    );;
+   }
   loadArea()
   {
     this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
@@ -101,7 +137,7 @@ export class DisbursementComponent implements OnInit {
 
   viewForm(data): void
   {
-    this.router.navigate(['/disbursement/LoanDisbursementForm/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/edit/"+data.loan_distribution_id]);
+    this.router.navigate(['/disbursement/LoanDisbursementForm/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/edit/"+data.disbursment_number]);
     //this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
 
     

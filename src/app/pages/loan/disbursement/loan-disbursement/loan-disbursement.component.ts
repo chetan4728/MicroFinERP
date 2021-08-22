@@ -3,7 +3,7 @@ import { LoanDisbursementService } from '../../../../services/loan.disbursement.
 import { ActivatedRoute, Router, Event } from '@angular/router';
 import { CurrencyPipe } from "@angular/common";
 import Swal from 'sweetalert2';
-import * as $ from 'jquery';
+declare var $: any;
 import { environment } from 'src/environments/environment.prod';
 import { LocalStorageService } from 'angular-web-storage';
 import {formatDate} from '@angular/common';
@@ -36,6 +36,7 @@ export class LoanDisbursementComponent implements OnInit {
    interest_table:any;
    members_ids:any;
    row:any;
+   is_submited:any;
   constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
 
   ngOnInit(): void {
@@ -82,7 +83,7 @@ export class LoanDisbursementComponent implements OnInit {
      });
 
 
-     this.api._get_group_members({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
+     this.api._get_approved_group_members({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
       //console.log(data);
       
       this.members = data;
@@ -353,7 +354,9 @@ export class LoanDisbursementComponent implements OnInit {
       members_id:this.members_ids,
       intrest_product:this.intrest,
       bank_intrest_type:this.intrest_type,
-      bank_id:this.SessionData.bank_id
+      bank_id:this.SessionData.bank_id,
+      loan_distribution_id:this.param.snapshot.paramMap.get('distribution_id'),
+      status:1
   };
 
 
@@ -422,5 +425,15 @@ export class LoanDisbursementComponent implements OnInit {
   {
 
     this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
+  }
+
+  account_detail()
+  {
+    $('#myModal').modal('show');
+  }
+
+  close()
+  {
+    $('#myModal').modal('hide');
   }
 }

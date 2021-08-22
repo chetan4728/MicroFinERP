@@ -2,16 +2,16 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Loan Sanction</h1>
+          <h1 class="m-0 text-dark">BLC Approval</h1>
           
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a [routerLink]="['/disbursement']" >
+            <li class="breadcrumb-item"><a [routerLink]="['/blc-approval']" >
                
-              Loan Sanction Pending</a></li>
-            <li class="breadcrumb-item active">Loan Sanction</li>
+              BLC Approval Pending</a></li>
+            <li class="breadcrumb-item active">   BLC Approval</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -121,16 +121,11 @@
                     <th>Profile</th>
                     <th>Application No</th>
                     <th>Name</th>
-                    <th>Branch</th>
-                    <th>Center</th>
-                    <th>Group</th>
                     
-                    <th>Loan Purpose</th>
-                    <th>Loan Amount Expected</th>
-                   
                     <th>Added By</th>
                     <th>Date</th>
                     <th>CGT Status</th>
+                    <th>BLC Status</th>
                     <th>Action</th>
                     
                 </tr>
@@ -141,12 +136,6 @@
                 <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
                 <td>{{row.loan_application_number}}</td>
                 <td>{{row.applicant_name}}</td>
-                <td>{{row.branch_name}}</td>
-                <td>{{row.center_name}}</td>
-                <td>{{row.group_name}}</td>
-                
-                <td>{{row.loan_purpose}}</td>
-                <td><span  class="badge badge-success ">{{ row.loan_amount | currency:'INR' }}</span></td>
                 <td>{{row.added_by}}</td>
                 <td>{{row.created_date}}</td>
                 <td><ng-container *ngIf="row.is_cgt_verfied == 1; then thenTemplate; else elseTemplate"></ng-container>
@@ -158,7 +147,12 @@
                   </ng-template>
                    </td>
 
-                   
+                   <td><select class="form-control" [(ngModel)]="row.is_blc_verfied" (change)="update_status($event,row.loan_application_number)"  >
+                     <option value="">status</option>
+                     <option value="1">Approved</option>
+                     <option value="2">Rejected</option>
+                     <option value="0">Penidng</option>
+                   </select></td>
                    <td><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
                 
                    

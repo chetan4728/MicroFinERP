@@ -65,7 +65,7 @@ export class SurveyComponent implements OnInit {
         });
       });
     });
-    this.getEmployee();
+
 
     if(id!=null)
     {
@@ -76,6 +76,13 @@ export class SurveyComponent implements OnInit {
         this.longitude = parseFloat(survey[0].longitude);
       });
     }
+  }
+
+  load_emp():void{
+   
+    this.dp._get_branch_employee({branch_id:this.selectRoleRow.branch_id}).subscribe(data  => {
+      this.employeeDp = data;
+  });
   }
 
   initForm(): void {
@@ -99,13 +106,7 @@ export class SurveyComponent implements OnInit {
       this.branch_name = data;
     })
   }
-  getEmployee()
-  {
-    this.dp._get_branch_employee({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
-      this.employeeDp = data;
-  });
-  }
-
+ 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {

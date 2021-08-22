@@ -37,6 +37,7 @@ export class BlcapprovalComponent implements OnInit {
    interest_table:any;
    blc_status:any="";
    members_ids:any;
+   is_blc_verfied:any="";
    row:any;
   constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService) { }
 
@@ -235,7 +236,7 @@ export class BlcapprovalComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-     this.route.navigate(['/disbursement']);
+     this.route.navigate(['/blc-approval']);
     });
     }
   }
@@ -250,12 +251,17 @@ export class BlcapprovalComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-      this.route.navigate(['/disbursement']);
+      this.route.navigate(['/blc-approval']);
     });
   }
 
   }
-
+  update_status(event,loan_application_number)
+  {
+    this.api._update_blc_status({loan_application_number:loan_application_number,status:event.target.value}).subscribe(data => {
+    })
+   
+  }
   viewForm(data): void
   {
 

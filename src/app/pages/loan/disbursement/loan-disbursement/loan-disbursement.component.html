@@ -121,9 +121,7 @@
                     <th>Profile</th>
                     <th>Application No</th>
                     <th>Name</th>
-                    <th>Branch</th>
-                    <th>Center</th>
-                    <th>Group</th>
+                    
                     <th>Added By</th>
                     <th>CGT Status</th>
                     <th>Action</th>
@@ -136,11 +134,9 @@
                 <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
                 <td>{{row.loan_application_number}}</td>
                 <td>{{row.applicant_name}}</td>
-                <td>{{row.branch_name}}</td>
-                <td>{{row.center_name}}</td>
-                <td>{{row.group_name}}</td>
+                
                 <td>{{row.added_by}}</td>
-                <td>{{row.created_date}}</td>
+              
                 <td><ng-container *ngIf="row.is_cgt_verfied == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
                     <span  class="badge badge-success ">Approved</span>
@@ -151,9 +147,9 @@
                    </td>
 
                    
-                   <td><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
-                
-                   
+                   <td align="center"><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
+                    <button class="btn btn-danger btn-sm offset-1" (click)="account_detail(row)"  >Account Details</button>
+                   </td>
                 
                
             </tr>
@@ -300,7 +296,74 @@
     </fieldset>
      
   </section>
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
   
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Account Details</h4>
+          <button type="button" class="close"  (click)="close()" >&times;</button>
+        </div>
+        <form>
+        <!-- Modal body -->
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Saving Account Number</label>
+                          <input type="text"  class="form-control"  placeholder="Saving Account No" >
+                       
+                        </div>
+
+                        <div class="form-group">
+                          <label>Loan Account Number</label>
+                          <input type="text"  class="form-control"  placeholder="Loan Account No" >
+                       
+                        </div>
+
+                        <div class="form-group">
+                          <label>External Loan Number</label>
+                          <input type="text"  class="form-control"  placeholder="External Loan No" >
+                       
+                        </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Welfare Amount </label>
+                        <input type="text"  class="form-control"  placeholder="Welfare Amount" >
+                     
+                      </div>
+
+                      <div class="form-group">
+                        <label>Insurance Premium </label>
+                        <input type="text"  class="form-control"  placeholder="Insurance Premium " >
+                     
+                      </div>
+
+                     
+                </div>
+                
+              </div>
+         
+  
+          </div>
+  
+          
+      
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary"    >save</button>
+          <button type="button" class="btn btn-danger" (click)="close()" >Close</button>
+  
+          <!-- this button is hidden, used to close from typescript -->
+          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+        </div>
+         </form> 
+      </div>
+    </div>
+  </div>
   <!-- /.content -->
 
 

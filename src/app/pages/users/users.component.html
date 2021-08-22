@@ -38,7 +38,7 @@
               <tr *ngFor="let row of UserList; let i = index">
                   <td>{{i+1}}</td>
                   <td>{{row.employee_first_name}}</td>
-                  <td>{{row.employee_role_id}}</td>
+                  <td>{{row.role_name}}</td>
                   <td>{{row.employee_login_code}}</td>
                   <td><ng-container *ngIf="row.employee_status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>

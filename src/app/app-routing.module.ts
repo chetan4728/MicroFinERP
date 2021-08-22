@@ -183,6 +183,15 @@ export const routes: Routes = [
 
           
         }
+        ,{
+          path: 'application-pdf',
+          loadChildren: () => import('../app/pages/documents/applicationpdf/applicationpdf.module').then(m => m.ApplicationpdfModule),
+          data: {
+            title: 'Recovery Page'
+          },
+
+          
+        }
         
       ]
     }

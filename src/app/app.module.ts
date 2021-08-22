@@ -25,6 +25,7 @@ import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersi
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersi
     SidebarComponent,
     AuthComponent,
     SuperauthComponent,
+ 
 
 
   ],

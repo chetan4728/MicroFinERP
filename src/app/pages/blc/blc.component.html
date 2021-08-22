@@ -8,7 +8,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">LBLC Approval</li>
+            <li class="breadcrumb-item active">BLC Approval</li>
            
           </ol>
         </div><!-- /.col -->
@@ -62,9 +62,8 @@
                    
                     <th>Center</th>
                     <th>Group</th>
-                    <th>Limit</th>
-                    <th>Total Loan Amount</th>
-                    <th>Loan Date</th>
+                    <th>Member Limit</th>
+                    <th>Loan Amount</th>
                     <th>Status</th>
                  
                     <th>Action</th>
@@ -79,9 +78,7 @@
                 <td>{{row.group_name}}</td>
                 <td>{{row.loan_members}}</td>
                 <td>{{ row.total_loan_amount | currency:'INR' }}</td>
-       
-                <td>{{row.disburstment_date}}</td>
-                
+    
                 <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
                   <ng-template #thenTemplate>
                     <span  class="badge badge-success ">Approved</span>
@@ -92,7 +89,7 @@
                    </td>
                    <td>
                     <button class="btn btn-success btn-sm" (click)="viewForm(row)"  >View</button>
-                    <button class="btn btn-warning btn-sm offset-1" (click)="genpdf(row)"  >Invoice PDF</button>
+                  <!---  <button class="btn btn-warning btn-sm offset-1" (click)="genpdf(row)"  >Invoice PDF</button>-->
                 </td>
             </tr>
             </tbody>
