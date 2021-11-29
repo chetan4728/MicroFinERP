@@ -70,7 +70,8 @@ export class BlcapprovalComponent implements OnInit {
         this.total_payments = this.row.total_payments;
         this.total_intrest =   this.row.total_intrest;
         this.total_intrest_in_per = this.row.total_intrest_in_per;
-        
+        //alert(JSON.stringify(this.row))
+        this.blc_status =   this.row.blc_approved;
         });
     }
     
@@ -143,7 +144,8 @@ export class BlcapprovalComponent implements OnInit {
       intrest_product:this.intrest,
       bank_intrest_type:this.intrest_type,
       bank_id:this.SessionData.bank_id,
-      blc_approved:this.blc_status
+      blc_approved:this.blc_status,
+      disbursment_number:this.param.snapshot.paramMap.get('distribution_id')
   };
 
 
@@ -242,12 +244,12 @@ export class BlcapprovalComponent implements OnInit {
   }
   else if(this.param.snapshot.paramMap.get('action')=="edit")
   {
-    this.api._create_Blc_loan_distribution(param).subscribe(data => {
+    this.api._update_Blc_loan_distribution(param).subscribe(data => {
       Swal.fire({
         position: 'top-end',
         toast: true,
         icon: 'success',
-        title: 'Group Loan Disbursement Created',
+        title: 'Group Loan Disbursement Updated',
         showConfirmButton: false,
         timer: 1500
       });

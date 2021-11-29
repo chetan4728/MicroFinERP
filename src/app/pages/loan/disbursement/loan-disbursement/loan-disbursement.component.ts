@@ -7,12 +7,14 @@ declare var $: any;
 import { environment } from 'src/environments/environment.prod';
 import { LocalStorageService } from 'angular-web-storage';
 import {formatDate} from '@angular/common';
+import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-loan-disbursement',
   templateUrl: './loan-disbursement.component.html',
   styleUrls: ['./loan-disbursement.component.scss']
 })
 export class LoanDisbursementComponent implements OnInit {
+
   private regex: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
   private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
   GroupData:any;
@@ -37,10 +39,22 @@ export class LoanDisbursementComponent implements OnInit {
    members_ids:any;
    row:any;
    is_submited:any;
-  constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) { }
+   Form: FormGroup;
+   temp_loan_app_no:any;
+   saving_account_number:any;
+   external_loan_account_number:any;
+   loan_account_number:any;
+   wel_faire_amt:any;
+   insurance_pre:any;
+  constructor(private formBuilder: FormBuilder,public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) 
+  {
+    this.initForm();
+   
+   }
 
   ngOnInit(): void {
     //alert()
+  
     this.SessionData = this.local.get(environment.userSession);
     this.intrest = "";
     this.intrest_type = this.SessionData.bank_intrest_type;
@@ -83,7 +97,7 @@ export class LoanDisbursementComponent implements OnInit {
      });
 
 
-     this.api._get_approved_group_members({branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
+     this.api._get_approved_group_members({bank_id:this.SessionData.bank_id,branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
       //console.log(data);
       
       this.members = data;
@@ -105,6 +119,35 @@ export class LoanDisbursementComponent implements OnInit {
      });
 
 
+  }
+
+  initForm(): void {
+
+    this.Form = this.formBuilder.group({
+      saving_account_number: ['', Validators.required],
+      loan_account_number: ['', Validators.required],
+      external_loan_account_number: ['', Validators.required],
+      wel_faire_amt: [''],
+      loan_application_nu:[''],
+      insurance_pre:['']
+
+    });
+  }
+
+  submit()
+  {
+    //alert(this.Form.value)
+    this.api._add_loan_account_detailss(this.Form.value).subscribe( data=>{
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'success',
+        title: 'Loan Details Added',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      location.reload();
+    });
   }
   transformAmount(element) {
    
@@ -170,7 +213,7 @@ export class LoanDisbursementComponent implements OnInit {
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance:Math.round(begining_balance),
-                    schedule_payment: Math.round(emi),
+                    schedule_payment: this.roundToNearest(emi,10),
                     interest_paid: Math.round(emi_intrest),
                     principle_paid: Math.round(priciple_amount),
                     ending_balance: Math.round(ending_balance),
@@ -207,7 +250,7 @@ export class LoanDisbursementComponent implements OnInit {
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance:Math.round(begining_balance),
-                    schedule_payment: Math.round(emi),
+                    schedule_payment: this.roundToNearest(emi,10),
                     interest_paid: Math.round(emi_intrest),
                     principle_paid: Math.round(priciple_amount),
                     ending_balance: Math.round(ending_balance),
@@ -233,7 +276,9 @@ export class LoanDisbursementComponent implements OnInit {
 
      this.total_intrest_in_per =   ((this.total_intrest / this.total_amount) * 100).toFixed(2)+"%";
   }
-
+   roundToNearest(numToRound, numToRoundTo) {
+    return Math.round(numToRound / numToRoundTo) * numToRoundTo;
+}
   get_loan_term(Event):void
   {
    
@@ -334,10 +379,7 @@ export class LoanDisbursementComponent implements OnInit {
     const center_id = this.param.snapshot.paramMap.get('center_id');
     const group_id = this.param.snapshot.paramMap.get('group_id');
     var param = {
-      branch_id:branch_id,
-      area_id:area_id,
-      center_id:center_id,
-      group_id:group_id,
+     
       total_loan_amount:this.total_amount,
       loan_members:this.GroupData.member_limit,
       anual_percentage_rate:this.intrest,
@@ -406,12 +448,12 @@ export class LoanDisbursementComponent implements OnInit {
   }
   else if(this.param.snapshot.paramMap.get('action')=="edit")
   {
-    this.api._create_loan_distribution(param).subscribe(data => {
+    this.api._update_loan_distribution(param).subscribe(data => {
       Swal.fire({
         position: 'top-end',
         toast: true,
         icon: 'success',
-        title: 'Group Loan Disbursement Created',
+        title: 'Group Loan Disbursement Updated',
         showConfirmButton: false,
         timer: 1500
       });
@@ -427,8 +469,26 @@ export class LoanDisbursementComponent implements OnInit {
     this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
   }
 
-  account_detail()
+  account_detail(row)
   {
+  //  alert( row.loan_application_number)
+    this.temp_loan_app_no = row.loan_application_number;
+
+    this.saving_account_number = row.saving_account_number
+    
+ 
+    if(row.external_loan_account_number=="")
+    {
+      this.external_loan_account_number =  Math.floor(Math.random() * (9999999999 - 10000000)) + 10000000;
+    }
+    else
+    {
+      this.external_loan_account_number = row.external_loan_account_number
+    }
+  
+    this.loan_account_number = row.loan_account_number
+    this. wel_faire_amt = row.wel_faire_amt
+    this. insurance_pre = row.insurance_pre
     $('#myModal').modal('show');
   }
 

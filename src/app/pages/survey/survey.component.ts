@@ -43,7 +43,7 @@ export class SurveyComponent implements OnInit {
     this.setCurrentLocation();
    
 
-
+  
 
       this.geoCoder = new google.maps.Geocoder;
 
@@ -57,7 +57,7 @@ export class SurveyComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
+        
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();

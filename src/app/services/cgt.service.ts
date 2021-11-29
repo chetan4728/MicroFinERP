@@ -10,10 +10,24 @@ import { environment } from 'src/environments/environment.prod';
 export class CGTService {
   private REST_API_SERVER = environment.api;
   private GET = this.REST_API_SERVER + 'CGT/LoadTable';
+  private GET_HIGH_MARK = this.REST_API_SERVER + 'CGT/get_high_mark_list';
+  private applicationFormPDF = this.REST_API_SERVER + 'CGT/applicationFormPDF';
+  
   constructor(private httpClient: HttpClient) { }
 
+
+  get_high_mark_list(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_HIGH_MARK}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
   _get_cgt(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  _get_app_form(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.applicationFormPDF}`,data).pipe(
       catchError(this.handleError)
     );
   }

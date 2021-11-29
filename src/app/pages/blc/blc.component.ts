@@ -35,6 +35,7 @@ export class BlcComponent implements OnInit {
   group_dp:any="";
   filter:any = [];
  
+ 
   constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
@@ -84,7 +85,7 @@ export class BlcComponent implements OnInit {
   onChangeArea(id):void{
     //alert(id)
     this.area_id = id;
-
+  // alert(id)
     this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.BranchList = data;
       
@@ -100,7 +101,7 @@ export class BlcComponent implements OnInit {
   }
   onChangeCenter(id):void{
     //alert(id)
-    this.api._get_groups({center_id:id}).subscribe(data => {
+    this.api._get_groups({center_id:id,bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.GroupList = data;
     
   });
@@ -112,13 +113,17 @@ export class BlcComponent implements OnInit {
   }
   viewForm(data): void
   {
-    this.router.navigate(['/blc-approval/LoanDisbursementForm/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/edit/"+data.loan_distribution_id]);
+    this.router.navigate(['/blc-approval/LoanDisbursementForm/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/edit/"+data.disbursment_number]);
     //this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
 
     
   }
 
   addLoan():void{
+  
+  
+ 
+   
 
     if(this.branch_dp=="")
     {
@@ -168,9 +173,31 @@ export class BlcComponent implements OnInit {
         timer: 1500
       });
     }
+
+   
     else
     {
-       this.router.navigate(['/blc-approval/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp+"/add/"+0]);
+      this.api._check_blc_assign({bank_id:this.SessionData.bank_id,area_id:this.area_dp,branch_id:this.branch_dp,center_id:this.center_dp,group_id:this.group_dp}).subscribe(data => {
+   
+       if(data)
+       {
+        Swal.fire({
+       
+          toast: true,
+          icon: 'error',
+          title: 'This Group is Already Added',
+          showConfirmButton: false,
+          timer: 1500
+        });
+       }
+       else
+       {
+         this.router.navigate(['/blc-approval/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp+"/add/"+0]);
+       }
+     
+    
+  });
+     
     }
   }
 

@@ -15,7 +15,7 @@ import { ViewsurveyComponent } from './viewsurvey/viewsurvey.component';
   declarations: [AreasurveyComponent, ViewsurveyComponent],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD0fhyInxQCAVmBPVGJLN_QIF29pJfyYfQ',
+      apiKey: 'AIzaSyBwudNoMgCCnl_85R23RgXrphTBoLrP2g0',
       libraries: ['places']
     }), CommonModule, AreaSurveyRoutingModule ,DataTablesModule ,FormsModule ,ReactiveFormsModule
   ]

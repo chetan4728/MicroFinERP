@@ -15,7 +15,7 @@ export class LoanDisbursementService {
   private REST_API_SERVER = environment.api;
   private GET = this.REST_API_SERVER + 'Loans/LoadTable';
   private GET_SINGLE = this.REST_API_SERVER + 'Loans/get_single_record';
-  private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTable';
+  private GET_BRANCH_TABLE = this.REST_API_SERVER + 'Branch/LoadTableFilter';
   private GET_AREA = this.REST_API_SERVER + 'Area/LoadTable';
   private GET_CENTERS = this.REST_API_SERVER + 'Centers/LoadCentersFromArea';
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
@@ -26,8 +26,12 @@ export class LoanDisbursementService {
   private GET_GROUP_APPROVED_MEMBERS = this.REST_API_SERVER + 'Disbursement/LoadLoanApprovedMembers';
   private create_loan_distribution = this.REST_API_SERVER + 'Loans/create_loan_distribution';
   private create_loan_distribution_blc = this.REST_API_SERVER + 'Loans/create_loan_distribution_blc';
+  private update_loan_distribution_blc = this.REST_API_SERVER + 'Loans/update_loan_distribution_blc';
+  private update_loan_distribution = this.REST_API_SERVER + 'Loans/update_loan_distribution';
+  private _check_blc_assign_data = this.REST_API_SERVER + 'Loans/check_blc_assign_data';
   private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
   private get_loan_distribution_files_edit = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files_edit';
+  private add_loan_account_details = this.REST_API_SERVER + 'Disbursement/add_loan_account_details';
   constructor(private httpClient: HttpClient) { }
 
   _update_blc_status(data)
@@ -38,14 +42,44 @@ export class LoanDisbursementService {
 
     
   }
+  _add_loan_account_detailss(data)
+  {
+    return this.httpClient.post<String>(`${this.add_loan_account_details}`,data).pipe(
+      catchError(this.handleError)
+    );
+
+    
+  }
+
+
+  
   _create_loan_distribution(data): Observable<String>{
     return this.httpClient.post<String>(`${this.create_loan_distribution}`,data).pipe(
       catchError(this.handleError)
     );
   }
 
+  _update_loan_distribution(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.update_loan_distribution}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _check_blc_assign(data): Observable<String>{
+    return this.httpClient.post<String>(`${this._check_blc_assign_data}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
   _create_Blc_loan_distribution(data): Observable<String>{
     return this.httpClient.post<String>(`${this.create_loan_distribution_blc}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  _update_Blc_loan_distribution(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.update_loan_distribution_blc}`,data).pipe(
       catchError(this.handleError)
     );
   }

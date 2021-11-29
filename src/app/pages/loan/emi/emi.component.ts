@@ -86,7 +86,7 @@ export class EmiComponent implements OnInit {
 
   viewForm(data): void
   {
-    this.router.navigate(['/emi/view-emi/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/view/"+data.loan_distribution_id]);
+    this.router.navigate(['/emi/view-emi/' + data.branch_id +'/' +data.area_id +'/' +data.center_id +'/' +data.group_id +"/view/"+data.disbursment_number]);
     //this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
 
     

@@ -27,6 +27,7 @@
                 <tr>
                     <th>Sr no</th>
                     <th>Area Name</th>
+                    <th>Branch Name</th>
                     <th>Center Name</th>
                     <th>Group Name</th>
                     <th>Day</th>
@@ -40,6 +41,7 @@
                 <tr *ngFor="let row of ListingData; let i = index">
                   <td>{{i+1}}</td>
                   <td>{{row.area_name}}</td>
+                  <td>{{row.branch_name}}</td>
                   <td>{{row.center_name}}</td>
                   <td>{{row.group_name}}</td>
                   <td>CGT2</td>
@@ -105,6 +107,10 @@
   
         <!-- Modal footer -->
         <div class="modal-footer">
+
+          <button class="btn btn-success"  (click)="getApplication_from()">Application Form</button>
+         <button class="btn btn-warning"  (click)="exportHighMarkData()">High Mark</button>
+     
           <button type="submit" class="btn btn-primary"   >save</button>
           <button type="button" class="btn btn-danger" (click)="hideModal()" >Close</button>
   

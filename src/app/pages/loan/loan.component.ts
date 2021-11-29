@@ -36,19 +36,27 @@ export class LoanComponent implements OnInit {
   filter:any = [];
   jsonDate:any = [];
   excel_title:any;
-  constructor(private router: Router, private api: LoanService,private local :LocalStorageService) { }
+  constructor(private router: Router, private api: LoanService,private local :LocalStorageService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+  };
+   }
 
   ngOnInit(): void {
+
     this.SessionData = this.local.get(environment.userSession);
 
     this.getListing();
     this.loadArea();
     this.Url = environment.uploads;
-    this.activated =  'none';
+    //this.activated =  'none';
+  }
+  ngOnChanges():void{
+    
   }
   getListing():void{
     this.api._get_loans({bank_id:this.SessionData.bank_id}).subscribe(data  => {
-      console.log(data);
+   //   console.log(data);
       this.ListingData = data;
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -98,7 +106,7 @@ export class LoanComponent implements OnInit {
   }
   onChangeCenter(id):void{
     //alert(id)
-    this.api._get_groups({center_id:id}).subscribe(data => {
+    this.api._get_groups({center_id:id,bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.GroupList = data;
     
   });
@@ -114,31 +122,37 @@ export class LoanComponent implements OnInit {
   filterData(): void
   {
     var a = [];
-
+    
+    if(this.area_dp!="")
+    {
+      a.push({area_id:this.area_dp});
+      a.push({bank_id:this.SessionData.bank_id});
+    }
     if(this.branch_dp!="")
     {
 
       a.push({branch_id:this.branch_dp});
+    
     }
-    if(this.area_dp!="")
-    {
-      a.push({area_id:this.area_dp});
-    }
-
+   
     if(this.center_dp!="")
     {
       a.push({center_id:this.center_dp});
+   
     }
     if(this.group_dp!="")
     {
       a.push({group_id:this.group_dp});
+   
     }
   
-    this.api._get_loans_filter(a).subscribe(data => {
+  
+   // alert(JSON.stringify(a))
+      this.api._get_loans_filter(a).subscribe(data => {
       this.ListingData = data;
-      this.activated = 'block';;
-console.log(this.ListingData)
-  this.excel_title = "HM_"+this.branch_dp+this.area_dp+this.center_dp+this.group_dp;
+     // this.activated = 'block';;
+      console.log(this.ListingData)
+      this.excel_title = "HM_"+this.branch_dp+this.area_dp+this.center_dp+this.group_dp;
       this.ListingData.forEach(element => {
       this.jsonDate.push({
         'Customer ID':element.loan_application_number,

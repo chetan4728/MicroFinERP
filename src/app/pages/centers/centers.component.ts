@@ -25,7 +25,7 @@ export class CentersComponent implements OnInit {
     
   }
   getListing():void{
-    this.api._get_centers({branch_id:this.SessionData.employee_branch_id}).subscribe(data  => {
+    this.api._get_centers({bank_id:this.SessionData.bank_id}).subscribe(data  => {
       console.log(data);
       this.ListingData = data;
       if (this.isDtInitialized) {
