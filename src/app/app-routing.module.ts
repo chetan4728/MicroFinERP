@@ -1,3 +1,4 @@
+import { Cgt1Component } from './pages/cgt1/cgt1.component';
 import { SurveyModule } from './pages/survey/survey.module';
 
 import { NgModule } from '@angular/core';
@@ -123,6 +124,13 @@ export const routes: Routes = [
           loadChildren: () => import('../app/pages/cgt/cgt.module').then(m => m.CgtModule),
           data: {
             title: 'CGT'
+          },
+        },
+        {
+          path: 'cgt1',
+          loadChildren: () => import('../app/pages/cgt1/cgt1.module').then(m => m.Cgt1Module),
+          data: {
+            title: 'CGT1'
           },
         },
 
