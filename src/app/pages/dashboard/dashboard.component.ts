@@ -1,6 +1,7 @@
 import { DashboardService } from './../../services/dashboard.service';
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
+import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,8 +13,9 @@ export class DashboardComponent implements OnInit {
   SessionData: any;
   data:any;
   ngOnInit(): void {
-  
-    this.api._get_dashboard_data({bank_id:20}).subscribe((response)=>{
+    this.SessionData = this.local.get(environment.userSession);
+   
+    this.api._get_dashboard_data({bank_id:this.SessionData.bank_id}).subscribe((response)=>{
    
       this.data = response;
     })
