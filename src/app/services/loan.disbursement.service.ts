@@ -32,6 +32,8 @@ export class LoanDisbursementService {
   private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
   private get_loan_distribution_files_edit = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files_edit';
   private add_loan_account_details = this.REST_API_SERVER + 'Disbursement/add_loan_account_details';
+  private get_loan_disbursed_data = this.REST_API_SERVER + 'Disbursement/get_loan_disbursed_data';
+  
   constructor(private httpClient: HttpClient) { }
 
   _update_blc_status(data)
@@ -89,6 +91,12 @@ export class LoanDisbursementService {
       catchError(this.handleError)
     );
   }
+  get_loan_disbursed_applications(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.get_loan_disbursed_data}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   _get_loan_distribution_applications_data(data): Observable<String>{
     return this.httpClient.post<String>(`${this.get_loan_distribution_files_edit}`,data).pipe(
       catchError(this.handleError)

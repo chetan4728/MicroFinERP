@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import {  throwError, of, Observable  } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({
@@ -21,21 +21,40 @@ export class EmiService {
   private GET_GROUPS = this.REST_API_SERVER + 'Groups/LoadGroupsFromcenter';
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
   private UPDATE_STATUS = this.REST_API_SERVER + 'Loans/Update_status';
+  private UPDATE_APPROVED_STATUS = this.REST_API_SERVER + 'Emi/update_approved_status';
+  
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Emi/LoadLoanMembers';
-  private get_loan_distribution_files = this.REST_API_SERVER + 'Disbursement/get_loan_distribution_files';
+  private GET_GROUP_MEMBERS_EMI = this.REST_API_SERVER + 'Emi/LoadLoanMembersEmi'; 
+  private get_loan_emi_data = this.REST_API_SERVER + 'Disbursement/get_loan_emi_data';
+  private get_recovery_loan_emi_data = this.REST_API_SERVER + 'Disbursement/get_recovery_loan_emi_data';
+
+  
   constructor(private httpClient: HttpClient) { }
 
-  _get_loan_distribution_applications(data): Observable<String>{
-    return this.httpClient.post<String>(`${this.get_loan_distribution_files}`,data).pipe(
+  _get_loan_emi_data(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.get_loan_emi_data}`,data).pipe(
       catchError(this.handleError)
     );
   }
+  
+  _get_recovery_loan_emi_data(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.get_recovery_loan_emi_data}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   _get_group_members(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET_GROUP_MEMBERS}`,data).pipe(
       catchError(this.handleError)
     );
   }
+  _get_group_members_emi(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_GROUP_MEMBERS_EMI}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   _get_group_details(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET_GROUP_DETAILS}`,data).pipe(
       catchError(this.handleError)
@@ -81,6 +100,11 @@ export class EmiService {
   }
   _Update_Status(data): Observable<String>{
     return this.httpClient.post<String>(`${this.UPDATE_STATUS}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  update_approved_status(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.UPDATE_APPROVED_STATUS}`,data).pipe(
       catchError(this.handleError)
     );
   }

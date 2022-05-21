@@ -196,7 +196,7 @@ submit(): void{
       };
 
       const file = (event.target as HTMLInputElement).files[0];
-      console.log(file);
+      // console.log(file);
       this.Form.patchValue({
         profile: file
       });

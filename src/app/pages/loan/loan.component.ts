@@ -36,6 +36,9 @@ export class LoanComponent implements OnInit {
   filter:any = [];
   jsonDate:any = [];
   excel_title:any;
+  loansData: any[]= [];
+  branchData: any[]=[];
+  areaData: any[]=[];
   constructor(private router: Router, private api: LoanService,private local :LocalStorageService) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -45,7 +48,8 @@ export class LoanComponent implements OnInit {
   ngOnInit(): void {
 
     this.SessionData = this.local.get(environment.userSession);
-
+    this.area_dp =  this.SessionData.employee_branch_id;
+    this.branch_dp =  this.SessionData.employee_branch_id;
     this.getListing();
     this.loadArea();
     this.Url = environment.uploads;
@@ -58,6 +62,14 @@ export class LoanComponent implements OnInit {
     this.api._get_loans({bank_id:this.SessionData.bank_id}).subscribe(data  => {
    //   console.log(data);
       this.ListingData = data;
+      if(this.SessionData.role_code == 'BM'){        
+        this.ListingData.find((v) => { 
+          if(v.branch_id == this.SessionData.employee_branch_id){
+            this.loansData.push(v);
+          }
+        });
+        this.ListingData = this.loansData;
+      }
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
@@ -73,8 +85,12 @@ export class LoanComponent implements OnInit {
   {
     this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
       this.AreaList = data;
-
-    
+      if(this.SessionData.role_code == 'BM'){
+        this.AreaList = this.AreaList.find((v) => { return v.area_id == this.SessionData.employee_branch_id });
+        this.areaData.push(this.AreaList);
+        this.AreaList = this.areaData;
+        this.onChangeArea(this.SessionData.employee_branch_id);
+      }    
       
   });
   }
@@ -93,8 +109,12 @@ export class LoanComponent implements OnInit {
 
     this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.BranchList = data;
-      
-    
+      if(this.SessionData.role_code == 'BM'){
+        this.BranchList = this.BranchList.find((v) => { return v.branch_id == this.SessionData.employee_branch_id });
+        this.branchData.push(this.BranchList);
+        this.BranchList = this.branchData;
+        this.onChangeBranch(this.SessionData.employee_branch_id);
+      }    
   });
 
     /*this.api._get_centers({area_id:id}).subscribe(data => {
@@ -151,7 +171,7 @@ export class LoanComponent implements OnInit {
       this.api._get_loans_filter(a).subscribe(data => {
       this.ListingData = data;
      // this.activated = 'block';;
-      console.log(this.ListingData)
+      // console.log(this.ListingData)
       this.excel_title = "HM_"+this.branch_dp+this.area_dp+this.center_dp+this.group_dp;
       this.ListingData.forEach(element => {
       this.jsonDate.push({

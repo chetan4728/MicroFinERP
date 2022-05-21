@@ -1,0 +1,105 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Loan Emi</h1>
+        
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Manage Preclose Report</li>
+         
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+  
+
+
+    <div class="container-fluid card">
+      <div class="row filters">
+        <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="area_dp" (change)="onChangeArea($event.target.value)" >
+            <option value="">Select Area</option>
+            <option *ngFor="let row of this.AreaList; let i = index" value="{{row.area_id}}">{{row.area_name}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="branch_dp" (change)="onChangeBranch($event.target.value)" >
+            <option value="">Select Branch</option>
+            <option *ngFor="let row of this.BranchList; let i = index" value="{{row.branch_id}}">{{row.branch_name}}</option>
+          </select>
+        </div>
+       
+        <div class="col-md-2">
+          <select class="form-control" [(ngModel)]="center_dp" (change)="onChangeCenter($event.target.value)" >
+            <option value="">Select Center</option>
+            <option *ngFor="let row of this.CenterList; let i = index" value="{{row.center_id}}">{{row.center_name}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="group_dp">
+            <option value="">Select Group</option>
+            <option *ngFor="let row of this.GroupList; let i = index" value="{{row.group_id}}">{{row.group_name}}</option>
+          </select>
+        </div>
+        <div class="col-md-1">
+       
+         <button class="btn btn-primary loan_btn"  >Filter</button>
+        </div>
+        
+      </div>
+        <table  datatable  [dtTrigger]="dtTrigger" class="table_loan table table-striped  table-bordered row-border hover"  >
+          <thead>
+              <tr>
+                  
+                  <th>Branch</th>
+                  <th>Area</th>
+                  <th>Center</th>
+                  <th>Group</th>
+                  <th>Limit</th>
+                  <th>Total Loan Amount</th>
+                  <th>Loan Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+           <tr *ngFor="let row of ListingData; let i = index">
+          
+              <td>{{row.branch_name}}</td>
+              <td>{{row.area_name}}</td>
+              <td>{{row.center_name}}</td>
+              <td>{{row.group_name}}</td>
+              <td>{{row.loan_members}}</td>
+              <td>{{ row.total_loan_amount | currency:'INR' }}</td>
+     
+              <td>{{row.disburstment_date}}</td>
+              
+              <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                <ng-template #thenTemplate>
+                  <span  class="badge badge-success ">Approved</span>
+                </ng-template>
+                <ng-template #elseTemplate>
+                  <span  class="badge badge-danger">Pending</span>
+                </ng-template>
+                 </td>
+                 <td><button class="btn btn-success btn-sm" (click)="viewForm(row)"  >View</button>
+          </tr>
+          </tbody>
+      </table>
+      
+
+      </div>
+</section>
+
+<!-- /.content -->
+
+

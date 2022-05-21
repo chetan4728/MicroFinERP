@@ -26,7 +26,8 @@
 
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Group Information 
-            <ng-container *ngIf="this.GroupData.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
+          <!-- {{GroupData | json}} -->
+            <ng-container *ngIf="GroupData.GroupStatus == 1; then thenTemplate; else elseTemplate"></ng-container>
             <ng-template #thenTemplate>
               <span  class="badge badge-success ">Approved</span>
             </ng-template>
@@ -50,7 +51,7 @@
               <div class="col-md-3">
                <div class="form-group">
                  <label>Area Name</label>
-                 <input type="text" class="form-control"  readonly    value="{{this.GroupData.area_name}}" >
+                 <input type="text" class="form-control"  readonly    value="{{areaName}}" >
              
               </div>
              </div> 
@@ -131,34 +132,31 @@
                 </tr>
             </thead>
             <tbody>
-             <tr *ngFor="let row of members; let i = index">
-            
-                <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
-                <td>{{row.loan_application_number}}</td>
-                <td>{{row.applicant_name}}</td>
-                <td>{{row.added_by}}</td>
-                <td>{{row.created_date}}</td>
-                <td><ng-container *ngIf="row.is_cgt_verfied == 1; then thenTemplate; else elseTemplate"></ng-container>
-                  <ng-template #thenTemplate>
-                    <span  class="badge badge-success ">Approved</span>
-                  </ng-template>
-                  <ng-template #elseTemplate>
-                    <span  class="badge badge-danger">Pending</span>
-                  </ng-template>
-                   </td>
+             <tr *ngFor="let row of approvedMembers; let i = index">
+              <td><img style="width:50px;height: 50px;" src="{{ row.member_photo_pr ? this.Url+row.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'}}"/></td>
+              <td>{{row.loan_application_number}}</td>
+              <td>{{row.applicant_name}}</td>
+              <td>{{row.added_by}}</td>
+              <td>{{row.created_date}}</td>
+              <td><ng-container *ngIf="row.is_cgt_verfied == 1; then thenTemplate; else elseTemplate"></ng-container>
+                <ng-template #thenTemplate>
+                  <span  class="badge badge-success ">Approved</span>
+                </ng-template>
+                <ng-template #elseTemplate>
+                  <span  class="badge badge-danger">Pending</span>
+                </ng-template>
+                 </td>
 
-                   <td><select class="form-control" [(ngModel)]="row.is_blc_verfied" (change)="update_status($event,row.loan_application_number)"  >
-                     <option value="">status</option>
-                     <option value="1">Approved</option>
-                     <option value="2">Rejected</option>
-                     <option value="0">Penidng</option>
-                   </select></td>
-                   <td><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
-                
-                   
-                
+                 <td><select class="form-control" [(ngModel)]="row.is_blc_verfied" (change)="update_status($event,row.loan_application_number)"  >
+                   <option value="">status</option>
+                   <option value="1">Approved</option>
+                   <!-- <option value="2">Rejected</option> -->
+                   <option value="2">Reject</option>
+                 </select></td>
+                 <td><button class="btn btn-primary btn-sm" (click)="viewForm(row)"  >View</button>
+              
+                 </tr>
                
-            </tr>
             </tbody>
         </table>
     </fieldset>
@@ -176,51 +174,43 @@
               <table>
                 <tr>
                   <td>Loan amount</td>
-                  <td> <input type="text"  (keydown)="numberOnly($event)"  [(ngModel)]="total_amount" class="form-control margin_left_10" ></td>
+                  <td> 
+                    <!-- <input type="text"  (keydown)="numberOnly($event)"  [(ngModel)]="total_amount" class="form-control margin_left_10" > -->
+                    <select class="form-control margin_left_10" [(ngModel)]="total_amount" >
+                      <option value="">Select Loan Amount</option>
+                      <option *ngFor="let loanamount of loanAmountList" value="{{loanamount}}" >{{loanamount}}</option>
+                    </select>
+                  </td>
                 </tr>
-
                 
                 <tr>
                   <td>Loan terms (Months)</td>
-                  <td> <input type="text"  (keydown)="numberOnly($event)"  [(ngModel)]="term"   class="form-control margin_left_10" ></td>
-                </tr>
-                
-
-               
-                
-               
-                
-
-                
-              
-
-               
-
-               
-
-
-                
-              </table>
+                  <td> 
+                    <!-- <input type="text"  (keydown)="numberOnly($event)"  [(ngModel)]="term"   class="form-control margin_left_10" > -->
+                    <select class="form-control margin_left_10" [(ngModel)]="term" >
+                      <option value="">Select Loan terms</option>
+                      <option value="18" >18</option>
+                      <option value="24" >24</option>
+                      <option *ngIf="total_amount >=60000 || total_amount == ''" value="36" >36</option>                    
+                    </select>
+                  </td>
+                </tr>                         
+              </table>   
             </div>
             <div class="col-md-6">
-                <table>
-                 
-                 
-                  
-                 
+                <table>                
                     <tr>
                         <td style="width: 40%;">Select Product (Intrest)</td>
-                        <td><select class="form-control margin_left_10" [(ngModel)]="this.intrest"  >
+                        <td><select class="form-control margin_left_10" [(ngModel)]="this.intrest">
                           <option value="">Select Product</option>
                           <option value="25" >MLM - 25%</option>
                           <option value="26" >BC - 26%</option>
-                          
                         </select></td>
                       </tr>
       
                       <tr>
                           <td style="width: 40%;">Approved Status</td>
-                          <td><select class="form-control margin_left_10" [(ngModel)]="this.blc_status"  >
+                          <td><select class="form-control margin_left_10" [(ngModel)]="this.blc_status" >
                             <option value="">Select Status</option>
                             <option value="1" >Approved</option>
                             <option value="0" >Pending</option>

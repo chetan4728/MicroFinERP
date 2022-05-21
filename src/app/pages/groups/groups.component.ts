@@ -18,6 +18,7 @@ export class GroupsComponent implements OnInit {
   dtTrigger: Subject<String> =  new Subject();
   SessionData: any;
   ListingData:any;
+  groupsData: any[]= [];
   constructor(private api: GroupsService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
@@ -26,8 +27,16 @@ export class GroupsComponent implements OnInit {
   }
   getListing():void{
     this.api._get_groups({bank_id:this.SessionData.bank_id}).subscribe(data  => {
-      console.log(data);
+      // console.log(data);
       this.ListingData = data;
+      if(this.SessionData.role_code == 'BM'){
+        this.ListingData.find((v) => { 
+          if(v.branch_id == this.SessionData.employee_branch_id){
+            this.groupsData.push(v);
+          }
+        });
+        this.ListingData = this.groupsData;
+      }
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();

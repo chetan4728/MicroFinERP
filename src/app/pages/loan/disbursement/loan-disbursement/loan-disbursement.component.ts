@@ -46,6 +46,7 @@ export class LoanDisbursementComponent implements OnInit {
    loan_account_number:any;
    wel_faire_amt:any;
    insurance_pre:any;
+   approvedMembers:any[] = [];
   constructor(private formBuilder: FormBuilder,public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService,) 
   {
     this.initForm();
@@ -100,13 +101,21 @@ export class LoanDisbursementComponent implements OnInit {
      this.api._get_approved_group_members({bank_id:this.SessionData.bank_id,branch_id:branch_id,area_id:area_id,center_id:center_id,group_id:group_id}).subscribe(data  => {
       //console.log(data);
       
-      this.members = data;
+      this.members = data;      
+      this.members.forEach((m)=>{
+        if (m.approved_status == 1){
+          this.approvedMembers.push(m);
+        }
+      })
+      this.members = this.approvedMembers;
       
       this.members_ids = [];
       for(let i=0;i< this.members.length;i++)
       {
         //this.acutal_members =this.members[i].member_limit;
         this.members_ids.push(this.members[i].loan_application_number)
+        //  console.log("this.members[i]agduowagd", this.members[i], "qwyduiqwdyug" ,this.members[i].approved_status);
+        //  console.log("approved_status",this.members[i].approved_status , "check" , this.members[i].approved_status== 1);        
         if(this.members[i].approved_status==1 && isNaN(this.members[i].approved_status)!=true)
         {
           //alert(this.members[i].approved_status)
@@ -193,30 +202,35 @@ export class LoanDisbursementComponent implements OnInit {
             if (dateSrt.getMonth() > currentMonth) {
                 dateSrt.setDate(0);
             }
+        //  console.log("dateSrt", dateSrt);
          
-            var txtDay =    formatDate(dateSrt, 'yyyy-MM-dd', 'en-US');
+            var txtDay = formatDate(dateSrt, 'yyyy-MM-dd', 'en-US');
+            // console.log("txtDay",txtDay);
             var diffTime:any = Math.abs(dis_date_f - emi_date_f);
             var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             var old_date:any = new Date(formatDate(dateSrt, 'yyyy-MM-dd', 'en-US')); 
 
 
             var begining_balance:any = this.total_amount;
+            
             var emi_intrest:any = (((this.total_amount * this.intrest / 365) *  diffDays) /100).toFixed(2);
+            // var emi_intrest:any = this.roundToNearest((((this.total_amount * this.intrest / 365) *  diffDays) /100).toFixed(2), 10);
             var emi:any = this.PMT(this.monthly_intrest/100,this.term,this.total_amount);
 
             this.total_payments =  parseFloat(emi) ;
             this.total_intrest = parseFloat(emi_intrest) ;
             var priciple_amount:any =  emi - emi_intrest;
-            var ending_balance:any  = this.total_amount - priciple_amount;
+            // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
+            var ending_balance:any  = Math.round(begining_balance) - (this.roundToNearest(emi,10) - emi_intrest) // this.total_amount - priciple_amount;
             this.interest_table.push({
               no:i,
                     inc_date: txtDay,
                     diffDays: diffDays,
-                    begining_balance:Math.round(begining_balance),
+                    begining_balance: begining_balance , //Math.round(begining_balance),
                     schedule_payment: this.roundToNearest(emi,10),
-                    interest_paid: Math.round(emi_intrest),
-                    principle_paid: Math.round(priciple_amount),
-                    ending_balance: Math.round(ending_balance),
+                    interest_paid: emi_intrest, // Math.round(emi_intrest),
+                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, // Math.round(priciple_amount),
+                    ending_balance: ending_balance //Math.round(ending_balance),
                 });
         }
         if (i >= 1) {
@@ -235,13 +249,16 @@ export class LoanDisbursementComponent implements OnInit {
           var old_date:any = new Date(formatDate(dateSrt, 'yyyy-MM-dd', 'en-US'));
 
           var begining_balance:any = ending_balance;
+          
           var emi_intrest:any = (((begining_balance * this.intrest / 365) *  diffDays) /100).toFixed(2);
+          // var emi_intrest:any = this.roundToNearest((((begining_balance * this.intrest / 365) *  diffDays) /100).toFixed(2), 10);
           var emi:any = this.PMT(this.monthly_intrest/100,this.term,this.total_amount);
           this.total_payments =  Math.round(this.total_payments + parseFloat(emi)) ;
 
           this.total_intrest =Math.round(this.total_intrest + parseFloat(emi_intrest)) ;
           var priciple_amount:any =  (emi - emi_intrest).toFixed(2);
-          var ending_balance:any = (begining_balance - priciple_amount).toFixed(2);
+          // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
+          var ending_balance:any = begining_balance -  (this.roundToNearest(emi,10) - emi_intrest); //(begining_balance - priciple_amount).toFixed(2);
           
                     if(i!=this.term-1)
                 {
@@ -249,11 +266,11 @@ export class LoanDisbursementComponent implements OnInit {
                     no:i+1,
                     inc_date: txtDay,
                     diffDays: diffDays,
-                    begining_balance:Math.round(begining_balance),
+                    begining_balance:begining_balance, //Math.round(begining_balance),
                     schedule_payment: this.roundToNearest(emi,10),
-                    interest_paid: Math.round(emi_intrest),
-                    principle_paid: Math.round(priciple_amount),
-                    ending_balance: Math.round(ending_balance),
+                    interest_paid: emi_intrest, // Math.round(emi_intrest),
+                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, //Math.round(priciple_amount),
+                    ending_balance: ending_balance//Math.round(ending_balance),
                   });
                 }
                 else 
@@ -263,10 +280,10 @@ export class LoanDisbursementComponent implements OnInit {
                     no:i+1,
                     inc_date: txtDay,
                     diffDays: diffDays,
-                    begining_balance:Math.round(begining_balance),
+                    begining_balance:begining_balance,//Math.round(begining_balance),
                     schedule_payment: Math.round(emi_new),
-                    interest_paid: Math.round(emi_intrest),
-                    principle_paid: Math.round(begining_balance),
+                    interest_paid: emi_intrest, // Math.round(emi_intrest),
+                    principle_paid: Math.round(emi_new) - emi_intrest ,//Math.round(begining_balance),
                     ending_balance: 0,
                   });
 			}

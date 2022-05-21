@@ -34,6 +34,7 @@ export class DisbursementComponent implements OnInit {
   center_dp:any="";
   group_dp:any="";
   filter:any = [];
+  disbursementData: any[]= [];
  
   constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
@@ -46,6 +47,15 @@ export class DisbursementComponent implements OnInit {
   getListing():void{
       this.api._get_loan_distribution_applications({bank_id:this.SessionData.bank_id}).subscribe(data  => {
         this.ListingData = data;
+        if(this.SessionData.role_code == 'BM'){
+          this.ListingData.find((v) => { 
+            if(v.branch_id == this.SessionData.employee_branch_id){
+              this.disbursementData.push(v);
+            }
+          });
+          this.ListingData = this.disbursementData;
+        }
+        this.ListingData = this.ListingData;
         if (this.isDtInitialized) {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();

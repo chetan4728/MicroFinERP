@@ -1,0 +1,49 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Manage Collection Sheet</h1>
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Collection Sheet</li>
+           
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">      
+    <div class="container-fluid card">
+        <div class="row filters">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Select Date</label>
+                    <input type="date" class="form-control" (change)="selectedDate = $event.target.value" placeholder="Enter Date"/>   
+                </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>Select CSR</label>
+                  <select class="form-control" (change)="selectedEmpId=$event.target.value">
+                      <option value="0">Select Employee</option>
+                      <option *ngFor="let row of employeeList; let i = index" [value]="row.employee_id" >{{row.employee_first_name}} {{row.employee_last_name}}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-md-3 collection">
+            <button class="btn btn-primary collection_btn" [disabled]="selectedDate == undefined || selectedEmpId == undefined" (click)="CollectionDemandPDF()">Generate Collection Sheet</button>
+          </div>
+          
+        </div>        
+  
+    </div>
+  </section>
+  
+  <!-- /.content -->

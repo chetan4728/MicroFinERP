@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 import { LoanDisbursementService } from 'src/app/services/loan.disbursement.service';
 import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
+import { BranchService } from '../../../services/branch.service';
+import { AreaService } from '../../../services/area.service';
 @Component({
   selector: 'app-emi',
   templateUrl: './emi.component.html',
@@ -32,17 +34,31 @@ export class EmiComponent implements OnInit {
   center_dp:any="";
   group_dp:any="";
   filter:any = [];
-  constructor(private router: Router, private api: EmiService,private local :LocalStorageService) { }
+  emiData: any[]= [];
+  branchData: any=[] = [];
+  areaData: any=[] = [];
+  area_id:any;
+  constructor(private router: Router, private branch_api:BranchService,public area_api :AreaService,private api: EmiService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
-    this.loadBranch();
+    this.area_dp =  this.SessionData.employee_branch_id;
+    this.branch_dp =  this.SessionData.employee_branch_id;
+    this.loadArea();
     this.getListing();
     this.Url = environment.uploads;
   }
   getListing():void{
-      this.api._get_loan_distribution_applications({bank_id:this.SessionData.bank_id}).subscribe(data  => {
+      this.api._get_loan_emi_data({bank_id:this.SessionData.bank_id}).subscribe(data  => {
         this.ListingData = data;
+        if(this.SessionData.role_code == 'BM'){
+          this.ListingData.find((v) => {            
+            if(v.branch_id == this.SessionData.employee_branch_id){
+              this.emiData.push(v);
+            }
+          });
+          this.ListingData = this.emiData;
+        }     
         if (this.isDtInitialized) {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
@@ -55,29 +71,31 @@ export class EmiComponent implements OnInit {
     });
   }
 
-  loadBranch():void{
-    this.api._get_branch().subscribe(data => {
-      this.BranchList = data;
-   });
-  }
-
-  onChangeBranch(id):void{
-    //alert(id)
-    this.api._get_area({branch_id:id}).subscribe(data => {
-      this.AreaList = data;
-  });
-  }
-
   onChangeArea(id):void{
     //alert(id)
-    this.api._get_centers({area_id:id}).subscribe(data => {
-      this.CenterList = data;
+    this.branch_api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
+      this.BranchList = data;
+      if(this.SessionData.role_code == 'BM'){
+        this.BranchList = this.BranchList.find((v) => { return v.branch_id == this.SessionData.employee_branch_id });
+        this.branchData.push(this.BranchList);
+        this.BranchList = this.branchData;
+        this.onChangeBranch(this.SessionData.employee_branch_id);
+      };
+    });
+  }
+
+  
+  onChangeBranch(id):void{
+
+    this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:id,area_id:this.area_id}).subscribe(data => {
+      this.CenterList = data;     
+      this.onChangeCenter(id);
   });
   }
 
   onChangeCenter(id):void{
     //alert(id)
-    this.api._get_groups({center_id:id}).subscribe(data => {
+    this.api._get_groups({center_id:id,bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.GroupList = data;
     
   });
@@ -92,6 +110,16 @@ export class EmiComponent implements OnInit {
     
   }
 
- 
+  loadArea():void{
+    this.area_api._get_area({bank_id:this.SessionData.bank_id,token:this.SessionData.token}).subscribe(data => {
+      this.AreaList = data;
+      if(this.SessionData.role_code == 'BM'){        
+        this.AreaList = data.find((v) => { return v.area_id == this.SessionData.employee_branch_id});
+        this.areaData.push(this.AreaList);
+        this.AreaList =  this.areaData;
+        this.onChangeArea(this.SessionData.employee_branch_id);
+      }
+   });
+  } 
 
 }

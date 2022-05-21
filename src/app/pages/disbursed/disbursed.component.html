@@ -1,0 +1,120 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Loan Disbursed</h1>
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Loan Disbursed</li>
+           
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content" >
+
+  
+      <div class="container-fluid card">
+        <div class="row filters" style="display: none;">
+          <div class="col-md-3">
+            <!-- [(ngModel)]="area_dp"  -->
+            <select class="form-control" (change)="onChangeArea($event.target.value)" >
+              <option value="">Select Area</option>
+              <option *ngFor="let row of this.AreaList; let i = index" value="{{row.area_id}}">{{row.area_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <!-- [(ngModel)]="branch_dp"  -->
+            <select class="form-control" (change)="onChangeBranch($event.target.value)" >
+              <option value="">Select Branch</option>
+              <option *ngFor="let row of this.BranchList; let i = index" value="{{row.branch_id}}">{{row.branch_name}}</option>
+            </select>
+          </div>
+        
+          <div class="col-md-2">
+            <!-- [(ngModel)]="center_dp"  -->
+            <select class="form-control"(change)="onChangeCenter($event.target.value)" >
+              <option value="">Select Center</option>
+              <option *ngFor="let row of this.CenterList; let i = index" value="{{row.center_id}}">{{row.center_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <!-- [(ngModel)]="group_dp" -->
+            <select class="form-control">
+              <option value="">Select Group</option>
+              <option *ngFor="let row of this.GroupList; let i = index" value="{{row.group_id}}">{{row.group_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+         
+           <button class="btn btn-danger loan_btn"  (click)="addLoan()">Assign Loan</button>
+          </div>
+          
+        </div>
+          <table  datatable  [dtTrigger]="dtTrigger" class="table_loan table table-striped  table-bordered row-border hover"  >
+            <thead>
+                <tr>
+                  <th>Disburesment</th>
+                  <th>Area</th>
+                    <th>Branch</th>
+                    <th>Center</th>
+                    <th>Group</th>
+                    <th>Member Limit</th>
+                    <th>Loan Amount</th>
+                    <th>Status</th>
+                    <th>Documents</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let row of ListingData; let i = index">
+
+              
+              <td>{{row.disbursment_number}}</td>
+              <td>{{row.area_name}}</td>
+                <td>{{row.branch_name}}</td>
+               
+                <td>{{row.center_name}}</td>
+                <td>{{row.group_name}}</td>
+                <td>{{row.loan_members}}</td>
+                <td>{{ row.total_loan_amount | currency:'INR' }}</td>
+     
+                
+                <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                  <ng-template #thenTemplate>
+                    <span  class="badge badge-success ">Approved</span>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <span  class="badge badge-danger">Pending</span>
+                  </ng-template>
+                   </td>
+                  <td><div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                   
+                    <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Download
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="applicationPDF(row.disbursment_number)"  >Application Form</a>
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="SanctionLetterPDF(row.disbursment_number)" >Sanction Letter</a>
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="DPNPDF(row.disbursment_number)">DPN</a>
+                      </div>
+                    </div>
+                  </div></td>
+                   <td><button class="btn btn-success btn-sm" (click)="viewForm(row)"  >View</button>
+            </tr>
+            </tbody>
+        </table>
+        
+  
+        </div>
+  </section>
+
+

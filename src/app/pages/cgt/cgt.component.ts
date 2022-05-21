@@ -27,11 +27,13 @@ export class CgtComponent implements OnInit {
   excel_title:any;
   record:any;
   jsonData:any;
+  cgtData: any[]= [];
   constructor(private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
     this.sessiondata = this.session.get(environment.userSession);
-    this. _getCGTList();
+    this._getCGTList();
+    // this.getGroupList();
     this.initForm();
   }
   hideModal(): void {
@@ -68,7 +70,14 @@ export class CgtComponent implements OnInit {
     this.api._get_cgt({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
 
       this.ListingData = data;
-      
+      if(this.sessiondata.role_code == 'BM'){
+        this.ListingData.find((v) => { 
+          if(v.branch_id == this.sessiondata.employee_branch_id){
+            this.cgtData.push(v);
+          }
+        });
+        this.ListingData = this.cgtData;
+      }
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
@@ -79,6 +88,20 @@ export class CgtComponent implements OnInit {
         this.dtTrigger.next();
       }
     })
+  }
+
+  getGroupList(){
+    this.api.get_group_list({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
+      this.ListingData = data;
+      if(this.sessiondata.role_code == 'BM'){
+        this.ListingData.find((v) => { 
+          if(v.branch_id == this.sessiondata.employee_branch_id){
+            this.cgtData.push(v);
+          }
+        });
+        this.ListingData = this.cgtData;
+      }
+    });
   }
   getApplication_from()
   {

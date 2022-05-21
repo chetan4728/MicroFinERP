@@ -19,6 +19,8 @@ export class AreasurveyComponent implements OnInit {
   dtTrigger: Subject<String> =  new Subject();
   SessionData: any;
   ListingData:any;
+  surveysData: any[]= [];
+
   constructor( private router: Router, private api:SurveyService,private local :LocalStorageService ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,15 @@ export class AreasurveyComponent implements OnInit {
     this.api._getAreaSurveys({bank_id:this.SessionData.bank_id}).subscribe(data  => {
       //console.log(data);
       this.ListingData = data;
-      
+      if(this.SessionData.role_code == 'BM'){
+        this.ListingData = this.ListingData.find(v => { return v.branch_id == this.SessionData.employee_branch_id});
+        this.ListingData.find((v) => {
+          if(v.branch_id == this.SessionData.employee_branch_id){
+            this.surveysData.push(v);
+          }
+        });
+        this.ListingData = this.surveysData;
+      }
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();

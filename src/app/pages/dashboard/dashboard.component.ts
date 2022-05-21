@@ -16,8 +16,7 @@ export class DashboardComponent implements OnInit {
     this.SessionData = this.local.get(environment.userSession);
    
     this.api._get_dashboard_data({bank_id:this.SessionData.bank_id}).subscribe((response)=>{
-   
-      this.data = response;
+        this.data = response;
     })
   }
 

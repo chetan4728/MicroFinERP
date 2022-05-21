@@ -20,6 +20,7 @@ export class ListingComponent implements OnInit {
   dtTrigger: Subject<String> =  new Subject();
   SessionData: any;
   ListingData:any;
+  surveyData: any[]= [];
   constructor( private router: Router, private api:SurveyService,private local :LocalStorageService ) { }
 
   ngOnInit(): void {
@@ -43,6 +44,14 @@ export class ListingComponent implements OnInit {
   this.api._get_survey({branch_id:this.SessionData.employee_branch_id,bank_id:this.SessionData.bank_id}).subscribe(data  => {
     //console.log(data);
     this.ListingData = data;
+    if(this.SessionData.role_code == 'BM'){
+      this.ListingData.find((v) => {        
+        if(v.branch_id == this.SessionData.employee_branch_id){
+          this.surveyData.push(v);              
+        }
+      });
+      this.ListingData = this.surveyData;
+    }
     
     if (this.isDtInitialized) {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

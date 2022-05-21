@@ -24,6 +24,7 @@ export class SurveyComponent implements OnInit {
   private geoCoder;
   address: string;
   branch_name:any;
+  branchData: any=[]
   selectRoleRow: Survey = { date_assigned:null, assign_area_id:0 ,bank_id:null, area_name:null, branch_id:0 , latitude:null, longitude:null ,user_id:0};
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -104,6 +105,12 @@ export class SurveyComponent implements OnInit {
     this.branch_api._get_branch({bank_id:this.SessionData.bank_id}).subscribe(data =>{
 
       this.branch_name = data;
+      if(this.SessionData.role_code == 'BM'){
+        this.branch_name = data.find((v) => { return v.branch_id == this.selectRoleRow.branch_id });
+        this.branchData.push(this.branch_name);
+        this.branch_name = this.branchData;
+        this.load_emp();
+      }
     })
   }
  
@@ -119,7 +126,7 @@ export class SurveyComponent implements OnInit {
     }
   }
   markerDragEnd($event: MouseEvent) {
-    console.log($event);
+    // console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.selectRoleRow.latitude = $event.coords.lat;
@@ -129,8 +136,8 @@ export class SurveyComponent implements OnInit {
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
+      // console.log(results);
+      // console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;

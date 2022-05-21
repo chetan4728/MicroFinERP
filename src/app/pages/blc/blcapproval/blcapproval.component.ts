@@ -39,15 +39,22 @@ export class BlcapprovalComponent implements OnInit {
    members_ids:any;
    is_blc_verfied:any="";
    row:any;
+   AreaList:any;
+   areaName;
+   approvedMembers: any[]= [];
+   loanAmountList:any[] = [30000,35000, 40000, 45000, 50000, 60000, 70000];
+
   constructor(public local: LocalStorageService,private router: Router,private route: Router,private currencyPipe: CurrencyPipe, private param: ActivatedRoute ,private api: LoanDisbursementService) { }
 
   ngOnInit(): void {
     //alert()
     this.SessionData = this.local.get(environment.userSession);
     this.intrest = "";
+    this.total_amount = "";
+    this.term = "";
     this.intrest_type = this.SessionData.bank_intrest_type;
 
- 
+    this.GetArea();
     const branch_id = this.param.snapshot.paramMap.get('branch_id');
     const area_id = this.param.snapshot.paramMap.get('area_id');
     const center_id = this.param.snapshot.paramMap.get('center_id');
@@ -81,6 +88,8 @@ export class BlcapprovalComponent implements OnInit {
       //console.log(data);
       
       this.GroupData = data;
+      // console.log("GroupData", this.GroupData);
+      
       
      });
 
@@ -93,6 +102,11 @@ export class BlcapprovalComponent implements OnInit {
       this.members_ids = [];
       for(let i=0;i< this.members.length;i++)
       {
+        if(this.members[i].approved_status==1){
+          this.approvedMembers.push(this.members[i]);
+        }
+        // console.log("approvedMembers", this.approvedMembers);
+        
         //this.acutal_members =this.members[i].member_limit;
         this.members_ids.push(this.members[i].loan_application_number)
         if(this.members[i].approved_status==1 && isNaN(this.members[i].approved_status)!=true)
@@ -121,13 +135,9 @@ export class BlcapprovalComponent implements OnInit {
        event.preventDefault();
       }
    
-  }
-
-  
-      
+  }     
   
   submitData():void{
-
     const branch_id = this.param.snapshot.paramMap.get('branch_id');
     const area_id = this.param.snapshot.paramMap.get('area_id');
     const center_id = this.param.snapshot.paramMap.get('center_id');
@@ -268,5 +278,14 @@ export class BlcapprovalComponent implements OnInit {
   {
 
     this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
+  }
+  GetArea(){
+    this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
+      this.AreaList = data;      
+      if(this.SessionData.role_code == 'BM' && this.AreaList){        
+        this.AreaList = this.AreaList.find((v) => { return v.area_id == this.SessionData.employee_branch_id });
+        this.areaName = this.AreaList.area_name;
+      }  
+  });
   }
 }

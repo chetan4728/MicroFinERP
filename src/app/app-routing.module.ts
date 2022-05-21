@@ -8,7 +8,6 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { SuperauthComponent } from './pages/superadmin/superauth/superauth.component';
 import { SuperlayoutComponent } from './pages/superadmin/layout/Superlayout.component';
 
-
 export const routes: Routes = [
   {
     path: '',
@@ -165,6 +164,13 @@ export const routes: Routes = [
           },
         },
         {
+          path: 'disbursed',
+          loadChildren: () => import('../app/pages/disbursed/disbursed.module').then(m => m.DisbursedModule),
+          data: {
+            title: 'Loans Disbursed Page'
+          },
+        },
+        {
           path: 'emi',
           loadChildren: () => import('../app/pages/loan/emi/emi.module').then(m => m.EmiModule),
           data: {
@@ -199,6 +205,69 @@ export const routes: Routes = [
           },
 
           
+        },
+        {
+          path: 'collection',
+          loadChildren: () => import('../app/pages/collection/collection.module').then(m => m.CollectionModule),
+          data: {
+            title: 'Collection Page'
+          },
+        },
+        {
+          path: 'reports',
+          loadChildren: () => import('../app/pages/reports/reports.module').then(m => m.ReportsModule),
+          data: {
+            title: 'Reports Page'
+          },
+        },
+        {
+          path: 'daily-balance-report',
+          loadChildren: () => import('../app/pages/reports/daily-balance-report/daily-balance-report.module').then(m => m.DailyBalanceReportModule),
+          data: {
+            title: 'Daily Balance Report Page'
+          },
+        },
+        {
+          path: 'collection-balance-sheet',
+          loadChildren: () => import('../app/pages/reports/collection-balance-sheet/collection-balance-sheet.module').then(m => m.CollectionBalanceSheetModule),
+          data: {
+            title: 'Collection Balance Sheet Page'
+          },
+        },
+        {
+          path: 'collection-report',
+          loadChildren: () => import('../app/pages/reports/collection-report/collection-report.module').then(m => m.CollectionReportModule),
+          data: {
+            title: 'Collection Report Page'
+          },
+        },
+        {
+          path: 'demand-report',
+          loadChildren: () => import('../app/pages/reports/month-demand-report/month-demand-report.module').then(m => m.MonthDemandReportModule),
+          data: {
+            title: 'Demand Report Page'
+          },
+        },
+        {
+          path: 'loan-collection-report',
+          loadChildren: () => import('../app/pages/reports/loan-collection-report/loan-collection-report.module').then(m => m.LoanCollectionReportModule),
+          data: {
+            title: 'Loan Collection Report Page'
+          },
+        },
+        {
+          path: 'od-report',
+          loadChildren: () => import('../app/pages/reports/od-report/od-report.module').then(m => m.OdReportModule),
+          data: {
+            title: 'OD Report Page'
+          },
+        },
+        {
+          path: 'preclose-report',
+          loadChildren: () => import('../app/pages/reports/preclose-report/preclose-report.module').then(m => m.PrecloseReportModule),
+          data: {
+            title: 'Preclose Page'
+          },
         }
         
       ]

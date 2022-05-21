@@ -37,7 +37,7 @@ export class BankComponent implements OnInit {
       this.api._get({bank_id: id}).subscribe((data) => {
           this.selectRoleRow = data;
           this.url = this.selectRoleRow.bank_logo;
-          console.log(this.selectRoleRow);
+          // console.log(this.selectRoleRow);
           this.dp.getDistricts({id: this.selectRoleRow.bank_state}).subscribe(data => {
             this.DistrictList = data;
           });

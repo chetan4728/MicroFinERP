@@ -31,7 +31,7 @@ export class FormbankComponent implements OnInit {
       this.api._get({bank_id: id}).subscribe((data) => {
           this.selectRoleRow = data;
           this.url = this.selectRoleRow.bank_logo;
-          console.log(this.selectRoleRow);
+          // console.log(this.selectRoleRow);
           this.dp.getDistricts({id: this.selectRoleRow.bank_state}).subscribe(data => {
             this.DistrictList = data;
           });
@@ -66,6 +66,11 @@ export class FormbankComponent implements OnInit {
     const id = this.param.snapshot.paramMap.get('id');
     if (id != null)
     {
+      if(this.Form.invalid)
+      {
+        this.Form.markAllAsTouched();
+        return;
+      }
   
       const formData: any = new FormData();
       
@@ -98,6 +103,11 @@ export class FormbankComponent implements OnInit {
     }
     else
     {
+      if(this.Form.invalid)
+      {
+        this.Form.markAllAsTouched();
+        return;
+      }
       const formData: any = new FormData();
       
       formData.append('bank_logo', this.Form.get('bank_logo').value);
@@ -182,7 +192,7 @@ export class FormbankComponent implements OnInit {
       };
 
       const file = (event.target as HTMLInputElement).files[0];
-      console.log(file);
+      // console.log(file);
       this.Form.patchValue({
         bank_logo: file
       });

@@ -34,12 +34,14 @@ export class BlcComponent implements OnInit {
   center_dp:any="";
   group_dp:any="";
   filter:any = [];
- 
- 
+  blcData: any[]= [];
+  areaData: any=[] = [];
   constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
+    this.area_dp =  this.SessionData.employee_branch_id;
+    this.branch_dp =  this.SessionData.employee_branch_id;
     this.loadArea();
     this.getListing();
     this.Url = environment.uploads;
@@ -52,6 +54,14 @@ export class BlcComponent implements OnInit {
   getListing():void{
       this.api._get_loan_distribution_applications({bank_id:this.SessionData.bank_id}).subscribe(data  => {
         this.ListingData = data;
+        if(this.SessionData.role_code == 'BM'){
+          this.ListingData.find((v) => { 
+            if(v.branch_id == this.SessionData.employee_branch_id){
+              this.blcData.push(v);              
+            }
+          });
+          this.ListingData = this.blcData;
+        }
         if (this.isDtInitialized) {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
@@ -68,8 +78,15 @@ export class BlcComponent implements OnInit {
   {
     this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
       this.AreaList = data;
-
-    
+      if(this.SessionData.role_code == 'BM'){
+        this.AreaList.find((v) => { 
+          if(v.area_id == this.SessionData.employee_branch_id){
+            this.areaData.push(v);
+          }
+        });
+        this.AreaList = this.areaData;
+        this.onChangeArea(this.SessionData.employee_branch_id);
+      }
       
   });
   }
@@ -88,6 +105,7 @@ export class BlcComponent implements OnInit {
   // alert(id)
     this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
       this.BranchList = data;
+      this.onChangeBranch(id);
       
     
   });
@@ -192,7 +210,7 @@ export class BlcComponent implements OnInit {
        }
        else
        {
-         this.router.navigate(['/blc-approval/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp+"/add/"+0]);
+         this.router.navigate(['/blc-approval/LoanDisbursementForm/' + this.branch_dp +'/' +this.area_dp +'/' +this.center_dp +'/' +this.group_dp+"/add/"+this.area_dp]);
        }
      
     

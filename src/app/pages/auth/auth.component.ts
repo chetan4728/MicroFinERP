@@ -116,7 +116,7 @@ export class AuthComponent implements OnInit {
     this.api._loginSession(data).subscribe(res => {
       if (res.error === true)
       {
-        console.log("employee_data",res);
+        // console.log("employee_data",res);
         const session = {
           employee_id: res.employee_id,
           token: res.token,
@@ -192,7 +192,7 @@ checkPassword(): void
 create(): void
 {
   this.api._create_new_setup(this.SetupForm.value).subscribe(data => {
-   console.log(data);
+  //  console.log(data);
   });
 }
 
@@ -205,7 +205,7 @@ onSelectFile(event): void {
     };
 
     const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
+    // console.log(file);
     this.SetupForm.patchValue({
       profile: file
     });

@@ -38,7 +38,7 @@ export class BranchComponent implements OnInit {
     this.LoadAreaData();
     this.dp._getStats().subscribe(data => {
       this.StateList = data;
-      console.log(this.StateList);
+      // console.log(this.StateList);
     });
     this.LoadTable();
   }
@@ -47,7 +47,7 @@ export class BranchComponent implements OnInit {
 
     this.api._get_branch({bank_id:this.session.bank_id,token:this.session.token}).subscribe((branches: Branch[]) => {
 
-      console.log(branches)
+      // console.log(branches)
       this.BranchList = branches;
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

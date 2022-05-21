@@ -3,6 +3,7 @@ import { RecoveryComponent } from './recovery.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ViewRecoveryComponent } from './view-recovery/view-recovery.component';
 
 
 const routes:Routes = [
@@ -15,8 +16,8 @@ const routes:Routes = [
     }
   },
   {
-    path:'view-emi/:branch_id/:area_id/:center_id/:group_id/:action/:distribution_id',
-    component:null,
+    path:'view-recovery/:branch_id/:area_id/:center_id/:group_id/:action/:distribution_id',
+    component:ViewRecoveryComponent,
     data:{
       title: 'Recovery Details'
     }

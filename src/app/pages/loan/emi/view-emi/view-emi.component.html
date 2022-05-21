@@ -143,7 +143,7 @@
                         <td>{{row.ending_balance}}</td>
                         <td>{{row.paid_amount}}</td>
                          
-                           <td><ng-container *ngIf="row.status == 1; then thenTemplate; else elseTemplate"></ng-container>
+                           <td><ng-container *ngIf="row.status == 2; then thenTemplate; else elseTemplate"></ng-container>
                             <ng-template #thenTemplate>
                               <span  class="badge badge-success ">Paid</span>
                             </ng-template>
