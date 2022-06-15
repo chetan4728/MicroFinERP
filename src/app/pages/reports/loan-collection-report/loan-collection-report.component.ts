@@ -36,6 +36,8 @@ export class LoanCollectionReportComponent implements OnInit {
   }
 
   get_loan_collection_report(){
+
+    
     this.api.get_loan_collection_report({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
       this.ListingData = data;
       // console.log("ListingData", this.ListingData, "length", this.ListingData.length);
@@ -75,19 +77,26 @@ export class LoanCollectionReportComponent implements OnInit {
           
         }       
         // console.log("data2Export", this.data2Export);
-        this.ListingData = this.data2Export;
+   
+      
         // console.log("ListingData", this.ListingData, "length", this.ListingData.length);
       });     
+   
+      this.jsonData = this.ListingData;
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();  
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
+      XLSX.writeFile(wb, "LoanCollectionReport"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
       
-      if (this.isDtInitialized) {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-          this.dtTrigger.next();
-        });
-      } else {
-        this.isDtInitialized = true;
-        this.dtTrigger.next();
-      }
+      // if (this.isDtInitialized) {
+      //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      //     dtInstance.destroy();
+      //     this.dtTrigger.next();
+      //   });
+      // } else {
+      //   this.isDtInitialized = true;
+      //   this.dtTrigger.next();
+      // }
     })
   }
 
@@ -97,7 +106,7 @@ export class LoanCollectionReportComponent implements OnInit {
 
   selectToDate(date){ 
     this.selectedToDate = this.formatDate(date);
-    this.get_loan_collection_report();
+    
   }
 
   formatDate(date){
@@ -118,11 +127,9 @@ export class LoanCollectionReportComponent implements OnInit {
   }
 
   exportLoanCollectionReport(){
-    this.jsonData = this.ListingData;
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();  
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-    XLSX.writeFile(wb, "LoanCollectionReport"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
+    this.get_loan_collection_report();
+   
+    
   }
 
 }

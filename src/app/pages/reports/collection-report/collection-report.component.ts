@@ -69,8 +69,14 @@ export class CollectionReportComponent implements OnInit {
             }
             this.data2Export.push(data2Send);
           }
+
+          this.jsonData = this.data2Export;
+          const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();  
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
+          XLSX.writeFile(wb, "Collection Report06-01-2022 06_32_32"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
             // console.log("data2Export", this.data2Export);
-            this.ListingData = this.data2Export;
+           // this.ListingData = this.data2Export;
         }
       });     
       
@@ -96,7 +102,7 @@ export class CollectionReportComponent implements OnInit {
 
   selectToDate(date){ 
     this.selectedToDate = this.formatDate(date);
-    this.get_collection_report();
+
   }
 
   isDateContained(date){
@@ -124,11 +130,7 @@ export class CollectionReportComponent implements OnInit {
   }
 
   exportCollectionReport(){
-    this.jsonData = this.ListingData;
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();  
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-    XLSX.writeFile(wb, "Collection Report06-01-2022 06_32_32"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
+    this.get_collection_report();
   }
 
 }

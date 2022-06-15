@@ -191,7 +191,7 @@ export class LoanDisbursementComponent implements OnInit {
     var dis_date_f:any = new Date(this.disburstment_date);
     var emi_date_f:any = new Date(this.emi_date);
     this.monthly_intrest = (this.intrest / 12).toFixed(2);
-    this.monthly_emi = this.PMT(this.monthly_intrest/100, this.term, this.total_amount);
+    this.monthly_emi = this.PMT(this.monthly_intrest/100, this.term,this.total_amount);
   
 
     for (let i = 0; i < this.term; i++) {
@@ -221,15 +221,15 @@ export class LoanDisbursementComponent implements OnInit {
             this.total_intrest = parseFloat(emi_intrest) ;
             var priciple_amount:any =  emi - emi_intrest;
             // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
-            var ending_balance:any  = Math.round(begining_balance) - (this.roundToNearest(emi,10) - emi_intrest) // this.total_amount - priciple_amount;
+            var ending_balance:any  = Math.round(begining_balance) - (this.roundToNearest(emi,20) - emi_intrest) // this.total_amount - priciple_amount;
             this.interest_table.push({
               no:i,
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance: begining_balance , //Math.round(begining_balance),
-                    schedule_payment: this.roundToNearest(emi,10),
+                    schedule_payment: this.roundToNearest(emi ,20),
                     interest_paid: emi_intrest, // Math.round(emi_intrest),
-                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, // Math.round(priciple_amount),
+                    principle_paid: this.roundToNearest(emi,20) - emi_intrest, // Math.round(priciple_amount),
                     ending_balance: ending_balance //Math.round(ending_balance),
                 });
         }
@@ -258,7 +258,7 @@ export class LoanDisbursementComponent implements OnInit {
           this.total_intrest =Math.round(this.total_intrest + parseFloat(emi_intrest)) ;
           var priciple_amount:any =  (emi - emi_intrest).toFixed(2);
           // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
-          var ending_balance:any = begining_balance -  (this.roundToNearest(emi,10) - emi_intrest); //(begining_balance - priciple_amount).toFixed(2);
+          var ending_balance:any = begining_balance -  (this.roundToNearest(emi,20) - emi_intrest); //(begining_balance - priciple_amount).toFixed(2);
           
                     if(i!=this.term-1)
                 {
@@ -267,9 +267,9 @@ export class LoanDisbursementComponent implements OnInit {
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance:begining_balance, //Math.round(begining_balance),
-                    schedule_payment: this.roundToNearest(emi,10),
+                    schedule_payment: this.roundToNearest(emi,20),
                     interest_paid: emi_intrest, // Math.round(emi_intrest),
-                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, //Math.round(priciple_amount),
+                    principle_paid: this.roundToNearest(emi,20) - emi_intrest, //Math.round(priciple_amount),
                     ending_balance: ending_balance//Math.round(ending_balance),
                   });
                 }
