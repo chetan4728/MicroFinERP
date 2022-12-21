@@ -136,12 +136,12 @@
                       <tr *ngFor="let row of row.loan_emi; let i = index">
                         <td>{{row.emi_no}}</td>
                         <td>{{row.inc_date}}</td>
-                        <td>{{row.begining_bal}}</td>
-                        <td>{{row.scheduled_payment}}</td>
-                        <td>{{row.interest_paid}}</td>
-                        <td>{{row.principle_paid}}</td>
-                        <td>{{row.ending_balance}}</td>
-                        <td>{{row.paid_amount}}</td>
+                        <td>{{row.begining_bal | currency:'INR' }}</td>
+                        <td>{{row.scheduled_payment | currency:'INR'}}</td>
+                        <td>{{row.interest_paid | currency:'INR'}}</td>
+                        <td>{{row.principle_paid | currency:'INR'}}</td>
+                        <td>{{row.ending_balance | currency:'INR'}}</td>
+                        <td>{{row.paid_amount | currency:'INR'}}</td>
                          
                            <td><ng-container *ngIf="row.status == 2; then thenTemplate; else elseTemplate"></ng-container>
                             <ng-template #thenTemplate>

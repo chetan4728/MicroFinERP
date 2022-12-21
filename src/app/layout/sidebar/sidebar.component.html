@@ -10,6 +10,7 @@
         </div>
         <div class="info">
           <a [routerLink]="['/dashboard']"  class="d-block">{{SessionData.employee_first_name}}  {{SessionData.employee_last_name}}</a>
+          <span style="color:#fff">{{SessionData.role_name}}</span>
         </div>
       </div>
       
@@ -272,10 +273,18 @@
                     <p>Disbursed</p>
                   </a>
                 </li>
+
+                
+                <li class="nav-item">
+                  <a   [routerLink]="['/preclose-report']" routerLinkActive="active" class="nav-link">
+                    <i class="fas fas fa-angle-right nav-icon"></i>                
+                    <p>Preclose</p>
+                  </a>
+                </li> 
               </ul>
             </li>
             
-            <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview" >
               <a href="#" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
@@ -295,7 +304,7 @@
               </ul>
             </li>
   
-            <li class="nav-item has-treeview">
+            <!-- <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
@@ -312,7 +321,7 @@
                 </li>
               
               </ul>
-            </li>
+            </li> -->
           </ul>
         </li>
         
@@ -379,6 +388,8 @@
           </a>
         </li>
 
+  
+
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-file-excel"></i>
@@ -425,12 +436,12 @@
                 <p>OD Report</p>
               </a>
             </li>          
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a   [routerLink]="['/preclose-report']" routerLinkActive="active" class="nav-link">
                 <i class="fas fas fa-angle-right nav-icon"></i>                
                 <p>Preclose Report</p>
               </a>
-            </li>          
+            </li>           -->
             
           </ul>
         </li>

@@ -28,7 +28,7 @@ export class UserFormComponent implements OnInit {
     employee_center_id: null , employee_contact_no: null, employee_district_id:  '', employee_dob: null, employee_email_id: null,
     employee_first_name: null , employee_gender: '' , employee_last_name: null, employee_login_code: null,
     employee_login_password: null, employee_middle_name: null, employee_pan_card_no: null, profile: null,
-    employee_role_id:  '', employee_state_id:  '', employee_status:  '',bank_id:0};
+    employee_role_id:  '', employee_state_id:  '', employee_status:  '',bank_id:0,panel_access:0};
   constructor(public local: LocalStorageService,private param: ActivatedRoute , private route: Router , private formBuilder: FormBuilder, private dp: DropDownsService ,
               private auth: AuthService, private api: UsersService) { }
 
@@ -96,6 +96,7 @@ export class UserFormComponent implements OnInit {
       employee_branch_id: ['', Validators.required],
       employee_role_id: ['', Validators.required],
       employee_status: ['', Validators.required],
+      panel_access: ['', Validators.required],
       profile: [null],
       bank_id:this.session.bank_id
     });
@@ -138,9 +139,14 @@ export class UserFormComponent implements OnInit {
   }
 submit(): void{
  // console.log(this.Form.value);
+ 
   if (this.selectRoleRow.employee_id > 0)
   {
-
+    if(this.Form.invalid)
+    {
+      this.Form.markAllAsTouched();
+      return;
+    }
     this.selectRoleRow.bank_id = this.session.bank_id;
     this.api._update_branch(this.selectRoleRow).subscribe(data => {
     
@@ -155,29 +161,37 @@ submit(): void{
             position: 'top-end',
             toast: true,
             icon: 'success',
-            title: 'Data Updated Successfully',
+            title: 'User Updated Successfully',
             showConfirmButton: false,
             timer: 1500
           });
-        this.route.navigateByUrl('/users');
+        //this.route.navigateByUrl('/users');
      
     });
   }
   else
   {
+    if(this.Form.invalid)
+    {
+      this.Form.markAllAsTouched();
+      return;
+    }
     this.api._add_user(this.Form.value).subscribe(data => {
       if (data.employee_id > 0)
       {
-        alert(this.Form.get("profile").value)
-        //this.api._upload_photo(this.Form, data.employee_id).subscribe(res => {
+        if(this.Form.get("profile").value!=null)
+        {
+          this.api._upload_photo(this.Form, this.selectRoleRow.employee_id).subscribe(res => {
 
-      //  });
+          })
+      }
+
         this.Form.reset();
         Swal.fire({
             position: 'top-end',
             toast: true,
             icon: 'success',
-            title: 'Data Inserted Successfully',
+            title: 'User Added Successfully',
             showConfirmButton: false,
             timer: 1500
           });

@@ -18,10 +18,15 @@ export class AuthService {
   private LOGIN = this.REST_API_SERVER + 'auth/loginSession';
   private CHECK_SETUP = this.REST_API_SERVER + 'auth/Checksetup';
   private SETUP = this.REST_API_SERVER + 'auth/setup';
+  private CHECK_BANK_CODE = this.REST_API_SERVER + 'auth/checkbankcode';
   constructor(private httpClient: HttpClient) { }
 
   _checsuperkUser(data): Observable<any>{
     return this.httpClient.post<any>(`${this.CHECK_SUPER_USER}`, data);
+  }
+
+  _checkbankcode(data): Observable<any>{
+    return this.httpClient.post<any>(`${this.CHECK_BANK_CODE}`, data);
   }
 
   _checkSuperPassword(data): Observable<any>{

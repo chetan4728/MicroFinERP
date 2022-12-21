@@ -31,12 +31,21 @@
             <div class="col-md-3">
               <div class="form-group">
                   <label>Select CSR</label>
-                  <select class="form-control" (change)="selectedEmpId=$event.target.value">
+                  <select class="form-control" (change)="onchageCSR($event.target.value)">
                       <option value="0">Select Employee</option>
                       <option *ngFor="let row of employeeList; let i = index" [value]="row.employee_id" >{{row.employee_first_name}} {{row.employee_last_name}}</option>
                   </select>
               </div>
           </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                <label>Select Group</label>
+                <select class="form-control" (change)="selectedGroupId=$event.target.value">
+                    <option value="0">Select Groups</option>
+                    <option *ngFor="let row of groupList; let i = index" [value]="row.group_id" >{{row.group_name}}</option>
+                </select>
+            </div>
+        </div>
           <div class="col-md-3 collection">
             <button class="btn btn-primary collection_btn" [disabled]="selectedDate == undefined || selectedEmpId == undefined" (click)="CollectionDemandPDF()">Generate Collection Sheet</button>
           </div>

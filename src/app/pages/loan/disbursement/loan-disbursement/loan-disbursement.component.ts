@@ -191,7 +191,7 @@ export class LoanDisbursementComponent implements OnInit {
     var dis_date_f:any = new Date(this.disburstment_date);
     var emi_date_f:any = new Date(this.emi_date);
     this.monthly_intrest = (this.intrest / 12).toFixed(2);
-    this.monthly_emi = this.PMT(this.monthly_intrest/100, this.term,this.total_amount);
+    this.monthly_emi = this.roundToNearest(this.PMT(this.monthly_intrest/100, this.term,this.total_amount),10);
   
 
     for (let i = 0; i < this.term; i++) {
@@ -215,21 +215,22 @@ export class LoanDisbursementComponent implements OnInit {
             
             var emi_intrest:any = (((this.total_amount * this.intrest / 365) *  diffDays) /100).toFixed(2);
             // var emi_intrest:any = this.roundToNearest((((this.total_amount * this.intrest / 365) *  diffDays) /100).toFixed(2), 10);
-            var emi:any = this.PMT(this.monthly_intrest/100,this.term,this.total_amount);
+            var emi:any = this.roundToNearest(this.PMT(this.monthly_intrest/100,this.term,this.total_amount),10);
 
-            this.total_payments =  parseFloat(emi) ;
+            
             this.total_intrest = parseFloat(emi_intrest) ;
+         //   this.total_payments =  this.total_intrest ;
             var priciple_amount:any =  emi - emi_intrest;
             // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
-            var ending_balance:any  = Math.round(begining_balance) - (this.roundToNearest(emi,20) - emi_intrest) // this.total_amount - priciple_amount;
+            var ending_balance:any  = Math.round(begining_balance) - (emi - emi_intrest) // this.total_amount - priciple_amount;
             this.interest_table.push({
               no:i,
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance: begining_balance , //Math.round(begining_balance),
-                    schedule_payment: this.roundToNearest(emi ,20),
+                    schedule_payment: this.roundToNearest(emi ,10),
                     interest_paid: emi_intrest, // Math.round(emi_intrest),
-                    principle_paid: this.roundToNearest(emi,20) - emi_intrest, // Math.round(priciple_amount),
+                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, // Math.round(priciple_amount),
                     ending_balance: ending_balance //Math.round(ending_balance),
                 });
         }
@@ -252,13 +253,15 @@ export class LoanDisbursementComponent implements OnInit {
           
           var emi_intrest:any = (((begining_balance * this.intrest / 365) *  diffDays) /100).toFixed(2);
           // var emi_intrest:any = this.roundToNearest((((begining_balance * this.intrest / 365) *  diffDays) /100).toFixed(2), 10);
-          var emi:any = this.PMT(this.monthly_intrest/100,this.term,this.total_amount);
-          this.total_payments =  Math.round(this.total_payments + parseFloat(emi)) ;
+          var emi:any = this.roundToNearest(this.PMT(this.monthly_intrest/100,this.term,this.total_amount),10);
+       
 
           this.total_intrest =Math.round(this.total_intrest + parseFloat(emi_intrest)) ;
+
+          
           var priciple_amount:any =  (emi - emi_intrest).toFixed(2);
           // var priciple_amount:any =   this.roundToNearest(emi,10) - emi_intrest;
-          var ending_balance:any = begining_balance -  (this.roundToNearest(emi,20) - emi_intrest); //(begining_balance - priciple_amount).toFixed(2);
+          var ending_balance:any = begining_balance -  (emi - emi_intrest); //(begining_balance - priciple_amount).toFixed(2);
           
                     if(i!=this.term-1)
                 {
@@ -267,9 +270,9 @@ export class LoanDisbursementComponent implements OnInit {
                     inc_date: txtDay,
                     diffDays: diffDays,
                     begining_balance:begining_balance, //Math.round(begining_balance),
-                    schedule_payment: this.roundToNearest(emi,20),
+                    schedule_payment: this.roundToNearest(emi,10),
                     interest_paid: emi_intrest, // Math.round(emi_intrest),
-                    principle_paid: this.roundToNearest(emi,20) - emi_intrest, //Math.round(priciple_amount),
+                    principle_paid: this.roundToNearest(emi,10) - emi_intrest, //Math.round(priciple_amount),
                     ending_balance: ending_balance//Math.round(ending_balance),
                   });
                 }
@@ -292,9 +295,17 @@ export class LoanDisbursementComponent implements OnInit {
     }
 
      this.total_intrest_in_per =   ((this.total_intrest / this.total_amount) * 100).toFixed(2)+"%";
+
+     this.total_payments =  parseFloat(this.total_amount) + parseFloat(this.total_intrest);
   }
-   roundToNearest(numToRound, numToRoundTo) {
-    return Math.round(numToRound / numToRoundTo) * numToRoundTo;
+   roundToNearest(n, x = 10) {
+   // return Math.round(numToRound / numToRoundTo) * numToRoundTo;
+    let rem = n % x;
+    if (rem < 3)
+       return n - rem;
+    else
+       return n - rem + x;
+    
 }
   get_loan_term(Event):void
   {
@@ -414,9 +425,15 @@ export class LoanDisbursementComponent implements OnInit {
       intrest_product:this.intrest,
       bank_intrest_type:this.intrest_type,
       bank_id:this.SessionData.bank_id,
+      branch_id:branch_id,
+      area_id:area_id,
+      center_id:center_id,
+      group_id:group_id,
       loan_distribution_id:this.param.snapshot.paramMap.get('distribution_id'),
       status:1
   };
+
+  console.log(param)
 
 
     if(this.param.snapshot.paramMap.get('action')=="add")
@@ -459,7 +476,7 @@ export class LoanDisbursementComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-     this.route.navigate(['/disbursement']);
+     this.route.navigate(['/disbursed']);
     });
     }
   }
@@ -474,7 +491,7 @@ export class LoanDisbursementComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-      this.route.navigate(['/disbursement']);
+      this.route.navigate(['/disbursed']);
     });
   }
 

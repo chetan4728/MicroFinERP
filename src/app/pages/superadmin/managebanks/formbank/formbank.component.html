@@ -27,10 +27,10 @@
             <span class="message">Tap here to select your picture</span>
            </div>
         <div class="row"> 
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <label>Bank Name</label>
-                <input type="text" class="form-control"  formControlName="bank_name" placeholder="First Name" >
+                <label>Bank Name English</label>
+                <input type="text" class="form-control"  formControlName="bank_name" placeholder="Bank Name" >
             
                 <p class="error" *ngIf="Form.get('bank_name').invalid && (Form.get('bank_name').dirty || Form.get('bank_name').touched)">
                 <ng-container *ngIf="Form.get('bank_name').hasError('required')">
@@ -38,8 +38,21 @@
                 </ng-container>
                 
             </p>
-            
+              </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Bank Name Marathi</label>
+                    <input type="text" class="form-control"  formControlName="bank_name_marathi" placeholder="Bank Name Marathi" >
+                
+                    <p class="error" *ngIf="Form.get('bank_name_marathi').invalid && (Form.get('bank_name_marathi').dirty || Form.get('bank_name_marathi').touched)">
+                    <ng-container *ngIf="Form.get('bank_name_marathi').hasError('required')">
+                        Bank name Marathi is required!
+                    </ng-container>
+                    
+                </p>
+                
+                </div>
         </div>
         
     

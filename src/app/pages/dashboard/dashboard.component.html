@@ -21,7 +21,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Branches</span>
-              <span class="info-box-number">{{ this.data.branch_count}}</span>
+              <span class="info-box-number">{{(this.data) ? this.data.branch_count : "loading.."}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -34,7 +34,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Village / Area Survey</span>
-              <span class="info-box-number">{{ this.data.survey_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.survey_count : "loading.."}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -47,7 +47,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Centers</span>
-              <span class="info-box-number">{{ this.data.center_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.center_count : "loading.."}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -60,7 +60,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Groups</span>
-              <span class="info-box-number">{{ this.data.group_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.group_count : "loading.."}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -76,7 +76,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Customers</span>
-              <span class="info-box-number">{{ this.data.customer_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.customer_count : "loading.."}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -89,7 +89,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">CGT</span>
-              <span class="info-box-number">{{ this.data.cgt_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.cgt_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -102,7 +102,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Loan Sanction Pending</span>
-              <span class="info-box-number">{{ this.data.loan_sanction_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.loan_sanction_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -115,7 +115,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">SBND</span>
-              <span class="info-box-number">{{ this.data.sbnd_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.sbnd_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -131,7 +131,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Disbursement</span>
-              <span class="info-box-number">{{ this.data.dis_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.dis_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -144,7 +144,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Outstanding</span>
-              <span class="info-box-number">{{ this.data.outStanding_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.outStanding_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -157,7 +157,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Collection</span>
-              <span class="info-box-number">{{ this.data.collection_count}}</span>
+              <span class="info-box-number">{{(this.data) ? this.data.collection_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -170,7 +170,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Over Due</span>
-              <span class="info-box-number">{{ this.data.over_due_count}}</span>
+              <span class="info-box-number">{{ (this.data) ? this.data.over_due_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>

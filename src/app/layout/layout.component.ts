@@ -41,6 +41,7 @@ export class LayoutComponent implements OnInit {
     }, 1000);
   }
 
+  
   ngOnInit(): void {
     if (this.local.get(environment.userSession) === null)
     {

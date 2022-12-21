@@ -24,6 +24,8 @@ export class CollectionComponent implements OnInit {
   employeeList: any;
   selectedDate: any;
   GroupByData: any;
+  groupList:any;
+  selectedGroupId :any;
     disbursementData: any;
   
   constructor(private loandisburseapi: LoanDisbursementService,private api:ReportsService,private employeeapi: EmployeeService,private session:LocalStorageService) { }
@@ -37,7 +39,7 @@ export class CollectionComponent implements OnInit {
   }
 
   get_employee_list(){
-    this.employeeapi.get_employee_list().subscribe(data=>{
+    this.employeeapi.get_csr_list({bank_id:this.SessionData.bank_id}).subscribe(data=>{
     this.employeeList = data;
     // console.log("employeeList", this.employeeList); 
     //  if(this.SessionData.role_code == 'BM'){
@@ -92,6 +94,17 @@ export class CollectionComponent implements OnInit {
     })
   } 
 
+  onchageCSR(event)
+  {
+ 
+    
+    this.employeeapi.get_employee_groups({emp_id:event}).subscribe(d=>{
+
+      this.groupList = d;
+     
+    })
+      this.selectedEmpId = event;
+  }
   get_collection_balance_sheet(){
     // this.get_collection_data_group_by();
     this.api.get_collection_balance_sheet({bank_id:this.SessionData.bank_id,created_by: this.selectedEmpId, created_on: this.selectedDate}).subscribe(data=>{
@@ -104,7 +117,7 @@ export class CollectionComponent implements OnInit {
   CollectionDemandPDF(){
     this.get_collection_balance_sheet();
     // console.log("this.selectedEmpId", this.selectedEmpId, "this.selectedDate", this.selectedDate );
-    let targetURL  = "http://sfsfin.in/portal/api/Document/CollectionSheetPDF/"+this.SessionData.bank_id+'/'+this.selectedEmpId+'/'+this.selectedDate
+    let targetURL  = "http://sfsfin.in/portal/api/Document/CollectionSheetPDF/"+this.SessionData.bank_id+'/'+this.selectedEmpId+'/'+this.selectedDate+'/'+this.selectedGroupId
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.

@@ -8,7 +8,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#" [routerLink]="['/users']" >Users</a></li>
+            <!-- <li class="breadcrumb-item"><a href="#" [routerLink]="['/users']" >Users</a></li> -->
             <li class="breadcrumb-item active">Add User</li>
           </ol>
         </div><!-- /.col -->
@@ -76,18 +76,37 @@
             <option value="Female">Female</option>
             </select>
         </div>
+        <p class="error" *ngIf="Form.get('employee_gender').invalid && (Form.get('employee_gender').dirty || Form.get('employee_gender').touched)">
+            <ng-container *ngIf="Form.get('employee_gender').hasError('required')">
+                Gender is required!
+            </ng-container>
+        
+        </p>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label>DOB</label>
             <input type="date" class="form-control"    [(ngModel)]="selectRoleRow.employee_dob"   formControlName="employee_dob"  placeholder="Select DOB" >
+            <p class="error" *ngIf="Form.get('employee_dob').invalid && (Form.get('employee_dob').dirty || Form.get('employee_dob').touched)">
+                <ng-container *ngIf="Form.get('employee_dob').hasError('required')">
+                    DOB is required!
+                </ng-container>
+            
+            </p>
+        
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             <label>Pan Card No</label>
             <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_pan_card_no"    formControlName="employee_pan_card_no"  placeholder="Pan No" >
+            <p class="error" *ngIf="Form.get('employee_pan_card_no').invalid && (Form.get('employee_pan_card_no').dirty || Form.get('employee_pan_card_no').touched)">
+                <ng-container *ngIf="Form.get('employee_pan_card_no').hasError('required')">
+                    Pan Card is required!
+                </ng-container>
+            
+            </p>
         </div>
     </div>
     <div class="col-md-4">
@@ -95,6 +114,12 @@
             <label>Aadhar Card No</label>
             <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.employee_adhar_card_no"    formControlName="employee_adhar_card_no"  placeholder="Aadhar No" >
         </div>
+        <p class="error" *ngIf="Form.get('employee_pan_card_no').invalid && (Form.get('employee_pan_card_no').dirty || Form.get('employee_pan_card_no').touched)">
+            <ng-container *ngIf="Form.get('employee_pan_card_no').hasError('required')">
+                Aadhar Card is required!
+            </ng-container>
+        
+        </p>
     </div>
 
     <div class="col-md-4">
@@ -210,6 +235,16 @@
     </div>
    
    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>User Type</label>
+            <select class="form-control"    [(ngModel)]="selectRoleRow.panel_access" formControlName="panel_access" >
+                <option value="" >Select User Type</option>
+                <option value="1">Panel</option>
+                <option value="0">Mobile</option>
+            </select>
+        </div>
+    </div>
     
     <div class="col-md-4">
         <div class="form-group">
@@ -225,7 +260,7 @@
     </div>
     </fieldset>
 
-<button type="submit" class="btn btn-primary" [disabled]="!Form.valid"     >save</button>
+<button type="submit" class="btn btn-primary" >save</button>
 </form>    
   </div>
 

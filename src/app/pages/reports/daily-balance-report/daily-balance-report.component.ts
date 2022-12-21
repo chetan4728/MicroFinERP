@@ -39,13 +39,14 @@ export class DailyBalanceReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessiondata = this.session.get(environment.userSession);
+    //console.log(this.sessiondata)
    
   }
 
   get_daily_balance_report(){
     this.loading = true;
     this.getCurrentDateTime();    
-    this.api.get_daily_balance_report({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
+    this.api.get_daily_balance_report({bank_id:this.sessiondata.bank_id,branch_id:this.sessiondata.employee_branch_id}).subscribe(data=>{
       this.ListingData = data;
 
      
@@ -57,13 +58,25 @@ export class DailyBalanceReportComponent implements OnInit {
         }
         let data2Send = {
           "report_date": this.currentDateTime.currentTime,
-          "branch_code": el.branch_name,
+          "branch_code": el.branch_id,
+          "branch_name": el.branch_name,
           "product_code": "Samrudhi",
           "centre_name": el.center_id,
           "group_name": el.group_id,
           "loan_account_number": el.loan_account_number,																			
           "customer_id": el.loan_application_number,
           "customer_name": el.applicant_name,
+          "member_birth_date": el.dob,
+          "member_age": el.age,
+          "nominee_name": el.nominee_name,
+          "nominee_age": el.nominee_age,
+          "nominee_relation": el.nominee_relation,
+          "voter_id_no": el.voter_id_no,
+          "uid_no": el.uid_no,
+          "pan_card_no": el.pan_card_no,
+          "ration_card_no": el.ration_card_no,
+          "pincode": el.pincode,
+          "loan_purpose": el.loan_purpose,
           "cust_cell": el.cust_cell,
           "account_no": el.account_no,
           "external_account_no": el.external_account_no,  //account_no,
@@ -86,7 +99,7 @@ export class DailyBalanceReportComponent implements OnInit {
           // "bc_branch": "",
           // "advanceamount": el.advanceamount,
           "loan_cycle_no": el.loan_cycle_no,
-          "tenor": "24 months",
+          "tenor":el.tenor,
           // "account_status": "",
           "village_code": el.village_code,	
         }

@@ -27,7 +27,8 @@ export class MonthDemandReportComponent implements OnInit {
   selectedFrom: any;
   selectedTo: any;
   date2Check: any;
-
+  public loading: boolean;
+  public clicked: boolean = true;
   constructor(private api:ReportsService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
@@ -35,14 +36,16 @@ export class MonthDemandReportComponent implements OnInit {
   }
 
   get_month_demand_report(){
+    this.loading = true;
+    this.clicked = false;
     this.api.get_month_demand_report({bank_id:this.sessiondata.bank_id, select_from: this.selectedFrom,select_to: this.selectedTo}).subscribe(data=>{
       this.ListingData = data;      
       this.ListingData.forEach(el => {
         if(el.get_loan_details.length != 0){   
           // console.log("el.get_loan_details.due_date",el.get_loan_details.due_date);
           var dateContains = this.isDateContained(el.get_loan_details.due_date);
-          // console.log("dateContains", dateContains);          
-          if(dateContains){
+           console.log("dateContains", dateContains);          
+         
             let data2Send = {
               "State": el.state,
               "Client": this.sessiondata.bank_name,
@@ -80,16 +83,21 @@ export class MonthDemandReportComponent implements OnInit {
               // "Advance_Amount": el.advanceamount,
             }
             this.data2Export.push(data2Send);
-          }         
+          
         }
       
       });    
-      this.ListingData = this.data2Export;
-      this.jsonData = this.ListingData;
-      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();  
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-      XLSX.writeFile(wb, "Months Demand"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });  
+          if(this.data2Export)
+          {
+            console.log("------"+this.data2Export)
+            const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data2Export, {header: []});  
+            const wb: XLSX.WorkBook = XLSX.utils.book_new();  
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
+            XLSX.writeFile(wb, "Months Demand-"+ this.selectedFrom +"-"+this.selectedTo+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });  
+            this.loading = false;
+            this.clicked = true;
+          }
+    
     })
   }
 

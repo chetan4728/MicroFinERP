@@ -34,7 +34,11 @@
             </div>
           </div>
           <div class="col-md-4 collection">
-            <button class="btn btn-primary collection_btn" [disabled]="selectedFrom == undefined || selectedTo == undefined" (click)="getMonthDemandReport()">Generate Demand Report</button>
+            <button type="submit" class="btn btn-primary collection_btn"   [disabled]="selectedFrom == undefined || selectedTo == undefined " (click)="getMonthDemandReport()" style="background: #FF473A;">
+              Generate Demand Report
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+          
           </div>
           
         </div>        

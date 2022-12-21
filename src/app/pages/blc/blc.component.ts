@@ -36,12 +36,17 @@ export class BlcComponent implements OnInit {
   filter:any = [];
   blcData: any[]= [];
   areaData: any=[] = [];
+  branchData: any=[] = [];
+  dis = ""
   constructor(private router: Router, private api: LoanDisbursementService,private local :LocalStorageService) { }
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
-    this.area_dp =  this.SessionData.employee_branch_id;
-    this.branch_dp =  this.SessionData.employee_branch_id;
+
+    if(this.SessionData.role_code=="BM")
+    {
+      this.dis = "disbaled"
+    }
     this.loadArea();
     this.getListing();
     this.Url = environment.uploads;
@@ -78,34 +83,52 @@ export class BlcComponent implements OnInit {
   {
     this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
       this.AreaList = data;
-      if(this.SessionData.role_code == 'BM'){
+      this.area_dp =  this.SessionData.area_id ? this.SessionData.area_id : "";  
+      if(this.SessionData.role_code=="BM")
+      {
         this.AreaList.find((v) => { 
-          if(v.area_id == this.SessionData.employee_branch_id){
+          if(v.area_id == this.area_dp){
             this.areaData.push(v);
           }
         });
         this.AreaList = this.areaData;
-        this.onChangeArea(this.SessionData.employee_branch_id);
-      }
+
+        
       
+        this.onChangeArea(this.SessionData.area_id)
+      }
   });
   }
 
-  onChangeBranch(id):void{
-   
-   this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:id,area_id:this.area_id}).subscribe(data => {
+  onChangeBranch(branch_id):void{
+
+   this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:this.branch_dp,area_id:this.area_dp}).subscribe(data => {
       this.CenterList = data;
   });
+
+       
    
   }
 
   onChangeArea(id):void{
-    //alert(id)
-    this.area_id = id;
+  //  alert(id)
+ 
   // alert(id)
+
     this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
-      this.BranchList = data;
-      this.onChangeBranch(id);
+      this.BranchList = data; 
+      
+      this.branch_dp =  this.SessionData.employee_branch_id ? this.SessionData.employee_branch_id : ""; 
+      if(this.SessionData.role_code=="BM")
+      {
+        this.BranchList.find((v) => { 
+          if(v.branch_id == this.branch_dp){
+            this.branchData.push(v);
+          }
+        });
+        this.BranchList = this.branchData;
+         this.onChangeBranch(null);
+      }
       
     
   });

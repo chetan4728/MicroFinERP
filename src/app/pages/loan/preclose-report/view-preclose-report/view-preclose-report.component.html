@@ -114,8 +114,8 @@
             </fieldset>
 
 
-            <fieldset class="scheduler-border" *ngFor="let row of MemberList; let i = index">
-              <legend class="scheduler-border"><span  class="badge badge-warning ">{{row.applicant_name}}</span>
+            <fieldset class="scheduler-border" *ngFor="let emiRow of MemberList; let i = index">
+              <legend class="scheduler-border"><span  class="badge badge-warning ">{{emiRow.applicant_name}}</span>
                  </legend> 
                  <div class="row">
                   <table class="table table-striped  table-bordered row-border hover">
@@ -132,15 +132,15 @@
                       <th>Paid Date</th>
                     </tr>
                     <tbody>
-                      <tr *ngFor="let row of row.loan_emi; let i = index">
+                      <tr *ngFor="let row of emiRow.loan_emi; let i = index">
                         <td>{{row.emi_no}}</td>
                         <td>{{row.inc_date}}</td>
-                        <td>{{row.begining_bal}}</td>
-                        <td>{{row.scheduled_payment}}</td>
-                        <td>{{row.interest_paid}}</td>
-                        <td>{{row.principle_paid}}</td>
-                        <td>{{row.ending_balance}}</td>
-                        <td>{{row.paid_amount}}</td>
+                        <td>{{row.begining_bal | currency:'INR' }}</td>
+                        <td>{{row.scheduled_payment  | currency:'INR'}}</td>
+                        <td>{{row.interest_paid  | currency:'INR'}}</td>
+                        <td>{{row.principle_paid  | currency:'INR'}}</td>
+                        <td>{{row.ending_balance  | currency:'INR'}}</td>
+                        <td>{{row.paid_amount  | currency:'INR'}}</td>
                          
                              <td><ng-container *ngIf="row.status == 2; then thenTemplate; else elseTemplate"></ng-container>
                                 <ng-template #thenTemplate>
@@ -154,28 +154,27 @@
                       </tr>
                       <tr>
                         <td></td>
-                        <td>Total</td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Principal</td>
-                        <td style="width: 8em">
-                          <!-- / [(ngModel)]="precloseAmount"  -->
-                           <select class="form-control">
-                            <!-- <option value="" >Amount</option> -->
-                            <option >40000</option>
-                          </select>
-                        </td>
-                        <td>              
-                        </td>
-                        <td></td> 
+                        <td></td>
+                        <td>Preclose Date</td>
                         <td>                          
-                          <input type="date" class="form-control" placeholder="Enter Date"/>   
-                        </td>                                                 
+                          <input type="date" class="form-control"  (change)="getPreclose($event,emiRow.loan_emi)"  placeholder="Enter Date"/>   
+                        </td>    
+                        <td>Preclose Amount</td>
+                        <td>
+                          
+                        </td>
+                        <td>         
+                          <button type="submit" class="badge-primary " >Submit</button>                       
+                        </td>
+                       
+                                                                     
                       </tr>
                     </tbody>
                   </table>
-                  <button type="submit" class="badge-primary right" style="margin-left: 93%;">Submit</button>                  
+                
               </div>
           </fieldset>
         </div>

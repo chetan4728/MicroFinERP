@@ -30,7 +30,7 @@
             </select>
           </div>
           <div class="col-md-3">
-            <select class="form-control" [(ngModel)]="branch_dp" (change)="onChangeBranch($event.target.value)" >
+            <select class="form-control"   [(ngModel)]="branch_dp" (change)="onChangeBranch($event.target.value)" >
               <option value="">Select Branch</option>
               <option *ngFor="let row of this.BranchList; let i = index" value="{{row.branch_id}}">{{row.branch_name}}</option>
             </select>

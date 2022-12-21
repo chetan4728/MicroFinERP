@@ -18,6 +18,7 @@ export class AuthComponent implements OnInit {
    UserNameIcon: any;
    UserPassIcon: any;
    BankDetails: any;
+   UserBankCodeIcon:any;
    bank_id:any;
    StateList: [];
    DistrictList: [];
@@ -35,29 +36,33 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
    
-    this.initState();
-    this.initSetupForm();
+    //this.initState();
+   // this.initSetupForm();
     this.UserNameIcon = 'fas fa-envelope';
     this.UserPassIcon = 'fas fa-lock';
+    this.UserBankCodeIcon = 'fas fa-bank';
     this.AppUrl = environment.api;
     this.AppKey = Math.floor(Math.random() * 899999 + 100000);
-    this.api._check_new_setup().subscribe(data => {
-    if (data.error === true)
-    {
-      this.ShowLogin = 'show';
-      this.ShowRegistration = 'hide';
-      this.BankDetails = data.row;
-      this.bank_name_title =  this.BankDetails.bank_name;
-      this.bank_id =  this.BankDetails.bank_id;
-     // console.log(this.bank_id)
-     this.LoadRoles();
-    }
-    else
-    {
-      this.ShowLogin = 'false';
-      this.ShowRegistration = 'show';
-    }
-    });
+       this.ShowLogin = 'show';
+       this.bank_name_title =  "SAMRTHAN";
+    //   this.ShowRegistration = 'hide';
+    // this.api._check_new_setup().subscribe(data => {
+    // // if (data.error === true)
+    // // {
+    // //   this.ShowLogin = 'show';
+    // //   this.ShowRegistration = 'hide';
+    // //   this.BankDetails = data.row;
+    // //   this.bank_name_title =  this.BankDetails.bank_name;
+    // //   this.bank_id =  this.BankDetails.bank_id;
+    // //  // console.log(this.bank_id)
+    // // // this.LoadRoles();
+    // // }
+    // // else
+    // // {
+    // //   this.ShowLogin = 'false';
+    // //   this.ShowRegistration = 'show';
+    // // }
+    // });
 
   }
 
@@ -74,7 +79,8 @@ export class AuthComponent implements OnInit {
     this.LoginForm = this.formBuilder.group({
       employee_login_code: ['', Validators.required],
       password: ['', Validators.required],
-      role: ['', Validators.required],
+      employee_bank_code: ['', Validators.required],
+    //  role: ['', Validators.required],
     });
   }
 
@@ -110,7 +116,7 @@ export class AuthComponent implements OnInit {
     const data = {
       employee_login_password: this.LoginForm.get('password').value,
       employee_login_code: this.LoginForm.get('employee_login_code').value,
-      employee_role_id: this.LoginForm.get('role').value,
+      employee_bank_code: this.LoginForm.get('employee_bank_code').value,
       employee_device: "website",
   };
     this.api._loginSession(data).subscribe(res => {
@@ -126,6 +132,8 @@ export class AuthComponent implements OnInit {
           employee_role_id: res.employee_role_id,
           profile: res.profile,
           role_code: res.role_code,
+          area_id:res.area_id,
+          role_name: res.role_name,
           employee_branch_id: res.branch_id,
           branch_name: res.branch_name,
           bank_name: res.bank_name,
@@ -164,6 +172,30 @@ checkUsername(): void
   }
 }
 
+checkBank(): void
+{
+  if (this.LoginForm.get('employee_bank_code').value !== '')
+  {
+      const data = {
+        bank_app_key_code: this.LoginForm.get('employee_bank_code').value,
+    };
+      this.api._checkbankcode(data).subscribe(res => {
+        if (res.error === true)
+        {
+          this.UserBankCodeIcon = 'fas fa-check right';
+        }
+        else
+        {
+          this.UserBankCodeIcon = 'fas fa-times-circle wrong';
+          this.LoginForm.controls.employee_bank_code.setErrors({ wrongPass: true });
+        }
+      });
+  }
+  else
+  {
+    this.UserBankCodeIcon = 'fas fa-times-circle wrong';
+  }
+}
 checkPassword(): void
 {
   if (this.LoginForm.get('password').value !== '')

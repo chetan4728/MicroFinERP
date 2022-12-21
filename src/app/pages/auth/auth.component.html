@@ -1,16 +1,33 @@
 
 <div class="bg">
-   
+  
     <div class="login-box  {{ShowLogin}}" style="display: none;">
-        <h1 style="text-align: center;
-        padding: 5px;
-        color: red;background: #fff;
-        font-size: 25px;" >{{this.bank_name_title}}</h1>
+       
                 <div class="card">
+                    <img  class="start_logo" src="../../../assets/samrthan.png">
                     <div class="card-body login-card-body">
                     <h1 class="login-box-msg">sign in to start your session</h1>
                 
                     <form [formGroup]="LoginForm"  (ngSubmit)="login()">
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="employee_bank_code" (change)="checkBank()" formControlName="employee_bank_code" placeholder="Bank Code">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="{{this.UserBankCodeIcon }}"></span>
+                                </div>
+                            
+                            </div>
+
+                            
+                        </div>
+                        <p class="error input-group mb-3" *ngIf="LoginForm.get('employee_bank_code').invalid && (LoginForm.get('employee_bank_code').dirty || LoginForm.get('employee_bank_code').touched)">
+                            <ng-container *ngIf="LoginForm.get('employee_bank_code').hasError('required')">
+                             Bank Code is required!
+                            </ng-container>
+                           
+                        </p>
+
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="employee_login_code" (change)="checkUsername()" formControlName="employee_login_code" placeholder="Employee Code">
                             <div class="input-group-append">
@@ -48,7 +65,7 @@
                                 Password is Wrong!
                                </ng-container>
                         </p>
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <select class="form-control" formControlName="role" >
                              <option value="">Select Role</option>
                              <option *ngFor="let item of rolesList; let i = index"  [value]="item.role_id" >{{item.role_name}}</option>
@@ -68,7 +85,7 @@
                                  Wrong User Role!
                                </ng-container>
                          
-                        </p>
+                        </p> -->
                         <div class="row">
                        
                         <!-- /.col -->
@@ -89,7 +106,7 @@
 <canvas style="display: none;" id="salesChart"></canvas>
 <canvas style="display: none;"  id="pieChart"></canvas>
 
-<div class="registration-box   {{ShowRegistration}}" style="display: none;">
+<!-- <div class="registration-box   {{ShowRegistration}}" style="display: none;">
   
     <div class="card">
         <div class="card-body login-card-body">
@@ -237,4 +254,4 @@
       
     </div>
     </div>
-</div>
+</div> -->

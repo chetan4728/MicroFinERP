@@ -264,7 +264,7 @@ export const routes: Routes = [
         },
         {
           path: 'preclose-report',
-          loadChildren: () => import('../app/pages/reports/preclose-report/preclose-report.module').then(m => m.PrecloseReportModule),
+          loadChildren: () => import('../app/pages/loan/preclose-report/preclose-report.module').then(m => m.PrecloseReportModule),
           data: {
             title: 'Preclose Page'
           },

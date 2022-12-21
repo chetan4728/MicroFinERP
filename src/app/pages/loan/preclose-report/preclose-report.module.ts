@@ -6,10 +6,11 @@ import { PrecloseReportComponent } from './preclose-report.component';
 import { ViewPrecloseReportComponent } from './view-preclose-report/view-preclose-report.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import {CurrencyPipe} from '@angular/common';
 
 @NgModule({
   declarations: [PrecloseReportComponent, ViewPrecloseReportComponent],
+  providers:[CurrencyPipe],
   imports: [
     CommonModule,DataTablesModule,ReactiveFormsModule,FormsModule,PrecloseReportRoutingModule
   ]

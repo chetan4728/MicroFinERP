@@ -28,7 +28,8 @@ export class LoanCollectionReportComponent implements OnInit {
   selectedFromDate: any;
   selectedToDate: any;
   date2Check: any;
-
+  public loading: boolean;
+  public clicked: boolean = true;
   constructor(private api:ReportsService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
@@ -37,66 +38,61 @@ export class LoanCollectionReportComponent implements OnInit {
 
   get_loan_collection_report(){
 
-    
-    this.api.get_loan_collection_report({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
+    this.loading = true;
+    this.clicked = false;
+    this.api.get_loan_collection_report({bank_id:this.sessiondata.bank_id, select_from: this.selectedFromDate,select_to: this.selectedToDate}).subscribe(data=>{
       this.ListingData = data;
+      console.log(data)
       // console.log("ListingData", this.ListingData, "length", this.ListingData.length);
       this.ListingData.forEach(el => {
-        if(el.get_loan_details && el.get_loan_details.paid_date){
+        if(el.get_loan_details){
+          console.log(el.get_loan_details)
           // && el.get_loan_details.paid_date
-          this.date2Check = el.get_loan_details.paid_date;
-          var dateContains = this.isDateContained(el.get_loan_details.paid_date);
+         // this.date2Check = el.get_loan_details.paid_date;
+          //var dateContains = this.isDateContained(el.get_loan_details.paid_date);
           // console.log("dateContains", dateContains);
           
-          if(dateContains){
+    
             // console.log("el", el);
             let data2Send = {
+              //"created_date": el.created_date,
               "Center_Name": el.center_name,
               "Group_Name": el.group_name,
               "Customer_Name": el.applicant_name,
-              "Account_No":  el.account_no,
+              "Customer_Mobile": el.applicant_mob_no,
+              "Saving Account_No":  el.account_no,
               "Loan Account Number": el.loan_account_number,	
               "External Account Number": el.external_account_no,           
               "Installment_Amount": el.get_loan_details ? el.get_loan_details.monthly_emi : "",
-              "Saving_Amount": "",
               "Balance_Amount": el.get_loan_details ? el.get_loan_details.outstanding : "", 
-              // "Advance_Amount": el.advanceamount,
               "Paid_Amount": el.get_loan_details ? el.get_loan_details.total_paid : "",
               "Interest_Paid": el.get_loan_details ? el.get_loan_details.interest_paid: "",
-              // "Payment_ID": "",//need to create in DB
               "Payment_Status": "Success",
               "Payment_Datetime":  el.get_loan_details ? el.get_loan_details.paid_date : "",
-              // "Collector_Mobile": el.csr_contact,
               "Collector_Name": el.csr_name,
               "User_Id": el.csr_id,
               "Unit_Name": el.branch_name,
               "Client_Name": this.sessiondata.bank_name,
             }      
-            this.data2Export.push(data2Send);   
+           this.data2Export.push(data2Send);   
           }
           
-        }       
-        // console.log("data2Export", this.data2Export);
+      
+         console.log("data2Export", this.data2Export);
    
       
         // console.log("ListingData", this.ListingData, "length", this.ListingData.length);
       });     
    
       this.jsonData = this.ListingData;
-      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data2Export, {header: []});  
       const wb: XLSX.WorkBook = XLSX.utils.book_new();  
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-      XLSX.writeFile(wb, "LoanCollectionReport"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
-      
-      // if (this.isDtInitialized) {
-      //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      //     dtInstance.destroy();
-      //     this.dtTrigger.next();
-      //   });
-      // } else {
-      //   this.isDtInitialized = true;
-      //   this.dtTrigger.next();
-      // }
+
+      XLSX.writeFile(wb, "Loan-collection-report-"+new Date()+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });  
+      this.loading = false;
+      this.clicked = true;
+    
     })
   }
 

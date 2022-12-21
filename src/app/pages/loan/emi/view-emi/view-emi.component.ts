@@ -53,10 +53,10 @@ export class ViewEmiComponent implements OnInit {
       this.MemberList.forEach(member => {
         // console.log("member", member);
         member.loan_emi.forEach(emi => {
-          emi.principle_paid = this.roundToNearest(emi.principle_paid,10);
-          emi.interest_paid =  emi.scheduled_payment - this.roundToNearest(emi.principle_paid,10);
-          emi.begining_bal = this.roundToNearest(emi.begining_bal,10);
-          emi.ending_balance = this.roundToNearest(emi.ending_balance,10);       
+          emi.principle_paid = emi.principle_paid.toFixed(2);
+          emi.interest_paid =  emi.scheduled_payment.toFixed(2) - emi.principle_paid;
+          emi.begining_bal = emi.begining_bal.toFixed(2);
+          emi.ending_balance = emi.ending_balance.toFixed(2);       
         });
         
       });

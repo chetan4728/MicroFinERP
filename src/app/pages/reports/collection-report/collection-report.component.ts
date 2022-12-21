@@ -27,7 +27,7 @@ export class CollectionReportComponent implements OnInit {
   selectedToDate: any;
   date2Check: any;
   currentDateTime: any; 
-
+  public loading: boolean;
   constructor(private api:ReportsService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
@@ -36,6 +36,7 @@ export class CollectionReportComponent implements OnInit {
   }
 
   get_collection_report(){
+    this.loading = true;
     this.api.get_collection_report({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
       this.ListingData = data;
       // console.log("ListingData", this.ListingData);
@@ -45,7 +46,7 @@ export class CollectionReportComponent implements OnInit {
           this.date2Check = el.get_loan_details.paid_date;
           var dateContains = this.isDateContained(el.get_loan_details.paid_date);
           // console.log("dateContains", dateContains);
-          if(dateContains){
+         
             let data2Send = {
               "Date of Collection": el.get_loan_details && el.get_loan_details.paid_date  ? el.get_loan_details.paid_date : "",
               "Branch Code": el.branch_id,
@@ -70,25 +71,16 @@ export class CollectionReportComponent implements OnInit {
             this.data2Export.push(data2Send);
           }
 
-          this.jsonData = this.data2Export;
-          const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
-          const wb: XLSX.WorkBook = XLSX.utils.book_new();  
-          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-          XLSX.writeFile(wb, "Collection Report06-01-2022 06_32_32"+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
-            // console.log("data2Export", this.data2Export);
-           // this.ListingData = this.data2Export;
-        }
+          
+        
       });     
       
-      if (this.isDtInitialized) {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-          this.dtTrigger.next();
-        });
-      } else {
-        this.isDtInitialized = true;
-        this.dtTrigger.next();
-      }
+      this.jsonData = this.data2Export;
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData, {header: []});  
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();  
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
+      XLSX.writeFile(wb, "Collection Report"+new Date()+'.xlsx',{ bookType: 'xlsx', type: 'buffer' });   
+      this.loading = false;
     })
   }
 

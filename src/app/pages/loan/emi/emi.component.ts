@@ -1,3 +1,4 @@
+import { Role } from './../../../model/role';
 import { EmiService } from './../../../services/emi.service';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -42,8 +43,8 @@ export class EmiComponent implements OnInit {
 
   ngOnInit(): void {
     this.SessionData = this.local.get(environment.userSession);
-    this.area_dp =  this.SessionData.employee_branch_id;
-    this.branch_dp =  this.SessionData.employee_branch_id;
+   
+
     this.loadArea();
     this.getListing();
     this.Url = environment.uploads;
@@ -71,28 +72,67 @@ export class EmiComponent implements OnInit {
     });
   }
 
-  onChangeArea(id):void{
-    //alert(id)
-    this.branch_api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
-      this.BranchList = data;
-      if(this.SessionData.role_code == 'BM'){
-        this.BranchList = this.BranchList.find((v) => { return v.branch_id == this.SessionData.employee_branch_id });
-        this.branchData.push(this.BranchList);
-        this.BranchList = this.branchData;
-        this.onChangeBranch(this.SessionData.employee_branch_id);
-      };
-    });
-  }
+
 
   
-  onChangeBranch(id):void{
 
-    this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:id,area_id:this.area_id}).subscribe(data => {
-      this.CenterList = data;     
-      this.onChangeCenter(id);
+
+
+  loadArea()
+  {
+    this.api._get_area({bank_id:this.SessionData.bank_id}).subscribe(data => {
+      this.AreaList = data;
+      this.area_dp =  this.SessionData.area_id ? this.SessionData.area_id : "";  
+   //   console.log(this.SessionData)
+      if(this.SessionData.role_code=="BM")
+      {
+        this.AreaList.find((v) => { 
+          if(v.area_id == this.area_dp){
+            this.areaData.push(v);
+          }
+        });
+        this.AreaList = this.areaData;
+        this.onChangeArea(this.SessionData.area_id)
+      }
   });
   }
 
+  onChangeBranch(branch_id):void{
+
+   this.api._get_centers({bank_id:this.SessionData.bank_id,branch_id:this.branch_dp,area_id:this.area_dp}).subscribe(data => {
+      this.CenterList = data;
+  });
+
+       
+   
+  }
+
+  onChangeArea(id):void{
+ 
+    this.api._get_branch({bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
+      this.BranchList = data;
+      this.branch_dp =  this.SessionData.employee_branch_id ?  this.SessionData.employee_branch_id : "";
+      if(this.SessionData.role_code=="BM")
+      {
+        this.BranchList.find((v) => { 
+          if(v.branch_id == this.branch_dp){
+            this.branchData.push(v);
+          }
+        });
+        this.BranchList = this.branchData;
+         this.onChangeBranch(null);
+      }
+      
+    
+  });
+
+    /*this.api._get_centers({area_id:id}).subscribe(data => {
+      this.CenterList = data;
+
+    
+   
+  });*/
+  }
   onChangeCenter(id):void{
     //alert(id)
     this.api._get_groups({center_id:id,bank_id:this.SessionData.bank_id,area_id:id}).subscribe(data => {
@@ -100,6 +140,7 @@ export class EmiComponent implements OnInit {
     
   });
   }
+
   
 
   viewForm(data): void
@@ -110,16 +151,6 @@ export class EmiComponent implements OnInit {
     
   }
 
-  loadArea():void{
-    this.area_api._get_area({bank_id:this.SessionData.bank_id,token:this.SessionData.token}).subscribe(data => {
-      this.AreaList = data;
-      if(this.SessionData.role_code == 'BM'){        
-        this.AreaList = data.find((v) => { return v.area_id == this.SessionData.employee_branch_id});
-        this.areaData.push(this.AreaList);
-        this.AreaList =  this.areaData;
-        this.onChangeArea(this.SessionData.employee_branch_id);
-      }
-   });
-  } 
+ 
 
 }

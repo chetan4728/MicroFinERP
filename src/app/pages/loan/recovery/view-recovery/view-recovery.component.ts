@@ -54,20 +54,25 @@ export class ViewRecoveryComponent implements OnInit {
       this.MemberList.forEach(member => {
         // console.log("member", member);
         member.loan_emi.forEach(emi => {
-          emi.principle_paid = this.roundToNearest(emi.principle_paid,10);
-          emi.interest_paid =  emi.scheduled_payment - this.roundToNearest(emi.principle_paid,10);
-          emi.begining_bal = this.roundToNearest(emi.begining_bal,10);
-          emi.ending_balance = this.roundToNearest(emi.ending_balance,10);       
+          emi.principle_paid = emi.principle_paid;
+          emi.interest_paid =  emi.scheduled_payment - emi.principle_paid;
+          emi.begining_bal = emi.begining_bal;
+          emi.ending_balance = emi.ending_balance;       
         });
         
       });
       
      });
   }
-
+  getItems(data) {
+    //console.log(data)
+    return data.filter((item) => item.status != "0");
+  }
   updateStatus(row){
-    console.log("row", row);
-    this.api.update_approved_status({disbursment_number: row.disbursment_number, emi_no: row.emi_no, status:row.status}).subscribe(data=>{
+   // console.log("row", row);
+    this.api.update_approved_status({laon_application_no:row.laon_application_no,disbursment_number: row.disbursment_number, emi_no: row.emi_no, status:row.status}).subscribe(data=>{
+      this.getGroupData();
+      this.getGroupMembers();
     });
   }
 

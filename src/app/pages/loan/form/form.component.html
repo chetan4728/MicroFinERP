@@ -41,7 +41,7 @@
                <div class="col-md-6">
                 <div class="form-group">
                   <label>Applicant Name</label>
-                  <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_name}}" readonly  >
+                  <input type="text" class="form-control" [(ngModel)]="applicantName"   >
               
                </div>
              </div>
@@ -49,7 +49,7 @@
              <div class="col-md-6">
               <div class="form-group">
                 <label>Applicant Father Name</label>
-                <input type="text" class="form-control"   value="{{this.selectRoleRow.applicant_father_name}}" readonly  >
+                <input type="text" class="form-control"   value="{{this.selectRoleRow.applicant_father_name}}"  >
             
              </div>
             </div> 
@@ -57,7 +57,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>Gender</label>
-                <input type="text" value="{{this.selectRoleRow.gender}}" class="form-control"  readonly  >
+                <input type="text"  [(ngModel)]="gender" class="form-control"    >
             
              </div>
             </div> 
@@ -65,7 +65,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>DOB</label>
-                <input type="text" class="form-control"  value="{{this.selectRoleRow.dob}}" readonly  >
+                <input type="text" class="form-control"  [(ngModel)]="dob"  >
             
              </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>AGE</label>
-                <input type="text" value="{{this.selectRoleRow.age}}" class="form-control"  readonly  >
+                <input type="number" value="{{this.selectRoleRow.age}}" class="form-control"  readonly  >
             
              </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="col-md-4">
              <div class="form-group">
                <label>Applicant UID No</label>
-               <input type="text" class="form-control" value="{{this.selectRoleRow.uid_no}}"  readonly  >
+               <input type="text" class="form-control"  [(ngModel)]="uid_no"   >
            
             </div>
            </div> 
@@ -486,7 +486,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Co-Applicant Name</label>
-              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.co_name}}">
+              <input type="text" class="form-control"  [(ngModel)]="coapplicantName"  >
           
            </div>
           </div>
@@ -579,8 +579,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Pan Card</label>
-              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.pan_card_no
-              }}">
+              <input type="text" class="form-control"  [(ngModel)]="pan_card_no"   >
           
            </div>
           </div>
@@ -588,8 +587,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Nominee Name</label>
-              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.nominee_name
-              }}">
+              <input type="text" class="form-control" [(ngModel)]="nominee_name">
           
            </div>
           </div>
