@@ -46,7 +46,7 @@ export class DailyBalanceReportComponent implements OnInit {
   get_daily_balance_report(){
     this.loading = true;
     this.getCurrentDateTime();    
-    this.api.get_daily_balance_report({bank_id:this.sessiondata.bank_id,branch_id:this.sessiondata.employee_branch_id}).subscribe(data=>{
+    this.api.get_daily_balance_report({bank_id:this.sessiondata.bank_id,role:this.sessiondata.role_code,branch_id:this.sessiondata.employee_branch_id}).subscribe(data=>{
       this.ListingData = data;
 
      

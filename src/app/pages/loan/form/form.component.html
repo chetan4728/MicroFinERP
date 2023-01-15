@@ -73,7 +73,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>AGE</label>
-                <input type="number" value="{{this.selectRoleRow.age}}" class="form-control"  readonly  >
+                <input type="number" value="{{this.selectRoleRow.age}}" class="form-control"  [(ngModel)]="age"  >
             
              </div>
             </div>
@@ -494,7 +494,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Co-Applicant DOB</label>
-              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.co_dob}}">
+              <input type="text" class="form-control" [(ngModel)]="co_dob"    value="{{this.selectRoleRow.co_dob}}">
           
            </div>
           </div>
@@ -604,7 +604,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Nominee Age</label>
-              <input type="text" class="form-control"  readonly  value="{{this.selectRoleRow.age
+              <input type="text" class="form-control"  [(ngModel)]="no_age"  value="{{this.selectRoleRow.age
               }}">
           
            </div>

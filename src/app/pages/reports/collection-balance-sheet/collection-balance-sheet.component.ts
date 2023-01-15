@@ -33,7 +33,7 @@ export class CollectionBalanceSheetComponent implements OnInit {
   get_collection_balance_sheet(){
       this.getCurrentDateTime();
       // console.log("this.sessiondata.bank_id", this.sessiondata.bank_id);
-      this.api.get_collection_balance_sheet({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
+      this.api.get_collection_balance_sheet({role:this.sessiondata.role_code,branch_id:this.sessiondata.employee_branch_id,bank_id:this.sessiondata.bank_id}).subscribe(data=>{
         this.ListingData = data; 
         // console.log("data", this.ListingData);
            

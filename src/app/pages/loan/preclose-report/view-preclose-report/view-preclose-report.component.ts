@@ -13,6 +13,9 @@ export class ViewPrecloseReportComponent implements OnInit {
   GroupData:any;
   MemberList:any;
   SessionData: any;
+   precloseFinalAmount:any; 
+   selectedRow:any;
+   preSelectedcloseDate:any;
   constructor(public currencyPipe:CurrencyPipe, public local: LocalStorageService, private router: Router,private param: ActivatedRoute,private api: EmiService,) { }
 
   ngOnInit(): void {
@@ -22,6 +25,7 @@ export class ViewPrecloseReportComponent implements OnInit {
   }
   getPreclose(data,row)
   {
+ 
     let paid_emi = row.filter(item => item.status !="0")
    console.log(paid_emi)
   
@@ -35,7 +39,7 @@ export class ViewPrecloseReportComponent implements OnInit {
     let total_amount = Math.round(parseInt(row[0].total_loan_amount) * daily_interest);
 ;
     let last_paid = paid_emi[paid_emi.length - 1];
-
+    this.selectedRow = last_paid;
     var interestAmount =parseInt(last_paid.anual_percentage_rate) / 100 / 12;
     var EMIAmount = this.roundToNearest(parseInt(last_paid.total_loan_amount) * interestAmount * (Math.pow(1 + interestAmount, 24)) / ((Math.pow(1 + interestAmount, 24)) - 1),10);
 
@@ -45,18 +49,24 @@ export class ViewPrecloseReportComponent implements OnInit {
     var totalAmount__ = totalLoanAmount__.toFixed(0);
     var totalInterest__ = +totalAmount__ - +principal;
     var Tint = (+EMIAmount * +24) - +principal;
-    alert(monthlyEMIAmount)
+    //alert(monthlyEMIAmount)
 
 
     let precloseDate = new Date(data.target.value);
+    this.preSelectedcloseDate = data.target.value;
     let last_paidEmi = new Date(last_paid.inc_date);
     console.log(data.target.value+" ----"+last_paid.inc_date)
     var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     var diffDays = Math.abs((last_paidEmi.getTime() - precloseDate.getTime()) / (oneDay));
-    let pre_close_amount = total_amount * diffDays;
+ //   let pre_close_amount = total_amount * diffDays;
+ var emi_intrests = (((last_paid.ending_balance * last_paid.anual_percentage_rate / 365) *  diffDays) /100).toFixed(2);
+ this.precloseFinalAmount = parseFloat(emi_intrests) + last_paid.ending_balance;
+     
+ 
+ //alert(precloseFinalAmount)
     
     if(precloseDate > last_paidEmi) {
-      lableText.innerHTML = this.currencyPipe.transform(pre_close_amount, 'INR'); ;
+      lableText.innerHTML = this.currencyPipe.transform( this.precloseFinalAmount, 'INR'); ;
     }
     else
     {
@@ -80,9 +90,12 @@ export class ViewPrecloseReportComponent implements OnInit {
     //console.log(data.target.value+" ----"+last_paid.inc_date)
     var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     var diffDays = Math.abs((last_paidEmi.getTime() - precloseDate.getTime()) / (oneDay));
+
     let pre_close_amount = total_amount * diffDays;
+    var emi_intrests = (((last_paid.ending_balance * last_paid.anual_percentage_rate / 365) *  diffDays) /100).toFixed(2);
+    this.precloseFinalAmount = parseFloat(emi_intrests) + last_paid.ending_balance;
     if(precloseDate > last_paidEmi) {
-      lableText.innerHTML = this.currencyPipe.transform(pre_close_amount, 'INR'); ;
+      lableText.innerHTML = this.currencyPipe.transform( this.precloseFinalAmount, 'INR'); ;
     }
     else
     {
@@ -92,6 +105,14 @@ export class ViewPrecloseReportComponent implements OnInit {
       
     }
     
+  }
+  submitPreclose(row)
+  {
+ //  alert(JSON.stringify(this.selectedRow))
+    this.api.update_preclose({laon_application_no:row.loan_application_number,disbursment_number: this.selectedRow.disbursment_number, emi_no: this.selectedRow.emi_no,paid_amount:this.precloseFinalAmount,paid_date:  this.preSelectedcloseDate}).subscribe(data=>{
+      this.getGroupData();
+      this.getGroupMembers();
+    });
   }
    
   getId(value)

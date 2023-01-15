@@ -37,8 +37,9 @@ export class MonthDemandReportComponent implements OnInit {
 
   get_month_demand_report(){
     this.loading = true;
+    //alert(JSON.stringify(this.sessiondata))
     this.clicked = false;
-    this.api.get_month_demand_report({bank_id:this.sessiondata.bank_id, select_from: this.selectedFrom,select_to: this.selectedTo}).subscribe(data=>{
+    this.api.get_month_demand_report({role:this.sessiondata.role_code,branch_id:this.sessiondata.employee_branch_id, bank_id:this.sessiondata.bank_id, select_from: this.selectedFrom,select_to: this.selectedTo}).subscribe(data=>{
       this.ListingData = data;      
       this.ListingData.forEach(el => {
         if(el.get_loan_details.length != 0){   

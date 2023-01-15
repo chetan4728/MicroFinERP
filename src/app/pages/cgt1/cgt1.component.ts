@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { environment } from '../../../../src/environments/environment.prod';
 import * as XLSX from 'xlsx';  
 import { CGTService } from '../../services/cgt.service';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -31,7 +32,7 @@ export class Cgt1Component implements OnInit {
   groupList: any;
   cgt1Data: any[]= [];
   cgtListingData: any;
-  constructor(private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
+  constructor(private router:Router,private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
     this.sessiondata = this.session.get(environment.userSession);
@@ -41,6 +42,14 @@ export class Cgt1Component implements OnInit {
     this.initForm();
   }
   hideModal(): void {
+    document.getElementById('close-modal').click();
+  }
+
+  viewForm(data): void
+  {
+
+    
+    this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
     document.getElementById('close-modal').click();
   }
 

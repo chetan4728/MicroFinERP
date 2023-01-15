@@ -37,7 +37,7 @@ export class CollectionReportComponent implements OnInit {
 
   get_collection_report(){
     this.loading = true;
-    this.api.get_collection_report({bank_id:this.sessiondata.bank_id}).subscribe(data=>{
+    this.api.get_collection_report({role:this.sessiondata.role_code,branch_id:this.sessiondata.employee_branch_id,bank_id:this.sessiondata.bank_id}).subscribe(data=>{
       this.ListingData = data;
       // console.log("ListingData", this.ListingData);
       this.getCurrentDateTime();

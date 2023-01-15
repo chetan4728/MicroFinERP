@@ -22,7 +22,7 @@ export class EmiService {
   private GET_FILTER = this.REST_API_SERVER + 'Loans/LoadFilterTable';
   private UPDATE_STATUS = this.REST_API_SERVER + 'Loans/Update_status';
   private UPDATE_APPROVED_STATUS = this.REST_API_SERVER + 'Emi/update_approved_status';
-  
+  private UPDATE_PRECLOSE = this.REST_API_SERVER + 'Emi/updatePreclose';
   private GET_GROUP_DETAILS = this.REST_API_SERVER + 'Disbursement/LoadTable';
   private GET_GROUP_MEMBERS = this.REST_API_SERVER + 'Emi/LoadLoanMembers';
   private GET_GROUP_MEMBERS_EMI = this.REST_API_SERVER + 'Emi/LoadLoanMembersEmi'; 
@@ -31,6 +31,12 @@ export class EmiService {
 
   
   constructor(private httpClient: HttpClient) { }
+
+  update_preclose(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.UPDATE_PRECLOSE}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   _get_loan_emi_data(data): Observable<String>{
     return this.httpClient.post<String>(`${this.get_loan_emi_data}`,data).pipe(

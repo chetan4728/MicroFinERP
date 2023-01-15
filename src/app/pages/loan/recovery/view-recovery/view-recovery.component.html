@@ -142,13 +142,7 @@
                         <td>{{row.interest_paid | currency:'INR'}}</td>
                         <td>{{row.principle_paid | currency:'INR'}}</td>
                         <td>{{row.ending_balance | currency:'INR'}}</td>
-                        <td ><ng-container *ngIf="row.status == 2; then thenTemplate2; else elseTemplate2"></ng-container>
-                          <ng-template #thenTemplate2>
-                            <span>{{row.paid_amount}}</span>   
-                          </ng-template>
-                          <ng-template #elseTemplate2>
-                            <span></span>
-                          </ng-template>
+                        <td >{{row.paid_amount}}
                          </td>
                 
                              <td *ngIf="SessionData.role_code != 'BM'"><ng-container *ngIf="row.status == 2; then thenTemplate3; else elseTemplate3"></ng-container>

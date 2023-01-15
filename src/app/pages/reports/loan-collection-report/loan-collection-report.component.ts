@@ -40,7 +40,7 @@ export class LoanCollectionReportComponent implements OnInit {
 
     this.loading = true;
     this.clicked = false;
-    this.api.get_loan_collection_report({bank_id:this.sessiondata.bank_id, select_from: this.selectedFromDate,select_to: this.selectedToDate}).subscribe(data=>{
+    this.api.get_loan_collection_report({role:this.sessiondata.role_code,branch_id:this.sessiondata.employee_branch_id,bank_id:this.sessiondata.bank_id, select_from: this.selectedFromDate,select_to: this.selectedToDate}).subscribe(data=>{
       this.ListingData = data;
       console.log(data)
       // console.log("ListingData", this.ListingData, "length", this.ListingData.length);

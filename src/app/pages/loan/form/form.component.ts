@@ -26,6 +26,9 @@ export class FormComponent implements OnInit {
   coapplicantName:string;
   pan_card_no:string;
   nominee_name:string;
+  co_dob:string;
+  no_age:string;
+  age:string;
   constructor(private param: ActivatedRoute ,private api: LoanService) { }
 
   ngOnInit(): void {
@@ -51,6 +54,9 @@ export class FormComponent implements OnInit {
           this.saving_account_number  = this.selectRoleRow.saving_account_number;
           this.external_loan_account_number  = this.selectRoleRow.external_loan_account_number;
           this.loan_account_number  = this.selectRoleRow.loan_account_number;
+          this.co_dob = this.selectRoleRow.co_dob;
+          this.no_age = this.selectRoleRow.nominee_age;
+          this.age =   this.selectRoleRow.age;
        
       });
     }
@@ -72,6 +78,9 @@ export class FormComponent implements OnInit {
       co_name:this.coapplicantName,
       pan_card_no:this.pan_card_no,
       nominee_name:this.nominee_name,
+      co_dob:this.co_dob,
+      no_age:this.no_age,
+      age:this.age
     };
 
 

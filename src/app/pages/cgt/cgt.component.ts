@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { CGTService } from 'src/app/services/cgt.service';
 import { environment } from 'src/environments/environment.prod';
 import * as XLSX from 'xlsx';  
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-cgt',
@@ -28,7 +29,7 @@ export class CgtComponent implements OnInit {
   record:any;
   jsonData:any;
   cgtData: any[]= [];
-  constructor(private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
+  constructor(private router:Router, private formBuilder: FormBuilder,private api:CGTService,private session:LocalStorageService) { }
 
   ngOnInit(): void {
     this.sessiondata = this.session.get(environment.userSession);
@@ -44,6 +45,12 @@ export class CgtComponent implements OnInit {
   
   
 
+  }
+
+  viewForm(data): void
+  {
+
+    this.router.navigate(['/loans/LoanForm/' + data.loan_application_no]);
   }
 
   exportHighMarkData()
