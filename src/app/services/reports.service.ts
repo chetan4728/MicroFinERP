@@ -16,8 +16,15 @@ export class ReportsService {
   private GET_MONTH_DEMAND_REPORT = this.REST_API_SERVER + 'Reports/get_month_demand_report';
   private GET_LOAN_COLLECTION_REPORT = this.REST_API_SERVER + 'Reports/get_loan_collection_report';
   private GET_COLLECTION_REPORT = this.REST_API_SERVER + 'Reports/get_collection_report';
-  
+  private GET_OD_BALANCE_REPORT = this.REST_API_SERVER + 'Reports/exportODreport';
   constructor(private httpClient: HttpClient) { }
+
+
+  get_od_report(data): Observable<String>{
+    return this.httpClient.post<String>(`${this.GET_OD_BALANCE_REPORT}`,data).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   get_daily_balance_report(data): Observable<String>{
     return this.httpClient.post<String>(`${this.GET_DAILY_BALANCE_REPORT}`,data).pipe(

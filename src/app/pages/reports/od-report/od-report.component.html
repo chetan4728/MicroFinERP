@@ -25,18 +25,18 @@
                 <div class="form-group">
                     <label>Date From</label>
                     <!-- [(ngModel)]="date_to" -->
-                    <input type="date" class="form-control"  formControlName="date_to"  placeholder="Enter Date"/>   
+                    <input type="date" class="form-control"  [(ngModel)]="selectedFrom"  placeholder="Enter Date"/>   
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Date To</label>
-                    <input type="date" class="form-control"  formControlName="date_from"  placeholder="Enter Date"/>
+                    <input type="date" class="form-control"  [(ngModel)]="selectedTo"  placeholder="Enter Date"/>
                 </div>
             </div>
           <div class="col-md-1"></div>
           <div class="col-md-3 collection">
-                <button class="btn btn-primary collection_btn" >Generate OD Report</button>
+                <button class="btn btn-primary collection_btn"  (click)="getMonthDemandReport()">Generate OD Report</button>
           </div>
           
         </div>        

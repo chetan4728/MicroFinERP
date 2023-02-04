@@ -101,7 +101,7 @@
             <span class="info-box-icon bg-info"><i class="fas fa-file-invoice-dollar"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Loan Sanction Pending</span>
+              <span class="info-box-text">BLC</span>
               <span class="info-box-number">{{ (this.data) ? this.data.loan_sanction_count : 'loading..'}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -130,8 +130,8 @@
             <span class="info-box-icon bg-info"><i class="fas fa-user-tag"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Disbursement</span>
-              <span class="info-box-number">{{ (this.data) ? this.data.dis_count : 'loading..'}}</span>
+              <span class="info-box-text">Total Disbursed Amount</span>
+              <span class="info-box-number">{{this.data.total_dis_amount | currency:'INR'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -157,7 +157,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Collection</span>
-              <span class="info-box-number">{{(this.data) ? this.data.collection_count : 'loading..'}}</span>
+              <span class="info-box-number">{{this.data.collection_count | currency:'INR'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
