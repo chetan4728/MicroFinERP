@@ -1,0 +1,187 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+  
+          
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <div class="container card">
+
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Personal Information  <span  class="badge badge-primary ">{{this.selectRoleRow.loan_application_number}}</span>&nbsp;
+        <ng-container *ngIf="this.selectRoleRow.approved_status == 1; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-template #thenTemplate>
+          <span  class="badge badge-success ">Approved</span>
+        </ng-template>
+        <ng-template #elseTemplate>
+          <span  class="badge badge-danger">Pending</span>
+        </ng-template></legend> 
+       
+
+         <div class="row">
+           <div class="col-md-3"> <div class="image-container">
+            <img [src]="this.url+this.selectRoleRow.member_photo_pr ? this.url +this.selectRoleRow.member_photo_pr : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+            <input type='file'  class="select-profile-picture">
+            <span class="message">Tap here to select your picture</span>
+           </div></div>
+           <div class=" col-md-8">
+            <div class="row">
+               <div class="col-md-6">
+                <div class="form-group">
+                  <label>Applicant Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="selectRoleRow.applicant_name"   >
+              
+               </div>
+             </div>
+
+             <div class="col-md-6">
+              <div class="form-group">
+                <label>Applicant Father Name</label>
+                <input type="text" class="form-control"   value="{{this.selectRoleRow.applicant_father_name}}"  >
+            
+             </div>
+            </div> 
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Gender</label>
+                <input type="text"  [(ngModel)]="selectRoleRow.gender" class="form-control"    >
+            
+             </div>
+            </div> 
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>DOB</label>
+                <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.dob"  >
+            
+             </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>AGE</label>
+                <input type="number" value="{{this.selectRoleRow.age}}" class="form-control"  [(ngModel)]="selectRoleRow.age"  >
+            
+             </div>
+            </div>
+           </div>
+           </div>
+         </div>
+
+         <div class="row">
+          
+          <div class=" col-md-12">
+           <div class="row">
+              <div class="col-md-4">
+               <div class="form-group">
+                 <label>Applicant Mobile no</label>
+                 <input type="text" class="form-control" value="{{this.selectRoleRow.applicant_mob_no}}"  readonly  >
+             
+              </div>
+            </div>
+
+            <div class="col-md-4">
+             <div class="form-group">
+               <label>Applicant UID No</label>
+               <input type="text" class="form-control"  [(ngModel)]="selectRoleRow.uid_no"   >
+           
+            </div>
+           </div> 
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>Taluka</label>
+               <input type="text" class="form-control" value="{{this.selectRoleRow.tq}}" readonly  >
+           
+            </div>
+           </div> 
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>District</label>
+               <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" readonly  >
+           
+            </div>
+           </div>
+
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>State</label>
+               <input type="text" class="form-control"  value="{{this.selectRoleRow.state}}" readonly  >
+           
+            </div>
+           </div>
+
+           <div class="col-md-4">
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" class="form-control" value="{{this.selectRoleRow.dist}}" value="{{this.selectRoleRow.pincode}}" readonly  >
+          
+           </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Address</label>
+              <textarea type="text" class="form-control"  readonly  value="{{this.selectRoleRow.address}}"></textarea>
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Center</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.center_name}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Group</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.group_name}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Created By</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.added_by}}" >
+          
+           </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Created Date</label>
+              <input type="text" class="form-control"  readonly value="{{this.selectRoleRow.created_date}}"  >
+          
+           </div>
+          </div>
+          </div>
+          </div>
+        </div>
+    
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Loan Details</legend> 
+        
+    </fieldset>
+
+    
+    </div>
+  
+<!-- /.content-wrapper -->

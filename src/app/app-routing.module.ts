@@ -75,6 +75,13 @@ export const routes: Routes = [
           },
         },
         {
+          path: 'customer',
+          loadChildren: () => import('../app/pages/customer/customer.module').then(m => m.CustomerModule),
+          data: {
+            title: 'customer Page'
+          },
+        },
+        {
           path: 'users',
           loadChildren: () => import('../app/pages/users/users.module').then(m => m.UsersModule),
           data: {

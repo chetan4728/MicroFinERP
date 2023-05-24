@@ -19,6 +19,7 @@ import { SuperlayoutComponent } from './pages/superadmin/layout/Superlayout.comp
 import { SuperheaderComponent } from './pages/superadmin/layout/header/superheader.component';
 import { SuperfooterComponent } from './pages/superadmin/layout/footer/superfooter.component';
 import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersidebar.component';
+import { CustomerComponent } from './pages/customer/customer.component';
 
 
 
@@ -40,6 +41,7 @@ import { SupersidebarComponent } from './pages/superadmin/layout/sidebar/supersi
     SidebarComponent,
     AuthComponent,
     SuperauthComponent,
+    CustomerComponent,
  
 
 
