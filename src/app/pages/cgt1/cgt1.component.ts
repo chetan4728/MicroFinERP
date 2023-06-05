@@ -164,7 +164,7 @@ export class Cgt1Component implements OnInit {
 
   getApplication_from()
   {
-    let targetURL  = "http://sfsfin.in/portal/cgt_application_download/"+this.record.bank_id+"/"+this.record.area_id+"/"+this.record.branch_id+"/"+this.record.center_id+"/"+this.record.group_id
+    let targetURL  = environment.portal+"cgt_application_download/"+this.record.bank_id+"/"+this.record.area_id+"/"+this.record.branch_id+"/"+this.record.center_id+"/"+this.record.group_id
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.
