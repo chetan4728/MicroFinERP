@@ -71,7 +71,7 @@ export class DisbursedComponent implements OnInit {
 
 
   applicationPDF(id){
-    let targetURL  = "http://sfsfin.in/portal/application_pdf/"+id
+    let targetURL  =  environment.portal+"application_pdf/"+id
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.
@@ -79,7 +79,7 @@ export class DisbursedComponent implements OnInit {
    }
 
    SanctionLetterPDF(id){
-    let targetURL  = "http://sfsfin.in/portal/sanction_letter/"+id
+    let targetURL  = environment.portal+"sanction_letter/"+id
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.
@@ -89,14 +89,14 @@ export class DisbursedComponent implements OnInit {
    }
 
    CollectionDemandPDF(id){
-    let targetURL  = "http://sfsfin.in/portal/collection_sheet/"+id
+    let targetURL  = environment.portal+"collection_sheet/"+id
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.
     );;
    }
    DPNPDF(id){
-    let targetURL  = "http://sfsfin.in/portal/dpn/"+id
+    let targetURL  = environment.portal+"dpn/"+id
     window.open(
       targetURL,
       '_blank' // <- This is what makes it open in a new window.
